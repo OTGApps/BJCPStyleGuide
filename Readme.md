@@ -17,6 +17,8 @@ For legal reasons, we do not host the XML of all the styles here on github. The 
 
 > Please note that all these materials represent a great deal of hard work on the part of a great many volunteers. You may not use these materials for any commercial purpose without permission. You are NOT authorized to copy and post these guidelines, in any form, either on the web or in print, without specific permission from the BJCP.
 
+There's a simple and automated way to get the file from their website and automatically include it in your project files so that you can successfully build the application. Simply run `rake bootstrap` and it will fetch the XML file and put it in your `/resources` folder.
+
 ## Contributing:
 
 1. Fork it.
