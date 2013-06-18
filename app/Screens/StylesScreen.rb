@@ -62,18 +62,6 @@ class StylesScreen < ProMotion::SectionedTableScreen
     end
   end
 
-  def build_cells(path)
-      c = []
-    	section_listing(path).each do |style|
-        c << {
-    			title: style,
-          cell_identifier: "StyleCell",
-    			action: :open_style,
-    			arguments: {:path => File.join(guidelines_path, path, style), :name => style}
-    		}
-    	end
-  	 c
-  end
 
   # def table_data_index
   #   table_data.collect do |section|
