@@ -47,20 +47,12 @@ class StylesScreen < ProMotion::SectionedTableScreen
     c
   end
 
+  def table_data_index
+    # Get the style number of the section
+    table_data.collect do |section|
+      section[:title].split(" ").first[0..-2]
     end
   end
-
-
-  # def table_data_index
-  #   table_data.collect do |section|
-  #     first = section[:title].split(" ").first
-  #     if ("A".."Z").to_a.include? first[0].upcase
-  #       first[0]
-  #     else
-  #       first.to_i.to_s
-  #     end
-  #   end
-  # end
 
   def open_style(args={})
   	open DetailScreen.new(args)
