@@ -30,7 +30,7 @@ Motion::Project::App.setup do |app|
 
   app.testflight do
     app.testflight.api_token = ENV['testflight_api_token'] || abort("You need to set your Testflight API Token environment variable.")
-    app.testflight.team_token = '566af85ab4aaa64ecedbd95cf7bc2bf7_MjI3Nzc2MjAxMy0wNS0yMyAyMzo0NTowNS4xNzkxODI'
+    app.testflight.team_token = '5f6f10ca05bf5be29ba522bc4e9c504f_MjM4MDE0MjAxMy0wNi0xOCAxMDoxNTo0Mi44MzEyODE'
 
     app.entitlements['get-task-allow'] = false
     app.codesign_certificate = "iPhone Distribution: Mohawk Apps, LLC (DW9QQZR4ZL)"
