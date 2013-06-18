@@ -37,13 +37,18 @@ class StylesScreen < ProMotion::SectionedTableScreen
 
   def build_subcategories(params)
     c = []
-    params = [params] if params.is_a?(Hash) # Support categories with only one subcategory
+
+    # Support categories with only one subcategory
+    params = [params] if params.is_a?(Hash)
     params.each do |subcat|
       c << {
-        title: "#{subcat['id']}: #{subcat['name']}"
+        title: subcategory_title(subcat),
+        search_text: subcategory_search_text(subcat),
+        cell_identifier: "SubcategoryCell",
+        action: :open_style,
+        arguments: {:data => subcat}
       }
     end
-    ap c
     c
   end
 
