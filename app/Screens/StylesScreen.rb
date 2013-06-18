@@ -55,7 +55,8 @@ class StylesScreen < ProMotion::SectionedTableScreen
   end
 
   def open_style(args={})
-  	open DetailScreen.new(args)
+  	ap args
+    # open DetailScreen.new(args)
   end
 
   def open_info_screen(args={})
