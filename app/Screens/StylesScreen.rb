@@ -93,8 +93,10 @@ class StylesScreen < ProMotion::SectionedTableScreen
   end
 
   private
+
+  # Return the subsection of the Hash object for a particular class of styles.
+  # beer, mead, & cider are the current classes.
   def overall_category(name)
-    # ap @styles["styleguide"]["class"]
     this_class = @styles["styleguide"]["class"].select{|classes| classes["type"] == name }
     this_class.first["category"]
   end
