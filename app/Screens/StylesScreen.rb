@@ -76,7 +76,20 @@ class StylesScreen < ProMotion::SectionedTableScreen
 
   def sections
   	return [] if @styles.nil?
-    ["Beer"] + beer_categories + ["Mead"] + mead_categories + ["Cider"] + cider_categories
+    # ["Beer"] + beer_categories + ["Mead"] + mead_categories + ["Cider"] + cider_categories
+    beer_categories + mead_categories + cider_categories
+  end
+
+  def section_title(section)
+    "#{section['id']}: #{section["name"]}"
+  end
+
+  def subcategory_title(subcat)
+    "#{subcat['id']}: #{subcat['name']}"
+  end
+
+  def subcategory_search_text(subcat)
+    [subcat['impression'], subcat['appearance'], subcat['ingredients'], subcat['examples'], subcat['aroma'], subcat['mouthfeel'], subcat['flavor']].join(" ")
   end
 
   private
