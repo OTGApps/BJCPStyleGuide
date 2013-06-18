@@ -46,7 +46,7 @@ class StylesScreen < ProMotion::SectionedTableScreen
 
   def table_data_index
     # Get the style number of the section
-    table_data.collect do |section|
+    ["{search}"] + table_data.collect do |section|
       section[:title].split(" ").first[0..-2]
     end
   end
