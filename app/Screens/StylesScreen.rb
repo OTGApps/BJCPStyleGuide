@@ -47,18 +47,6 @@ class StylesScreen < ProMotion::SectionedTableScreen
     c
   end
 
-  def read_xml
-    @done_read_xml ||= begin
-      style_path = File.join(App.resources_path, "styleguide2008.xml")
-      styles = File.read(style_path)
-
-      error_ptr = Pointer.new(:object)
-      style_hash = TBXML.dictionaryWithXMLData(styles.dataUsingEncoding(NSUTF8StringEncoding), error: error_ptr)
-      error = error_ptr[0]
-      $stderr.puts "Error when reading data: #{error}. Did you run 'rake bootstrap'?" unless error.nil?
-
-      @styles = style_hash
-      update_table_data
     end
   end
 
@@ -104,6 +92,22 @@ class StylesScreen < ProMotion::SectionedTableScreen
     # ap @styles["styleguide"]["class"]
     this_class = @styles["styleguide"]["class"].select{|classes| classes["type"] == name }
     this_class.first["category"]
+  end
+
+  def read_xml
+    @done_read_xml ||= begin
+      style_path = File.join(App.resources_path, "styleguide2008.xml")
+      styles = File.read(style_path)
+
+      error_ptr = Pointer.new(:object)
+      style_hash = TBXML.dictionaryWithXMLData(styles.dataUsingEncoding(NSUTF8StringEncoding), error: error_ptr)
+      error = error_ptr[0]
+      $stderr.puts "Error when reading data: #{error}. Did you run 'rake bootstrap'?" unless error.nil?
+
+      @styles = style_hash
+      @table_setup = nil
+      update_table_data
+    end
   end
 
 end
