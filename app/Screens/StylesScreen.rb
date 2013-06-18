@@ -14,25 +14,17 @@ class StylesScreen < ProMotion::SectionedTableScreen
   end
 
   def table_data
-  	# @table_setup ||= begin
+  	@table_setup ||= begin
       s = []
 
       sections.each do |section|
-        if section.is_a? String
-          s << {
-            title: section,
-            cells: []
-          }
-        else
-          s << {
-            title: section["name"],
-            cells: build_subcategories(section["subcategory"])
-          }
-        end
+        s << {
+          title: section_title(section),
+          cells: build_subcategories(section["subcategory"])
+        }
     	end
-
       s
-    # end
+    end
   end
 
   def build_subcategories(params)
