@@ -1,5 +1,4 @@
 class StylesScreen < ProMotion::SectionedTableScreen
-  title "Back"
   searchable :placeholder => "Search Styles"
 
   def will_appear
