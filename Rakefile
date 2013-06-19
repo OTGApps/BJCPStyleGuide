@@ -11,15 +11,12 @@ Motion::Project::App.setup do |app|
   app.name = 'BJCPStyles'
   app.deployment_target = "5.0"
   app.device_family = [:iphone, :ipad]
+  app.interface_orientations = [:portrait, :landscape_left, :landscape_right, :portrait_upside_down]
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
   app.version = "2"
   app.short_version = "2.0.0"
   app.frameworks += %w(libxml2)
-  app.info_plist['CFBundleIcons'] = {
-    'CFBundlePrimaryIcon' => {
-      'UIPrerenderedIcon' => true
-    }
-  }
+  app.prerendered_icon = true
 
   app.pods do
     pod 'FlurrySDK'
