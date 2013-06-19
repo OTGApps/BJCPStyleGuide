@@ -31,7 +31,17 @@ class SRM
 		"27"   => [23, 13, 12],
 		"28"   => [18, 9, 8],
 		"29"   => [13, 6, 5],
-		"30"   => [8, 3, 2]
+		"30"   => [8, 3, 2],
+		"31"   => [6, 2, 1],
+		"32"   => [5, 1, 0],
+		"33"   => [4, 1, 0],
+		"34"   => [3, 1, 0],
+		"35"   => [2, 1, 0],
+		"36"   => [1, 0, 0],
+		"37"   => [0, 0, 0],
+		"38"   => [0, 0, 0],
+		"39"   => [0, 0, 0],
+		"40"   => [0, 0, 0]
 	}
 
 	def self.color(value)
@@ -92,6 +102,32 @@ class SRM
 		# Return the closest SRM color match and the calculated distance
 		color_match.sort_by{|srm, closeness| closeness}.first
 
+	end
+
+	def self.css_gradient(from, to)
+		stops = []
+		count = to.to_i - from.to_i
+		(from.to_i..to.to_i).each do |srm|
+			stops << SRM.hex(srm)
+		end
+		if stops.count > 0
+			"background-image: -webkit-linear-gradient(left, #{stops.join(', ')});"
+		else
+			"background-image: none;"
+		end
+	end
+
+	def self.hex(srm)
+		h = "#"
+		@@matrix[srm.to_i.to_s].each do |component|
+			hex = component.to_i.to_s(16)
+			if component < 16
+				h << "0#{hex}"
+			else
+				h << hex
+			end
+		end
+		h
 	end
 
 end
