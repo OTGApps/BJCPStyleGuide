@@ -3,11 +3,11 @@ class MainScreen < ProMotion::SectionedTableScreen
   searchable :placeholder => "Search Styles"
 
   def will_appear
-    set_attributes self.view, {
-      backgroundColor: UIColor.whiteColor
-    }
-
+    set_attributes self.view, { backgroundColor: UIColor.whiteColor }
     set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
+
+    backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
+    self.navigationItem.backBarButtonItem = backBarButtonItem;
 
     read_xml
   end
@@ -52,7 +52,12 @@ class MainScreen < ProMotion::SectionedTableScreen
 
   def open_style(args={})
   	ap args
-    open DetailScreen.new(args)
+    # self.navigationItem.title = "Back"
+    if Device.ipad?
+      open DetailScreen.new(args), nav_bar:true, in_detail: true
+    else
+      open DetailScreen.new(args)
+    end
   end
 
   def open_info_screen(args={})
@@ -86,7 +91,11 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def subcategory_search_text(subcat)
-    [subcat['impression'], subcat['appearance'], subcat['ingredients'], subcat['examples'], subcat['aroma'], subcat['mouthfeel'], subcat['flavor']].join(" ")
+    search = ""
+    %w(impression appearance ingredients examples aroma mouthfeel flavor).each do |prop|
+      search << (" " + subcat[prop]) unless subcat[prop].nil?
+    end
+    search.split(/\W+/).uniq.join(" ")
   end
 
   private

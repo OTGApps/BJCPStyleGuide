@@ -1,11 +1,13 @@
 class DetailScreen < PM::WebScreen
-
   attr_accessor :data, :cell
 
   def will_appear
     @view_loaded ||= begin
-      # self.navigationController.navigationBar.backItem.title = "Back"
-      self.setTitle self.cell[:title]
+      unless self.cell.nil?
+        self.setTitle self.cell[:title]
+      else
+        self.setTitle "Style Details"
+      end
 
       self.navigationController.setToolbarHidden(false)
 
@@ -41,6 +43,8 @@ class DetailScreen < PM::WebScreen
   end
 
   def content
+    return "DefaultScreen.html" if self.data.nil?
+
     <<-CONTENT
 
 #{css}
