@@ -4,6 +4,7 @@ class DetailScreen < PM::WebScreen
 
   def will_appear
     @view_loaded ||= begin
+      # self.navigationController.navigationBar.backItem.title = "Back"
       self.setTitle self.cell[:title]
 
       self.navigationController.setToolbarHidden(false)
@@ -25,7 +26,7 @@ class DetailScreen < PM::WebScreen
         target: self,
         action: :decrease_size)
 
-      self.toolbarItems = [flexible_space, increase_size, decrease_size]
+      self.toolbarItems = [flexible_space, decrease_size, increase_size]
 
       if App::Persistence['font_size'].nil?
         App::Persistence['font_size'] = 100

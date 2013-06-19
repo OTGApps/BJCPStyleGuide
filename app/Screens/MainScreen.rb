@@ -1,10 +1,8 @@
 class MainScreen < ProMotion::SectionedTableScreen
-  title "Back"
+  title "2008 BJCP Styles"
   searchable :placeholder => "Search Styles"
 
   def will_appear
-    self.setTitle("BJCP", subtitle:"2008 Style Guidelines")
-
     set_attributes self.view, {
       backgroundColor: UIColor.whiteColor
     }
