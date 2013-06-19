@@ -15,6 +15,11 @@ Motion::Project::App.setup do |app|
   app.version = "2"
   app.short_version = "2.0.0"
   app.frameworks += %w(libxml2)
+  app.info_plist['CFBundleIcons'] = {
+    'CFBundlePrimaryIcon' => {
+      'UIPrerenderedIcon' => true
+    }
+  }
 
   app.pods do
     pod 'FlurrySDK'
