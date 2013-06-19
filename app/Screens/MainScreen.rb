@@ -1,4 +1,5 @@
 class MainScreen < ProMotion::SectionedTableScreen
+  title "Back"
   searchable :placeholder => "Search Styles"
 
   def will_appear
@@ -53,11 +54,11 @@ class MainScreen < ProMotion::SectionedTableScreen
 
   def open_style(args={})
   	ap args
-    # open DetailScreen.new(args)
+    open DetailScreen.new(args)
   end
 
   def open_info_screen(args={})
-    open AboutScreen.new modal:true, nav_bar:true
+    open AboutScreen.new(nav_bar:true), modal:true, external_links:true
   end
 
   def beer_categories
@@ -102,7 +103,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   def read_xml
     @done_read_xml ||= begin
       style_path = File.join(App.resources_path, "styleguide2008.xml")
-      styles = File.read(style_path)
+      styles = File.read(style_path).gsub("<em>", "[em]").gsub("</em>", "[/em]")
 
       error_ptr = Pointer.new(:object)
       style_hash = TBXML.dictionaryWithXMLData(styles.dataUsingEncoding(NSUTF8StringEncoding), error: error_ptr)
@@ -110,6 +111,7 @@ class MainScreen < ProMotion::SectionedTableScreen
       $stderr.puts "Error when reading data: #{error}. Did you run 'rake bootstrap'?" unless error.nil?
 
       @styles = style_hash
+      # @styles.symbolize_keys!(true)
       @table_setup = nil
       update_table_data
     end
