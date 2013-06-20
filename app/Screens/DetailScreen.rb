@@ -3,34 +3,19 @@ class DetailScreen < PM::WebScreen
 
   def will_appear
     @view_loaded ||= begin
+
+      if Device.ipad?
+        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
+      end
+
       unless self.cell.nil?
         self.setTitle self.cell[:title]
         set_attributes view, {background_color:UIColor.whiteColor}
+
       else
         self.setTitle "Welcome"
         set_attributes view, {background_color:"#CCCC99".to_color}
       end
-
-      self.navigationController.setToolbarHidden(false)
-
-      flexible_space = UIBarButtonItem.alloc.initWithBarButtonSystemItem(
-        UIBarButtonSystemItemFlexibleSpace,
-        target:nil,
-        action:nil)
-
-      increase_size = UIBarButtonItem.alloc.initWithTitle(
-        "A",
-        style: UIBarButtonItemStyleBordered,
-        target: self,
-        action: :increase_size)
-
-      decrease_size = UIBarButtonItem.alloc.initWithTitle(
-        "a",
-        style: UIBarButtonItemStyleBordered,
-        target: self,
-        action: :decrease_size)
-
-      self.toolbarItems = [flexible_space, decrease_size, increase_size]
 
       if App::Persistence['font_size'].nil?
         App::Persistence['font_size'] = 100
@@ -38,6 +23,33 @@ class DetailScreen < PM::WebScreen
 
     end
   end
+
+  def on_appear
+    return if self.cell.nil?
+
+    flexible_space = UIBarButtonItem.alloc.initWithBarButtonSystemItem(
+      UIBarButtonSystemItemFlexibleSpace,
+      target:nil,
+      action:nil)
+
+    increase_size = UIBarButtonItem.alloc.initWithTitle(
+      "A",
+      style: UIBarButtonItemStyleBordered,
+      target: self,
+      action: :increase_size)
+
+    decrease_size = UIBarButtonItem.alloc.initWithTitle(
+      "a",
+      style: UIBarButtonItemStyleBordered,
+      target: self,
+      action: :decrease_size)
+
+
+    toolbar_animated = Device.ipad? ? false : true
+    self.navigationController.setToolbarHidden(false, animated:toolbar_animated)
+    self.toolbarItems = [flexible_space, decrease_size, increase_size]
+  end
+
 
   def load_finished
     change_size
@@ -144,6 +156,12 @@ class DetailScreen < PM::WebScreen
     else
       "N/A"
     end
+  end
+
+  def open_info_screen(args={})
+    open_modal AboutScreen.new(external_links: true),
+      nav_bar: true,
+      presentation_style: UIModalPresentationFormSheet
   end
 
 end
