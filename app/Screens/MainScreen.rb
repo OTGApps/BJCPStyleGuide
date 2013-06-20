@@ -23,7 +23,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def table_data
-  	@table_setup ||= begin
+    @table_setup ||= begin
       s = []
 
       sections.each do |section|
@@ -31,7 +31,7 @@ class MainScreen < ProMotion::SectionedTableScreen
           title: section_title(section),
           cells: build_subcategories(section["subcategory"])
         }
-    	end
+      end
       s
     end
   end
@@ -61,7 +61,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def open_style(args={})
-  	ap args
+    ap args
     # self.navigationItem.title = "Back"
     if Device.ipad?
       open DetailScreen.new(args), nav_bar:true, in_detail: true
@@ -89,7 +89,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def sections
-  	return [] if @styles.nil?
+    return [] if @styles.nil?
     # ["Beer"] + beer_categories + ["Mead"] + mead_categories + ["Cider"] + cider_categories
     beer_categories + mead_categories + cider_categories
   end
