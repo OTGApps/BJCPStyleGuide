@@ -3,13 +3,23 @@ class MainScreen < ProMotion::SectionedTableScreen
   searchable :placeholder => "Search Styles"
 
   def will_appear
-    set_attributes self.view, { backgroundColor: UIColor.whiteColor }
-    set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
+    @view_set_up ||= begin
+      set_attributes self.view, { backgroundColor: UIColor.whiteColor }
 
-    backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
-    self.navigationItem.backBarButtonItem = backBarButtonItem;
+      unless Device.ipad?
+        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
+      end
 
-    read_xml
+      backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
+      self.navigationItem.backBarButtonItem = backBarButtonItem;
+
+      read_xml
+    end
+  end
+
+  def on_appear
+    toolbar_animated = Device.ipad? ? false : true
+    self.navigationController.setToolbarHidden(true, animated:toolbar_animated)
   end
 
   def table_data
@@ -61,7 +71,9 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def open_info_screen(args={})
-    open AboutScreen.new(nav_bar:true), modal:true, external_links:true
+    open_modal AboutScreen.new(external_links: true),
+      nav_bar: true,
+      presentation_style: UIModalPresentationFormSheet
   end
 
   def beer_categories
@@ -118,7 +130,6 @@ class MainScreen < ProMotion::SectionedTableScreen
       $stderr.puts "Error when reading data: #{error}. Did you run 'rake bootstrap'?" unless error.nil?
 
       @styles = style_hash
-      # @styles.symbolize_keys!(true)
       @table_setup = nil
       update_table_data
     end
