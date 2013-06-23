@@ -47,7 +47,7 @@ class MainScreen < ProMotion::SectionedTableScreen
         search_text: subcategory_search_text(subcat),
         cell_identifier: "SubcategoryCell",
         action: :open_style,
-        arguments: {:data => subcat}
+        arguments: {:style => Style.new(subcat)}
       }
     end
     c

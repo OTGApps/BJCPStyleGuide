@@ -1,5 +1,5 @@
 class DetailScreen < PM::WebScreen
-  attr_accessor :data, :cell
+  attr_accessor :style, :cell
 
   def will_appear
     @view_loaded ||= begin
@@ -57,7 +57,7 @@ class DetailScreen < PM::WebScreen
   end
 
   def content
-    return "DefaultScreen.html" if self.data.nil?
+    return "DefaultScreen.html" if self.style.nil?
 
     <<-CONTENT
 
@@ -67,35 +67,16 @@ class DetailScreen < PM::WebScreen
 <h1>#{self.cell[:title]}</h1>
 <div class="srmrange">&nbsp;</div>
 
-<h2>Aroma</h2>
-<p>#{aroma}</p>
-
-<h2>Appearance</h2>
-<p>#{appearance}</p>
-
-<h2>Flavor</h2>
-<p>#{flavor}</p>
-
-<h2>Mouthfeel</h2>
-<p>#{mouthfeel}</p>
-
-<h2>Overall Impression</h2>
-<p>#{impression}</p>
-
-<h2>Comments</h2>
-<p>#{comments}</p>
-
-<h2>History</h2>
-<p>#{history}</p>
-
-<h2>Ingredients</h2>
-<p>#{ingredients}</p>
-
-<h2>Vital Statistics</h2>
-<ul>#{vital_stats}</ul>
-
-<h2>Commercial Examples</h2>
-<p>#{examples}</p>
+#{style.html(:aroma)}
+#{style.html(:appearance)}
+#{style.html(:flavor)}
+#{style.html(:mouthfeel)}
+#{style.html(:impression)}
+#{style.html(:comments)}
+#{style.html(:history)}
+#{style.html(:ingredients)}
+#{style.html(:stats)}
+#{style.html(:examples)}
 
     CONTENT
   end
@@ -104,31 +85,9 @@ class DetailScreen < PM::WebScreen
     "<style>" << File.read(File.join(App.resources_path, "style.css")) << "</style>"
   end
 
-  def vital_stats
-    table = ""
-
-    %w(og fg ibu srm abv).each do |stat|
-      unless stats[stat].nil?
-        table << "<li>" + stat.upcase + ": " + vital_stats_low_high(stats[stat]) + "</li>"
-      end
-    end
-    table
-  end
-
-  def vital_stats_low_high(stat)
-    if stat["flexible"] == "false"
-      stat["low"] + "-" + stat["high"]
-    else
-      "N/A"
-    end
-  end
-
   def set_srm_range
-    if defined? stats["srm"]["low"]
-      gradient = SRM.css_gradient(stats["srm"]["low"], stats["srm"]["high"])
-    else
-      gradient = "display:none;"
-    end
+    gradient = "display:none;"
+    gradient = SRM.css_gradient(style.stats["srm"]["low"], style.stats["srm"]["high"]) if defined? style.stats["srm"]["low"]
     evaluate "document.body.innerHTML += '<style>.srmrange{#{gradient}}</style>'"
   end
 
@@ -147,15 +106,18 @@ class DetailScreen < PM::WebScreen
   end
 
   def method_missing(meth, *args, &block)
-    unless self.data[meth.to_s].nil?
-      if self.data[meth.to_s].is_a? String
-        self.data[meth.to_s].gsub("[em]", "<em>").gsub("[/em]", "</em>")
-      else
-        self.data[meth.to_s]
-      end
-    else
-      "N/A"
-    end
+    ap meth
+    # unless self.data[meth.to_s].nil?
+    #   ap meth
+    #   if self.data[meth.to_s].is_a? String
+    #     self.data[meth.to_s].gsub("[em]", "<em>").gsub("[/em]", "</em>")
+    #   else
+    #     self.data[meth.to_s]
+    #   end
+    # else
+    #   ap meth
+    #   "N/A"
+    # end
   end
 
   def open_info_screen(args={})
