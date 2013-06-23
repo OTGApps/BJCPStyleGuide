@@ -76,22 +76,10 @@ class MainScreen < ProMotion::SectionedTableScreen
       presentation_style: UIModalPresentationFormSheet
   end
 
-  def beer_categories
-    overall_category "beer"
-  end
-
-  def mead_categories
-    overall_category "mead"
-  end
-
-  def cider_categories
-    overall_category "cider"
-  end
-
   def sections
     return [] if @styles.nil?
     # ["Beer"] + beer_categories + ["Mead"] + mead_categories + ["Cider"] + cider_categories
-    beer_categories + mead_categories + cider_categories
+    overall_category("beer") + overall_category("mead") + overall_category("cider")
   end
 
   def section_title(section)
@@ -105,6 +93,8 @@ class MainScreen < ProMotion::SectionedTableScreen
   def subcategory_search_text(subcat)
     search = ""
     %w(impression appearance ingredients examples aroma mouthfeel flavor).each do |prop|
+      ap subcat
+
       search << (" " + subcat[prop]) unless subcat[prop].nil?
     end
     search.split(/\W+/).uniq.join(" ")
@@ -121,15 +111,10 @@ class MainScreen < ProMotion::SectionedTableScreen
 
   def read_xml
     @done_read_xml ||= begin
-      style_path = File.join(App.resources_path, "styleguide2008.xml")
-      styles = File.read(style_path).gsub("<em>", "[em]").gsub("</em>", "[/em]")
+      style_path = File.join(App.resources_path, "styleguide2008.json")
+      styles = File.read(style_path)#.gsub("<em>", "[em]").gsub("</em>", "[/em]")
 
-      error_ptr = Pointer.new(:object)
-      style_hash = TBXML.dictionaryWithXMLData(styles.dataUsingEncoding(NSUTF8StringEncoding), error: error_ptr)
-      error = error_ptr[0]
-      $stderr.puts "Error when reading data: #{error}. Did you run 'rake bootstrap'?" unless error.nil?
-
-      @styles = style_hash
+      @styles = BW::JSON.parse(styles)
       @table_setup = nil
       update_table_data
     end
