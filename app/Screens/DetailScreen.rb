@@ -15,11 +15,6 @@ class DetailScreen < PM::WebScreen
         self.setTitle "Welcome"
         set_attributes view, {background_color:"#CCCC99".to_color}
       end
-
-      if App::Persistence['font_size'].nil?
-        App::Persistence['font_size'] = 100
-      end
-
     end
   end
 
