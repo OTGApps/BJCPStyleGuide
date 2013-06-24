@@ -11,7 +11,6 @@ class DetailScreen < PM::WebScreen
       unless self.cell.nil?
         self.setTitle self.cell[:title]
         set_attributes view, {background_color:UIColor.whiteColor}
-
       else
         self.setTitle "Welcome"
         set_attributes view, {background_color:"#CCCC99".to_color}

@@ -11,7 +11,7 @@ class MainScreen < ProMotion::SectionedTableScreen
       end
 
       backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
-      self.navigationItem.backBarButtonItem = backBarButtonItem;
+      self.navigationItem.backBarButtonItem = backBarButtonItem
 
       read_data
     end
@@ -104,7 +104,6 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   private
-
   def read_data
     @done_read_data ||= begin
 
