@@ -19,6 +19,9 @@ Motion::Project::App.setup do |app|
   app.prerendered_icon = true
   app.info_plist['APP_STORE_ID'] = 293788663
 
+  app.files_dependencies 'app/Screens/DetailScreen.rb' => 'app/Screens/SizeableWebScreen.rb'
+  app.files_dependencies 'app/Screens/IntroScreen.rb'  => 'app/Screens/SizeableWebScreen.rb'
+
   app.pods do
     pod 'FlurrySDK'
     pod 'Appirater'
