@@ -13,6 +13,6 @@ end
 class Integer
   def as_letter
     return "" if self > 26
-    ("A".."Z").to_a[self]
+    ("A".."Z").to_a[self-1]
   end
 end
