@@ -109,7 +109,6 @@ class DetailScreen < PM::WebScreen
     open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
       presentation_style: UIModalPresentationFormSheet,
-      made_in: true
   end
 
 end

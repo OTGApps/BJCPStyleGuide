@@ -6,6 +6,14 @@ class IntroScreen < PM::WebScreen
     self.file
   end
 
+  def will_appear
+    @view_loaded ||= begin
+      if Device.ipad?
+        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
+      end
+    end
+  end
+
   def load_finished
     change_size
   end
@@ -36,17 +44,26 @@ class IntroScreen < PM::WebScreen
   end
 
   def increase_size(args={})
-    App::Persistence['font_size'] = App::Persistence['font_size'] + 10
-    change_size
+    size_mover(10)
   end
 
   def decrease_size(args={})
-    App::Persistence['font_size'] = App::Persistence['font_size'] - 10
+    size_mover(-10)
+  end
+
+  def size_mover(which_way)
+    App::Persistence['font_size'] = App::Persistence['font_size'] + which_way
     change_size
   end
 
   def change_size
     evaluate "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '#{App::Persistence['font_size']}%'",
+  end
+
+  def open_info_screen(args={})
+    open_modal AboutScreen.new(external_links: true),
+      nav_bar: true,
+      presentation_style: UIModalPresentationFormSheet,
   end
 
 end
