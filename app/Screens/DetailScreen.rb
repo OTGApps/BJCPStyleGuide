@@ -42,8 +42,12 @@ class DetailScreen < PM::WebScreen
     toolbar_animated = Device.ipad? ? false : true
     self.navigationController.setToolbarHidden(false, animated:toolbar_animated)
     self.toolbarItems = [flexible_space, decrease_size, increase_size]
-  end
 
+    unless self.cell.nil?
+      flurry_params = {style: self.cell[:title]}
+      Flurry.logEvent("ViewedStyle", withParameters:flurry_params) unless Device.simulator?
+    end
+  end
 
   def load_finished
     change_size

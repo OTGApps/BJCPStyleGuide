@@ -12,6 +12,9 @@ class IntroScreen < PM::WebScreen
         set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
       end
     end
+
+    flurry_params = {category: self.title}
+    Flurry.logEvent("ViewedIntro", withParameters:flurry_params) unless Device.simulator?
   end
 
   def load_finished

@@ -13,6 +13,8 @@ class AboutScreen < PM::WebScreen
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [flexible_space, made_in_label, made_in_image, flexible_space]
     end
+
+    Flurry.logEvent"ViewedAbout" unless Device.simulator?
   end
 
   def made_in_label

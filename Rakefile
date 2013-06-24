@@ -17,9 +17,12 @@ Motion::Project::App.setup do |app|
   app.short_version = "2.0.0"
   app.frameworks << "/usr/lib/libsqlite3.dylib"
   app.prerendered_icon = true
+  app.info_plist['APP_STORE_ID'] = 293788663
 
   app.pods do
     pod 'FlurrySDK'
+    pod 'Appirater'
+    pod 'Harpy'
     pod 'TestFlightSDK'
   end
 
