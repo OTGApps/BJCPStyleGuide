@@ -95,12 +95,15 @@ class DetailScreen < PM::WebScreen
   end
 
   def increase_size(args={})
-    App::Persistence['font_size'] = App::Persistence['font_size'] + 10
-    change_size
+    size_mover(10)
   end
 
   def decrease_size(args={})
-    App::Persistence['font_size'] = App::Persistence['font_size'] - 10
+    size_mover(-10)
+  end
+
+  def size_mover(which_way)
+    App::Persistence['font_size'] = App::Persistence['font_size'] + which_way
     change_size
   end
 
