@@ -15,13 +15,12 @@ Motion::Project::App.setup do |app|
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
   app.version = "3"
   app.short_version = "2.0.0"
-  app.frameworks += %w(libxml2)
+  app.frameworks << "/usr/lib/libsqlite3.dylib"
   app.prerendered_icon = true
 
   app.pods do
     pod 'FlurrySDK'
     pod 'TestFlightSDK'
-    pod 'TBXML+NSDictionary'
   end
 
   app.development do
@@ -43,28 +42,6 @@ Motion::Project::App.setup do |app|
     app.entitlements['get-task-allow'] = false
     app.codesign_certificate = "iPhone Distribution: Mohawk Apps, LLC (DW9QQZR4ZL)"
     app.provisioning_profile = "./provisioning/release.mobileprovision"
-  end
-
-end
-
-#Rake Tasks
-desc "Download and install the XML sytles file"
-task :bootstrap do
-  require 'net/http'
-  require 'zipruby'
-
-  url = "http://www.bjcp.org/docs/xmlstyleguide.zip"
-  zipbytes = Net::HTTP.get_response(URI.parse(url)).body
-
-  Zip::Archive.open_buffer(zipbytes) do |zf|
-    zf.each do |f|
-      if f.name == "styleguide2008.xml"
-        open(File.join("resources", f.name), 'w') do |file|
-          file << f.read
-        end
-        puts "Downloaded 2008 Style Guidelines from the BJCP Website. Run 'rake' to get started."
-      end
-    end
   end
 
 end

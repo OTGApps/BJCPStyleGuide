@@ -1,17 +1,21 @@
 class AboutScreen < PM::WebScreen
 
+  attr_accessor :content, :made_in
+
   title "About BJCP Styles"
 
   def content
-    "AboutScreen.html"
+    self.content || "AboutScreen.html"
   end
 
   def will_appear
     @view_loaded ||= begin
       set_nav_bar_right_button "Done", action: :close_modal, type: UIBarButtonItemStyleDone
 
-      self.navigationController.setToolbarHidden(false)
-      self.toolbarItems = [flexible_space, made_in_label, flexible_space]
+      if self.made_in == true
+        self.navigationController.setToolbarHidden(false)
+        self.toolbarItems = [flexible_space, made_in_label, flexible_space]
+      end
 
     end
   end

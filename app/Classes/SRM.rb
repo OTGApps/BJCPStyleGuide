@@ -104,10 +104,10 @@ class SRM
 
   end
 
-  def self.css_gradient(from, to)
+  def self.css_gradient(from_to)
     stops = []
-    count = to.to_i - from.to_i
-    (from.to_i..to.to_i).each do |srm|
+    count = from_to[1].to_i - from_to[0].to_i
+    (from_to[0].to_i..from_to[1].to_i).each do |srm|
       stops << SRM.hex(srm)
     end
     if stops.count > 0

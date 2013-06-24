@@ -75,7 +75,7 @@ class DetailScreen < PM::WebScreen
 #{style.html(:comments)}
 #{style.html(:history)}
 #{style.html(:ingredients)}
-#{style.html(:stats)}
+#{style.html(:specs)}
 #{style.html(:examples)}
 
     CONTENT
@@ -87,7 +87,7 @@ class DetailScreen < PM::WebScreen
 
   def set_srm_range
     gradient = "display:none;"
-    gradient = SRM.css_gradient(style.stats["srm"]["low"], style.stats["srm"]["high"]) if defined? style.stats["srm"]["low"]
+    gradient = SRM.css_gradient(style.srm_range) if style.srm_range
     evaluate "document.body.innerHTML += '<style>.srmrange{#{gradient}}</style>'"
   end
 
@@ -105,25 +105,11 @@ class DetailScreen < PM::WebScreen
     evaluate "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '#{App::Persistence['font_size']}%'",
   end
 
-  def method_missing(meth, *args, &block)
-    ap meth
-    # unless self.data[meth.to_s].nil?
-    #   ap meth
-    #   if self.data[meth.to_s].is_a? String
-    #     self.data[meth.to_s].gsub("[em]", "<em>").gsub("[/em]", "</em>")
-    #   else
-    #     self.data[meth.to_s]
-    #   end
-    # else
-    #   ap meth
-    #   "N/A"
-    # end
-  end
-
   def open_info_screen(args={})
     open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
-      presentation_style: UIModalPresentationFormSheet
+      presentation_style: UIModalPresentationFormSheet,
+      made_in: true
   end
 
 end

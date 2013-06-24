@@ -1,6 +1,6 @@
 class Style
 
-  PROPERTIES = [:id, :aroma, :stats, :impression, :name, :appearance, :comments, :ingredients, :examples, :mouthfeel, :flavor, :history]
+  PROPERTIES = [:id, :category, :name, :aroma, :appearance, :flavor, :mouthfeel, :impression, :comments, :history, :ingredients, :og, :fg, :ibu, :srm, :abv, :examples]
   PROPERTIES.each { |prop|
     attr_accessor prop
   }
@@ -13,36 +13,29 @@ class Style
     }
   end
 
+  def title
+    "#{self.category}#{self.id.as_letter}: #{self.name}"
+  end
+
   def html(property)
-    ap property
+    return specs_html if property == :specs
     return "" unless respond_to? "#{property.to_s}="
-    return specs_html if property == :stats
 
     ap "got here"
 
-    "<h2>#{title(property)}</h2>
+    "<h2>#{property_title(property)}</h2>
      <p>#{self.send(property)}</p>"
   end
 
   def specs_html
-    table = ""
-    %w(og fg ibu srm abv).each do |stat|
-      # unless self[:stats][stat].nil?
-      #   table << "<li>" + stat.upcase + ": " + vital_stats_low_high(self[:stats][stat]) + "</li>"
-      # end
+    table = "<h2>Vital Statistics</h2>"
+    %w(og fg ibu srm abv).each do |spec|
+      table << "<li>" + spec.upcase + ": " + self.send(spec) + "</li>"
     end
     table
   end
 
-  def vital_stats_low_high(stat)
-    if stat["flexible"] == "false"
-      stat["low"] + "-" + stat["high"]
-    else
-      "N/A"
-    end
-  end
-
-  def title(property)
+  def property_title(property)
     case property
     when :appearance, :aroma, :comments, :ingredients, :mouthfeel, :flavor, :history
       property.to_s.titlecase
@@ -51,6 +44,19 @@ class Style
     when :examples
       "Commercial Examples"
     end
+  end
+
+  def search_text
+    search = ""
+    %w(impression appearance ingredients examples aroma mouthfeel flavor).each do |prop|
+      search << (" " + self.send(prop)) unless self.send(prop).nil? || self.send(prop).downcase == "n/a"
+    end
+    search.split(/\W+/).uniq.join(" ")
+  end
+
+  def srm_range
+    return nil if self.srm.nil? || self.srm.downcase == "n/a"
+    self.srm.split(" - ")
   end
 
 end

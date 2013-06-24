@@ -13,7 +13,7 @@ class MainScreen < ProMotion::SectionedTableScreen
       backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
       self.navigationItem.backBarButtonItem = backBarButtonItem;
 
-      read_xml
+      read_data
     end
   end
 
@@ -23,31 +23,50 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def table_data
+    return [] if @styles.nil?
     @table_setup ||= begin
       s = []
 
-      sections.each do |section|
+      s << {
+        title: "Introductions",
+        cells: [
+          intro_cell("Beer Introduction"),
+          intro_cell("Mead Introduction"),
+          intro_cell("Cider Introduction")
+        ]
+      }
+
+      @styles.each do |section|
         s << {
           title: section_title(section),
-          cells: build_subcategories(section["subcategory"])
+          cells: build_subcategories(section)
         }
       end
       s
     end
   end
 
-  def build_subcategories(params)
+  def intro_cell(name)
+    {
+      title: name,
+      cell_identifier: "IntroductionCell",
+      action: :open_info_screen,
+      arguments: {:content => "#{name}.html"}
+    }
+  end
+
+  def build_subcategories(section)
     c = []
 
     # Support categories with only one subcategory
-    params = [params] if params.is_a?(Hash)
-    params.each do |subcat|
+    # params = [params] if params.is_a?(Hash)
+    section[:substyles].each do |subcat|
       c << {
-        title: subcategory_title(subcat),
-        search_text: subcategory_search_text(subcat),
+        title: subcat.title,
+        search_text: subcat.search_text,
         cell_identifier: "SubcategoryCell",
         action: :open_style,
-        arguments: {:style => Style.new(subcat)}
+        arguments: {:style => subcat}
       }
     end
     c
@@ -56,6 +75,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   def table_data_index
     # Get the style number of the section
     ["{search}"] + table_data.collect do |section|
+      return nil if section[:title] == "Introductions"
       section[:title].split(" ").first[0..-2]
     end
   end
@@ -71,50 +91,32 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def open_info_screen(args={})
-    open_modal AboutScreen.new(external_links: true),
+    open_modal AboutScreen.new(args.merge({external_links: true})),
       nav_bar: true,
-      presentation_style: UIModalPresentationFormSheet
+      presentation_style: UIModalPresentationFormSheet,
+      made_in: true
   end
 
-  def sections
-    return [] if @styles.nil?
-    # ["Beer"] + beer_categories + ["Mead"] + mead_categories + ["Cider"] + cider_categories
-    overall_category("beer") + overall_category("mead") + overall_category("cider")
-  end
-
-  def section_title(section)
-    "#{section['id']}: #{section["name"]}"
-  end
-
-  def subcategory_title(subcat)
-    "#{subcat['id']}: #{subcat['name']}"
-  end
-
-  def subcategory_search_text(subcat)
-    search = ""
-    %w(impression appearance ingredients examples aroma mouthfeel flavor).each do |prop|
-      ap subcat
-
-      search << (" " + subcat[prop]) unless subcat[prop].nil?
-    end
-    search.split(/\W+/).uniq.join(" ")
+  def section_title(subcat)
+    "#{subcat[:id]}: #{subcat[:name]}"
   end
 
   private
 
-  # Return the subsection of the Hash object for a particular class of styles.
-  # beer, mead, & cider are the current classes.
-  def overall_category(name)
-    this_class = @styles["styleguide"]["class"].select{|classes| classes["type"] == name }
-    this_class.first["category"]
-  end
+  def read_data
+    @done_read_data ||= begin
 
-  def read_xml
-    @done_read_xml ||= begin
-      style_path = File.join(App.resources_path, "styleguide2008.json")
-      styles = File.read(style_path)#.gsub("<em>", "[em]").gsub("</em>", "[/em]")
+      @styles = []
+      db = SQLite3::Database.new(File.join(App.resources_path, "styles.sqlite"))
+      db.execute("SELECT * FROM category ORDER BY id") do |row|
+        substyles = []
+        db.execute("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id") do |row2|
+          substyles << Style.new(row2)
+        end
+        row[:substyles] = substyles
+        @styles << row
+      end
 
-      @styles = BW::JSON.parse(styles)
       @table_setup = nil
       update_table_data
     end
