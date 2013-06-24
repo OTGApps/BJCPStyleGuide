@@ -23,7 +23,7 @@ class AboutScreen < PM::WebScreen
       background_color: UIColor.clearColor,
       text: "Made in Beautiful Charlotte, NC",
       text_alignment: UITextAlignmentCenter,
-      text_color: (Device.ipad? ? UIColor.darkTextColor : UIColor.whiteTextColor )
+      text_color: (Device.ipad? ? UIColor.darkTextColor : UIColor.lightTextColor )
     }
     UIBarButtonItem.alloc.initWithCustomView(label)
   end
