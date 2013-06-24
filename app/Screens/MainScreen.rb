@@ -38,7 +38,7 @@ class MainScreen < ProMotion::SectionedTableScreen
 
       @styles.each do |section|
         s << {
-          title: section_title(section),
+          title: "#{section[:id]}: #{section[:name]}",
           cells: build_subcategories(section)
         }
       end
@@ -50,8 +50,8 @@ class MainScreen < ProMotion::SectionedTableScreen
     {
       title: name,
       cell_identifier: "IntroductionCell",
-      action: :open_info_screen,
-      arguments: {:content => "#{name}.html"}
+      action: :open_intro_screen,
+      arguments: {:file => "#{name}.html", :title => name}
     }
   end
 
@@ -73,15 +73,14 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def table_data_index
+    return if table_data.count < 1
     # Get the style number of the section
-    ["{search}"] + table_data.collect do |section|
-      return nil if section[:title] == "Introductions"
+    ["{search}", "?"] + table_data.drop(1).collect do |section|
       section[:title].split(" ").first[0..-2]
     end
   end
 
   def open_style(args={})
-    ap args
     # self.navigationItem.title = "Back"
     if Device.ipad?
       open DetailScreen.new(args), nav_bar:true, in_detail: true
@@ -91,14 +90,17 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def open_info_screen(args={})
-    open_modal AboutScreen.new(args.merge({external_links: true})),
+    open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
-      presentation_style: UIModalPresentationFormSheet,
-      made_in: true
+      presentation_style: UIModalPresentationFormSheet
   end
 
-  def section_title(subcat)
-    "#{subcat[:id]}: #{subcat[:name]}"
+  def open_intro_screen(args={})
+    if Device.ipad?
+      open IntroScreen.new(args), nav_bar:true, in_detail: true
+    else
+      open IntroScreen.new(args)
+    end
   end
 
   private

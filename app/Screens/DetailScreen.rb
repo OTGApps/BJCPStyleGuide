@@ -87,7 +87,7 @@ class DetailScreen < PM::WebScreen
 
   def set_srm_range
     gradient = "display:none;"
-    gradient = SRM.css_gradient(style.srm_range) if style.srm_range
+    gradient = SRM.css_gradient(style.srm_range) unless style.nil?
     evaluate "document.body.innerHTML += '<style>.srmrange{#{gradient}}</style>'"
   end
 

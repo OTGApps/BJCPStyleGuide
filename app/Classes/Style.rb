@@ -21,8 +21,6 @@ class Style
     return specs_html if property == :specs
     return "" unless respond_to? "#{property.to_s}="
 
-    ap "got here"
-
     "<h2>#{property_title(property)}</h2>
      <p>#{self.send(property)}</p>"
   end
