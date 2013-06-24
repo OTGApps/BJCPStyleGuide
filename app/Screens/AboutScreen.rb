@@ -20,11 +20,11 @@ class AboutScreen < PM::WebScreen
   def made_in_label
     label = set_attributes UILabel.alloc.initWithFrame(CGRectZero), {
       frame: CGRectMake(0.0 , 11.0, view.frame.size.width, 21.0),
-      font: UIFont.fontWithName("Helvetica", size:16),
+      font: UIFont.fontWithName("Helvetica-Bold", size:16),
       background_color: UIColor.clearColor,
       text: "Made in North Carolina",
       text_alignment: UITextAlignmentCenter,
-      text_color: (Device.ipad? ? UIColor.darkTextColor : UIColor.lightTextColor )
+      text_color: (Device.ipad? ? UIColor.darkTextColor : UIColor.whiteColor )
     }
     label.sizeToFit
     UIBarButtonItem.alloc.initWithCustomView(label)
