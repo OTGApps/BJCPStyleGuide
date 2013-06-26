@@ -5,7 +5,7 @@ class DetailScreen < SizeableWebScreen
     @view_loaded ||= begin
 
       if Device.ipad?
-        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
+        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
       end
 
       unless self.cell.nil?

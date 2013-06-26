@@ -45,7 +45,7 @@ class SizeableWebScreen < PM::WebScreen
     evaluate "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '#{App::Persistence['font_size']}%'",
   end
 
-  def open_info_screen(args={})
+  def open_about_screen(args={})
     open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
       presentation_style: UIModalPresentationFormSheet,

@@ -7,7 +7,7 @@ class MainScreen < ProMotion::SectionedTableScreen
       set_attributes self.view, { backgroundColor: UIColor.whiteColor }
 
       unless Device.ipad?
-        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_info_screen
+        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
       end
 
       backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
@@ -134,7 +134,7 @@ class MainScreen < ProMotion::SectionedTableScreen
     end
   end
 
-  def open_info_screen(args={})
+  def open_about_screen(args={})
     open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
       presentation_style: UIModalPresentationFormSheet
