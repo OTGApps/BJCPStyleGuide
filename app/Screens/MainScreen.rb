@@ -13,6 +13,11 @@ class MainScreen < ProMotion::SectionedTableScreen
       backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
       self.navigationItem.backBarButtonItem = backBarButtonItem
 
+      @reload_observer = App.notification_center.observe "ReloadNotification" do |notification|
+        @table_setup = nil
+        update_table_data
+      end
+
       read_data
     end
   end
@@ -70,7 +75,8 @@ class MainScreen < ProMotion::SectionedTableScreen
         return {
           title: "Judging Tools",
           cells: [{
-            title: "Learn More",
+            title: "Check Out the App!",
+            searchable: false,
             cell_identifier: "JudgingCell",
             action: :open_judging_info_screen,
             image: {
@@ -84,7 +90,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def shows_beer_judging_section?
-    App::Persistence['hide_judging_tools'].nil? ||  App::Persistence['hide_judging_tools'].nil? == false
+    App::Persistence['hide_judging_tools'].nil? ||  App::Persistence['hide_judging_tools'] == false
   end
 
   def judging_cells
@@ -93,6 +99,7 @@ class MainScreen < ProMotion::SectionedTableScreen
       downcased_tool = tool.downcase.tr(" ", "_")
       c << {
         title: tool,
+        searchable: false,
         cell_identifier: "JudgingCell",
         action: :open_judging_tool,
         arguments: {url: downcased_tool},
@@ -119,8 +126,8 @@ class MainScreen < ProMotion::SectionedTableScreen
   def table_data_index
     return if table_data.count < 1
     # Get the style number of the section
-    drop = shows_beer_judging_section? ? 2 : 1
-    droped_intro = shows_beer_judging_section? ? ["{search}", "?", "J"] : ["{search}", "?"]
+    drop = shows_beer_judging_section? ? 2 : 2
+    droped_intro = shows_beer_judging_section? ? ["{search}", "J", "?"] : ["{search}", "?"]
 
     droped_intro + table_data.drop( drop ).collect do |section|
       section[:title].split(" ").first[0..-2]

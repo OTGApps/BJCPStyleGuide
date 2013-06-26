@@ -49,4 +49,15 @@ class AppDelegate < ProMotion::Delegate
     Appirater.appEnteredForeground true unless Device.simulator?
   end
 
+  def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
+    suffix = url.absoluteString.split("//").last
+    case suffix
+    when "reset_tools"
+      App::Persistence['hide_judging_tools'] = nil
+      App.notification_center.post "ReloadNotification"
+    end
+
+    true
+  end
+
 end
