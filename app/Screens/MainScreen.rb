@@ -20,6 +20,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   def on_appear
     toolbar_animated = Device.ipad? ? false : true
     self.navigationController.setToolbarHidden(true, animated:toolbar_animated)
+    # open_judging_info_screen
   end
 
   def table_data
@@ -146,6 +147,12 @@ class MainScreen < ProMotion::SectionedTableScreen
     else
       open IntroScreen.new(args)
     end
+  end
+
+  def open_judging_info_screen
+    open_modal JudgingInfoScreen.new,
+      nav_bar: true,
+      presentation_style: UIModalPresentationFormSheet
   end
 
   def open_judging_tool(args={})
