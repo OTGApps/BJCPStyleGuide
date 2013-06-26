@@ -26,7 +26,7 @@ class MainScreen < ProMotion::SectionedTableScreen
     return [] if @styles.nil?
     @table_setup ||= begin
       s = []
-
+      s << judging_section
       s << {
         title: "Introductions",
         cells: [
@@ -55,11 +55,54 @@ class MainScreen < ProMotion::SectionedTableScreen
     }
   end
 
+  def judging_section
+    if BeerJudge.is_installed?
+      # Show the judging Tools
+      return {
+        title: "Judging Tools",
+        cells: judging_cells
+      }
+    else
+      # Should we show the section at all?
+      if shows_beer_judging_section?
+        # Show the intro screen
+        return {
+          title: "Judging Tools",
+          cells: [{
+            title: "Learn More",
+            cell_identifier: "JudgingCell",
+            action: :open_judging_info_screen,
+            image: {
+              image:"judge.png",
+              radius: 8
+            }
+          }]
+        }
+      end
+    end
+  end
+
+  def shows_beer_judging_section?
+    App::Persistence['hide_judging_tools'].nil? ||  App::Persistence['hide_judging_tools'].nil? == false
+  end
+
+  def judging_cells
+    c = []
+    %w(Flavor\ Wheel SRM\ Spectrum SRM\ Analyzer).each do |tool|
+      downcased_tool = tool.downcase.tr(" ", "_")
+      c << {
+        title: tool,
+        cell_identifier: "JudgingCell",
+        action: :open_judging_tool,
+        arguments: {url: downcased_tool},
+        image: "judge_#{downcased_tool}.png"
+      }
+    end
+    c
+  end
+
   def build_subcategories(section)
     c = []
-
-    # Support categories with only one subcategory
-    # params = [params] if params.is_a?(Hash)
     section[:substyles].each do |subcat|
       c << {
         title: subcat.title,
@@ -75,13 +118,15 @@ class MainScreen < ProMotion::SectionedTableScreen
   def table_data_index
     return if table_data.count < 1
     # Get the style number of the section
-    ["{search}", "?"] + table_data.drop(1).collect do |section|
+    drop = shows_beer_judging_section? ? 2 : 1
+    droped_intro = shows_beer_judging_section? ? ["{search}", "?", "J"] : ["{search}", "?"]
+
+    droped_intro + table_data.drop( drop ).collect do |section|
       section[:title].split(" ").first[0..-2]
     end
   end
 
   def open_style(args={})
-    # self.navigationItem.title = "Back"
     if Device.ipad?
       open DetailScreen.new(args), nav_bar:true, in_detail: true
     else
@@ -101,6 +146,10 @@ class MainScreen < ProMotion::SectionedTableScreen
     else
       open IntroScreen.new(args)
     end
+  end
+
+  def open_judging_tool(args={})
+    BeerJudge.open(args[:url])
   end
 
   private
