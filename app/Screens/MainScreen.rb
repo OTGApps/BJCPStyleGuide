@@ -55,6 +55,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   def intro_cell(name)
     {
       title: name,
+      searchable: false,
       cell_identifier: "IntroductionCell",
       action: :open_intro_screen,
       arguments: {:file => "#{name}.html", :title => name}
@@ -90,6 +91,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def shows_beer_judging_section?
+    return true if BeerJudge.is_installed?
     App::Persistence['hide_judging_tools'].nil? ||  App::Persistence['hide_judging_tools'] == false
   end
 
