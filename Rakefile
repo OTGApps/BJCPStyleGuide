@@ -32,6 +32,7 @@ Motion::Project::App.setup do |app|
     pod 'Harpy'
     pod 'TestFlightSDK'
     pod 'SwipeView'
+    pod 'OpenInChrome'
   end
 
   app.development do
