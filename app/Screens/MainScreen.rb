@@ -48,7 +48,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def on_appear
-    self.navigationController.setToolbarHidden(true, animated:true) unless is_searching?
+    self.navigationController.setToolbarHidden(true, animated:true) unless searching?
 
     # Check to see if we should go directly into a style when the app is not in memory.
     auto_open_style App.delegate.jump_to_style unless App.delegate.jump_to_style.nil?
