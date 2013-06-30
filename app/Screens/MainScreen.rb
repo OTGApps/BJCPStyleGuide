@@ -41,6 +41,9 @@ class MainScreen < ProMotion::SectionedTableScreen
       # TODO: Pop back to the root view controller
       # pop_to_root animated: false
       open_style style: requested_style
+
+      # TODO:
+      # Scroll down to the correct section on the ipad
     end
   end
 
