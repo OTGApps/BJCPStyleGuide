@@ -18,14 +18,46 @@ class MainScreen < ProMotion::SectionedTableScreen
         update_table_data
       end
 
+      # Check to see if we should go directly into a style when the app is already loaded.
+      @style_observer ||= App.notification_center.observe "GoDirectlyToStyle" do |notification|
+        App.delegate.jump_to_style = notification.object[:object]
+      end
+
       read_data
+    end
+  end
+
+  def auto_open_style(style)
+    cat = style[0..-2].to_i
+    subcat = style[-1]
+
+    # Find it in the array
+    requested_style = @styles[cat - 1][:substyles][subcat.as_integer - 1]
+    App.delegate.jump_to_style = nil
+
+    if requested_style.nil?
+      App.alert "Invalid style requested: \"#{style}\"."
+    else
+      # TODO: Pop back to the root view controller
+      # pop_to_root animated: false
+      open_style style: requested_style
     end
   end
 
   def on_appear
     toolbar_animated = Device.ipad? ? false : true
     self.navigationController.setToolbarHidden(true, animated:toolbar_animated)
-    # open_judging_info_screen
+
+    # Check to see if we should go directly into a style when the app is not in memory.
+    unless App.delegate.jump_to_style.nil?
+      auto_open_style App.delegate.
+    end
+
+    # Re-call on_appear when the application resumes from the background state since it's not called automatically.
+    @on_appear_observer ||= App.notification_center.observe UIApplicationDidBecomeActiveNotification do |notification|
+      on_appear
+    end
+
   end
 
   def table_data
