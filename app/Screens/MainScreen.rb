@@ -48,8 +48,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def on_appear
-    toolbar_animated = Device.ipad? ? false : true
-    self.navigationController.setToolbarHidden(true, animated:toolbar_animated)
+    self.navigationController.setToolbarHidden(true, animated:true) unless is_searching?
 
     # Check to see if we should go directly into a style when the app is not in memory.
     auto_open_style App.delegate.jump_to_style unless App.delegate.jump_to_style.nil?
@@ -58,14 +57,14 @@ class MainScreen < ProMotion::SectionedTableScreen
     @on_appear_observer ||= App.notification_center.observe UIApplicationDidBecomeActiveNotification do |notification|
       on_appear
     end
-
   end
 
   def table_data
     return [] if @styles.nil?
     @table_setup ||= begin
       s = []
-      s << judging_section unless judging_section.nil?
+      s << judging_section_links if BeerJudge.is_installed?
+      s << judging_section_preview if shows_beer_judging_section?
       s << {
         title: "Introductions",
         cells: [
@@ -95,33 +94,29 @@ class MainScreen < ProMotion::SectionedTableScreen
     }
   end
 
-  def judging_section
-    if BeerJudge.is_installed?
-      # Show the judging Tools
-      return {
-        title: "Judging Tools",
-        cells: judging_cells
-      }
-    else
-      # Should we show the section at all?
-      if shows_beer_judging_section?
-        # Show the intro screen
-        return {
-          title: "Judging Tools",
-          cells: [{
-            title: "Check Out the App!",
-            searchable: false,
-            cell_identifier: "JudgingCell",
-            action: :open_judging_info_screen,
-            image: {
-              image:"judge.png",
-              radius: 8
-            }
-          }]
+  def judging_section_links
+    # Show the judging Tools
+    {
+      title: "Judging Tools",
+      cells: judging_cells
+    }
+  end
+
+  def judging_section_preview
+    # Show the intro screen
+    {
+      title: "Judging Tools",
+      cells: [{
+        title: "Check Out the App!",
+        cell_identifier: "JudgingCell",
+        searchable: false,
+        action: :open_judging_info_screen,
+        image: {
+          image:"judge.png",
+          radius: 8
         }
-      end
-    end
-    nil
+      }]
+    }
   end
 
   def shows_beer_judging_section?
