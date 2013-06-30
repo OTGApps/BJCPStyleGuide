@@ -65,7 +65,7 @@ class MainScreen < ProMotion::SectionedTableScreen
     return [] if @styles.nil?
     @table_setup ||= begin
       s = []
-      s << judging_section
+      s << judging_section unless judging_section.nil?
       s << {
         title: "Introductions",
         cells: [
@@ -81,7 +81,7 @@ class MainScreen < ProMotion::SectionedTableScreen
           cells: build_subcategories(section)
         }
       end
-      s.compact
+      s
     end
   end
 
@@ -193,9 +193,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def open_judging_info_screen
-    open_modal JudgingInfoScreen.new,
-      nav_bar: true,
-      presentation_style: UIModalPresentationFormSheet
+    open_modal JudgingInfoScreen.new, nav_bar: true, presentation_style: UIModalPresentationFormSheet
   end
 
   def open_judging_tool(args={})
