@@ -8,8 +8,8 @@ class DetailScreen < SizeableWebScreen
         set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
       end
 
-      unless self.cell.nil?
-        self.setTitle self.cell[:title]
+      if defined? style.id
+        self.setTitle the_title
         set_attributes view, {background_color:UIColor.whiteColor}
       else
         self.setTitle "Welcome"
@@ -19,11 +19,16 @@ class DetailScreen < SizeableWebScreen
   end
 
   def on_appear
-    return if self.cell.nil?
+    return unless defined? style.id
     super
 
-    flurry_params = {style: self.cell[:title]}
+    flurry_params = {style: the_title}
     Flurry.logEvent("ViewedStyle", withParameters:flurry_params) unless Device.simulator?
+  end
+
+  def the_title
+    return "" unless defined? style.id
+    "#{style.category}#{style.id.as_letter}: #{style.name}"
   end
 
   def load_finished
@@ -39,7 +44,7 @@ class DetailScreen < SizeableWebScreen
 #{css}
 
 <div class="srmrange">&nbsp;</div>
-<h1>#{self.cell[:title]}</h1>
+<h1>#{the_title}</h1>
 <div class="srmrange">&nbsp;</div>
 
 #{style.html(:aroma)}
