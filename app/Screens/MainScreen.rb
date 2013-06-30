@@ -81,7 +81,7 @@ class MainScreen < ProMotion::SectionedTableScreen
           cells: build_subcategories(section)
         }
       end
-      s
+      s.compact
     end
   end
 
@@ -121,6 +121,7 @@ class MainScreen < ProMotion::SectionedTableScreen
         }
       end
     end
+    nil
   end
 
   def shows_beer_judging_section?
