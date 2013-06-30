@@ -49,9 +49,7 @@ class MainScreen < ProMotion::SectionedTableScreen
     self.navigationController.setToolbarHidden(true, animated:toolbar_animated)
 
     # Check to see if we should go directly into a style when the app is not in memory.
-    unless App.delegate.jump_to_style.nil?
-      auto_open_style App.delegate.
-    end
+    auto_open_style App.delegate.jump_to_style unless App.delegate.jump_to_style.nil?
 
     # Re-call on_appear when the application resumes from the background state since it's not called automatically.
     @on_appear_observer ||= App.notification_center.observe UIApplicationDidBecomeActiveNotification do |notification|
