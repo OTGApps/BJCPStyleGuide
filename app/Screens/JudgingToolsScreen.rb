@@ -1,38 +1,40 @@
 class JudgingInfoScreen < PM::Screen
-  PAGES = %w(judge_screen_1 judge_screen_2 judge_screen_3 judge_screen_4)
+  PAGES = %w(judge_screen_1 judge_screen_2 judge_screen_3 judge_screen_4 judge_screen_5)
   PAGE_INSET = 20
 
   title "BeerJudge App"
 
   def will_appear
-    set_attributes self.view, {
-      background_color: UIColor.colorWithPatternImage(UIImage.imageNamed("linnen.png"))
-    }
+    @view_set_up ||= begin
+      set_attributes self.view, {
+        background_color: UIColor.colorWithPatternImage(UIImage.imageNamed("linnen.png"))
+      }
 
-    @gallery = add SwipeView.new, {
-      top: 0,
-      left: 0,
-      width: view.frame.size.width,
-      height: view.frame.size.height - 20 - 44,
-      dataSource: self,
-      delegate: self,
-      alignment: 1, # SwipeViewAlignment.SwipeViewAlignmentCenter
-      pagingEnabled: true,
-      itemsPerPage: 1,
-    }
-    @gallery.itemSize = @gallery.frame.size
+      @gallery = add SwipeView.new, {
+        top: 0,
+        left: 0,
+        width: view.frame.size.width,
+        height: view.frame.size.height - 20 - 44,
+        dataSource: self,
+        delegate: self,
+        alignment: 1, # SwipeViewAlignment.SwipeViewAlignmentCenter
+        pagingEnabled: true,
+        itemsPerPage: 1,
+      }
+      @gallery.itemSize = @gallery.frame.size
 
-    @paging = add UIPageControl.new, {
-      top: self.view.frame.size.height - 20 - 44,
-      left: 0,
-      height: 10,
-      width:self.view.frame.size.width,
-      numberOfPages: PAGES.count
-    }
+      @paging = add UIPageControl.new, {
+        top: self.view.frame.size.height - 20 - 44,
+        left: 0,
+        height: 10,
+        width:self.view.frame.size.width,
+        numberOfPages: PAGES.count
+      }
 
-    set_nav_bar_right_button "Close", action: :close_modal, type: UIBarButtonItemStyleDone
-    self.navigationController.setToolbarHidden(false)
-    self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
+      set_nav_bar_right_button "Close", action: :close_modal, type: UIBarButtonItemStyleDone
+      self.navigationController.setToolbarHidden(false)
+      self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
+    end
   end
 
   def numberOfItemsInSwipeView swipeView
@@ -55,6 +57,10 @@ class JudgingInfoScreen < PM::Screen
 
   def swipeViewItemSize swipeView
     self.view.frame.size
+  end
+
+  def swipeView(swipeView, didSelectItemAtIndex:index)
+    launch_itunes if index == numberOfItemsInSwipeView(swipeView)-1
   end
 
   def dont_show_button
@@ -93,6 +99,7 @@ class JudgingInfoScreen < PM::Screen
   def launch_itunes
     id = "666120064"
     url_string = "http://click.linksynergy.com/fs-bin/stat?id=**BiWowje1A&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=https%253A%252F%252Fitunes.apple.com%252Fus%252Fapp%252Fbeerjudge%252Fid#{id}%253Fmt%253D8%2526uo%253D4%2526partnerId%253D30"
+    close
     App.open_url url_string
   end
 
