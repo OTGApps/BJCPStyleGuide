@@ -20,7 +20,7 @@ Motion::Project::App.setup do |app|
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
     { 'CFBundleURLName' => 'com.yourcompany.BJCPStyles',
-      'CFBundleURLSchemes' => ['bjcpstyles', 'bjcpstyle'] }
+      'CFBundleURLSchemes' => ['bjcpstyles', 'bjcpstyle', 'bjcp'] }
   ]
 
   app.files_dependencies 'app/Screens/DetailScreen.rb' => 'app/Screens/SizeableWebScreen.rb'
