@@ -33,7 +33,7 @@ You can check to see if the BJCPStyles app is installed by implementing:
 
 **RubyMotion**
 
-``ruby
+```ruby
 def bjcpstyles_installed?
   bjcpstyles_url = NSURL.URLWithString "bjcpstyle:"
   UIApplication.sharedApplication.canOpenURL bjcpstyles_url
@@ -53,7 +53,7 @@ Then to actually call the app to open and go to a style:
 
 **RubyMotion**
 
-``ruby
+```ruby
 def open_bjcpstyle(style)
   url = NSURL.URLWithString "bjcpstyle://#{style}"
   UIApplication.sharedApplication.openURL url
