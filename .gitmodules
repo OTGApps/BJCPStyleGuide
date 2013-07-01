@@ -1,3 +1,0 @@
-[submodule "vendor/motion-sqlite3"]
-	path = vendor/motion-sqlite3
-	url = git@github.com:mattgreen/motion-sqlite3.git
