@@ -18,7 +18,6 @@ class SizeableWebScreen < PM::WebScreen
       target: self,
       action: :decrease_size)
 
-
     toolbar_animated = Device.ipad? ? false : true
     self.navigationController.setToolbarHidden(false, animated:toolbar_animated)
     self.toolbarItems = [flexible_space, decrease_size, increase_size]

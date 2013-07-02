@@ -31,7 +31,7 @@ class DetailScreen < SizeableWebScreen
     super
 
     flurry_params = {style: the_title}
-    Flurry.logEvent("ViewedStyle", withParameters:flurry_params) unless Device.simulator?
+    Flurry.logEvent("StyleViewed", withParameters:flurry_params) unless Device.simulator?
   end
 
   def the_title

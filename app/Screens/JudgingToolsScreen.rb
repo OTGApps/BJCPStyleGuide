@@ -35,6 +35,7 @@ class JudgingInfoScreen < PM::Screen
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
     end
+    Flurry.logEvent "JudgingToolsViewed" unless Device.simulator?
   end
 
   def numberOfItemsInSwipeView swipeView
@@ -53,6 +54,7 @@ class JudgingInfoScreen < PM::Screen
 
   def swipeViewCurrentItemIndexDidChange swipeView
     @paging.currentPage = swipeView.currentPage
+    Flurry.logEvent "JudgingToolsSwiped" unless Device.simulator?
   end
 
   def swipeViewItemSize swipeView
@@ -84,7 +86,9 @@ class JudgingInfoScreen < PM::Screen
     alert = BW::UIAlertView.default(options) do |alert|
       if alert.clicked_button.index == 0
         # Whatever.
+        Flurry.logEvent "JudgingToolsHidAbout" unless Device.simulator?
       else
+        Flurry.logEvent "JudgingToolsHid" unless Device.simulator?
         App::Persistence['hide_judging_tools'] = true
         App.notification_center.post "ReloadNotification"
         App.alert("OK. The Judging Tools section has been removed from the app.") do |a|
@@ -97,6 +101,7 @@ class JudgingInfoScreen < PM::Screen
   end
 
   def launch_itunes
+    Flurry.logEvent "JudgingToolsLaunchediTunes" unless Device.simulator?
     id = "666120064"
     url_string = "http://click.linksynergy.com/fs-bin/stat?id=**BiWowje1A&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=https%253A%252F%252Fitunes.apple.com%252Fus%252Fapp%252Fbeerjudge%252Fid#{id}%253Fmt%253D8%2526uo%253D4%2526partnerId%253D30"
     close
