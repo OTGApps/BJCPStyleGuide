@@ -30,9 +30,7 @@ class AppDelegate < ProMotion::Delegate
     end
 
     # Set initial font size (%)
-    if App::Persistence['font_size'].nil?
-      App::Persistence['font_size'] = 100
-    end
+    App::Persistence['font_size'] = 100 if App::Persistence['font_size'].nil?
 
     # Check to see if the user is calling a style from an external URL when the application isn't in memory yet
     if defined?(options[UIApplicationLaunchOptionsURLKey])
