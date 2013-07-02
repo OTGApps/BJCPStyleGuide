@@ -8,7 +8,7 @@ class AboutScreen < PM::WebScreen
 
   def will_appear
     @view_loaded ||= begin
-      set_nav_bar_right_button "Done", action: :close_modal, type: UIBarButtonItemStyleDone
+      set_nav_bar_right_button "Done", action: :close, type: UIBarButtonItemStyleDone
 
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [flexible_space, made_in_label, made_in_image, flexible_space]
@@ -41,10 +41,6 @@ class AboutScreen < PM::WebScreen
 
   def flexible_space
     UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemFlexibleSpace, target:nil, action:nil)
-  end
-
-  def close_modal
-    self.navigationController.dismissModalViewControllerAnimated(true)
   end
 
 end

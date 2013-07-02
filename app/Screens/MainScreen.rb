@@ -1,4 +1,4 @@
-class MainScreen < ProMotion::SectionedTableScreen
+class MainScreen < ProMotion::TableScreen
   title "2008 BJCP Styles"
   searchable :placeholder => "Search Styles"
   attr_accessor :selected_cell
@@ -259,7 +259,6 @@ class MainScreen < ProMotion::SectionedTableScreen
 
   # Override form Promotion
   def tableView(table_view, didSelectRowAtIndexPath:index_path)
-    ap self.selected_cell
     if Device.ipad?
       table_view.deselectRowAtIndexPath(self.selected_cell, animated: true) unless self.selected_cell.nil?
       self.selected_cell = index_path

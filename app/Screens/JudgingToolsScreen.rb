@@ -31,7 +31,7 @@ class JudgingInfoScreen < PM::Screen
         numberOfPages: PAGES.count
       }
 
-      set_nav_bar_right_button "Close", action: :close_modal, type: UIBarButtonItemStyleDone
+      set_nav_bar_right_button "Close", action: :close, type: UIBarButtonItemStyleDone
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
     end
@@ -88,7 +88,7 @@ class JudgingInfoScreen < PM::Screen
         App::Persistence['hide_judging_tools'] = true
         App.notification_center.post "ReloadNotification"
         App.alert("OK. The Judging Tools section has been removed from the app.") do |a|
-          close_modal
+          close
         end
       end
     end
@@ -101,10 +101,6 @@ class JudgingInfoScreen < PM::Screen
     url_string = "http://click.linksynergy.com/fs-bin/stat?id=**BiWowje1A&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=https%253A%252F%252Fitunes.apple.com%252Fus%252Fapp%252Fbeerjudge%252Fid#{id}%253Fmt%253D8%2526uo%253D4%2526partnerId%253D30"
     close
     App.open_url url_string
-  end
-
-  def close_modal
-    self.navigationController.dismissModalViewControllerAnimated(true)
   end
 
 end
