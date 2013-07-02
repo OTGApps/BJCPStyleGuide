@@ -6,6 +6,14 @@ class DetailScreen < SizeableWebScreen
 
       if Device.ipad?
         set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
+
+        view.when_swiped do |swipe|
+          App.delegate.main_screen.next
+        end.direction = UISwipeGestureRecognizerDirectionLeft
+
+        view.when_swiped do |swipe|
+          App.delegate.main_screen.previous
+        end.direction = UISwipeGestureRecognizerDirectionRight
       end
 
       if defined? style.id

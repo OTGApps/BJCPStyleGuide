@@ -1,6 +1,6 @@
 class AppDelegate < ProMotion::Delegate
 
-  attr_accessor :jump_to_style
+  attr_accessor :jump_to_style, :main_screen
 
   def on_load(app, options)
 
@@ -40,7 +40,7 @@ class AppDelegate < ProMotion::Delegate
       open_style_when_launched suffix
     end
 
-    main_screen = MainScreen.new(nav_bar: true)
+    self.main_screen = MainScreen.new(nav_bar: true)
 
     if Device.ipad?
       open_split_screen main_screen, DetailScreen.new(nav_bar: true), title: "Split Screen Title"

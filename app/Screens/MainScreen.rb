@@ -1,6 +1,7 @@
 class MainScreen < ProMotion::SectionedTableScreen
   title "2008 BJCP Styles"
   searchable :placeholder => "Search Styles"
+  attr_accessor :selected_cell
 
   def will_appear
     @view_set_up ||= begin
@@ -84,6 +85,47 @@ class MainScreen < ProMotion::SectionedTableScreen
     end
   end
 
+  def next
+    return if self.selected_cell.nil?
+
+    section = self.selected_cell.section
+    row = self.selected_cell.row
+
+    if !table_data[section][:cells][row + 1].nil?
+      ip = NSIndexPath.indexPathForRow(row + 1, inSection: section)
+    elsif defined? table_data[section + 1]
+      ip = NSIndexPath.indexPathForRow(0, inSection: section + 1)
+    end
+
+    scroll_to(ip) if defined? ip
+  end
+
+  def previous
+    return if self.selected_cell.nil?
+
+    section = self.selected_cell.section
+    row = self.selected_cell.row
+
+    if row != 0
+      ip = NSIndexPath.indexPathForRow(row - 1, inSection: section)
+    elsif defined? table_data[section - 1]
+      ip = NSIndexPath.indexPathForRow(table_data[section - 1][:cells].count - 1, inSection: section - 1)
+    end
+
+    scroll_to(ip) if defined? ip
+  end
+
+  def scroll_to(ip)
+
+    begin
+      table_view.selectRowAtIndexPath(ip, animated:true, scrollPosition:UITableViewScrollPositionMiddle)
+      tableView(table_view, didSelectRowAtIndexPath:ip)
+    rescue
+      #whatever.
+    end
+  end
+
+
   def intro_cell(name)
     {
       title: name,
@@ -120,7 +162,7 @@ class MainScreen < ProMotion::SectionedTableScreen
   end
 
   def shows_beer_judging_section?
-    return true if BeerJudge.is_installed?
+    return false if BeerJudge.is_installed?
     App::Persistence['hide_judging_tools'].nil? ||  App::Persistence['hide_judging_tools'] == false
   end
 
@@ -213,6 +255,24 @@ class MainScreen < ProMotion::SectionedTableScreen
       @table_setup = nil
       update_table_data
     end
+  end
+
+  # Override form Promotion
+  def tableView(table_view, didSelectRowAtIndexPath:index_path)
+    ap self.selected_cell
+    if Device.ipad?
+      table_view.deselectRowAtIndexPath(self.selected_cell, animated: true) unless self.selected_cell.nil?
+      self.selected_cell = index_path
+    else
+      table_view.deselectRowAtIndexPath(index_path, animated: true)
+    end
+
+    data_cell = @promotion_table_data.cell(index_path: index_path)
+
+    data_cell[:arguments] ||= {}
+    data_cell[:arguments][:cell] = data_cell if data_cell[:arguments].is_a?(Hash) # TODO: Should we really do this?
+
+    trigger_action(data_cell[:action], data_cell[:arguments]) if data_cell[:action]
   end
 
 end
