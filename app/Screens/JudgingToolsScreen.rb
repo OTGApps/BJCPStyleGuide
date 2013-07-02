@@ -103,4 +103,20 @@ class JudgingInfoScreen < PM::Screen
     App.open_url url_string
   end
 
+  def supportedInterfaceOrientations
+    if Device.iphone?
+      UIInterfaceOrientationMaskPortrait
+    else
+      UIInterfaceOrientationMaskAll
+    end
+  end
+
+  def shouldAutorotateToInterfaceOrientation(interfaceOrientation)
+    if Device.iphone?
+      interfaceOrientation == UIInterfaceOrientationPortrait
+    else
+      true
+    end
+  end
+
 end
