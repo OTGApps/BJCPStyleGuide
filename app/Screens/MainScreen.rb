@@ -92,12 +92,10 @@ class MainScreen < ProMotion::TableScreen
     row = self.selected_cell.row
 
     if !table_data[section][:cells][row + 1].nil?
-      ip = NSIndexPath.indexPathForRow(row + 1, inSection: section)
-    elsif defined? table_data[section + 1]
-      ip = NSIndexPath.indexPathForRow(0, inSection: section + 1)
+      scroll_to NSIndexPath.indexPathForRow(row + 1, inSection: section)
+    elsif section + 1 < table_data.count
+      scroll_to NSIndexPath.indexPathForRow(0, inSection: section + 1)
     end
-
-    scroll_to(ip) if defined? ip
   end
 
   def previous
@@ -107,24 +105,16 @@ class MainScreen < ProMotion::TableScreen
     row = self.selected_cell.row
 
     if row != 0
-      ip = NSIndexPath.indexPathForRow(row - 1, inSection: section)
+      scroll_to NSIndexPath.indexPathForRow(row - 1, inSection: section)
     elsif defined? table_data[section - 1]
-      ip = NSIndexPath.indexPathForRow(table_data[section - 1][:cells].count - 1, inSection: section - 1)
+      scroll_to NSIndexPath.indexPathForRow(table_data[section - 1][:cells].count - 1, inSection: section - 1)
     end
-
-    scroll_to(ip) if defined? ip
   end
 
   def scroll_to(ip)
-
-    begin
-      table_view.selectRowAtIndexPath(ip, animated:true, scrollPosition:UITableViewScrollPositionMiddle)
-      tableView(table_view, didSelectRowAtIndexPath:ip)
-    rescue
-      #whatever.
-    end
+    table_view.selectRowAtIndexPath(ip, animated:true, scrollPosition:UITableViewScrollPositionMiddle)
+    tableView(table_view, didSelectRowAtIndexPath:ip)
   end
-
 
   def intro_cell(name)
     {
