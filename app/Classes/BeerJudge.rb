@@ -13,4 +13,5 @@ class BeerJudge
   def self.url_scheme
     "beerjudge:"
   end
+
 end
