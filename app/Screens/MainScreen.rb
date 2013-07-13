@@ -152,7 +152,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def shows_beer_judging_section?
-    return false if BeerJudge.is_installed?
+    return false if BeerJudge.is_installed? || Device.ios_version.to_i < 6.0
     App::Persistence['hide_judging_tools'].nil? ||  App::Persistence['hide_judging_tools'] == false
   end
 
