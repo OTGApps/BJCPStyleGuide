@@ -15,7 +15,7 @@ Motion::Project::App.setup do |app|
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
   app.version = "11"
   app.short_version = "2.0.1"
-  app.frameworks += ["/usr/lib/libsqlite3.dylib", "QuartzCore"]
+  app.frameworks += ["QuartzCore"]
   app.prerendered_icon = true
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
@@ -33,6 +33,7 @@ Motion::Project::App.setup do |app|
     pod 'TestFlightSDK'
     pod 'SwipeView'
     pod 'OpenInChrome'
+    pod 'FMDB'
   end
 
   app.vendor_project('vendor/ContainerSubscriptAccess', :static, :cflags => '-fobjc-arc')

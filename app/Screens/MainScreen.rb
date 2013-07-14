@@ -232,11 +232,35 @@ class MainScreen < ProMotion::TableScreen
     @done_read_data ||= begin
 
       @styles = []
-      db = SQLite3::Database.new(File.join(App.resources_path, "styles.sqlite"))
-      db.execute("SELECT * FROM category ORDER BY id") do |row|
-        substyles = []
-        db.execute("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id") do |row2|
-          substyles << Style.new(row2)
+      db = FMDatabase.databaseWithPath(File.join(App.resources_path, "styles.sqlite"))
+      db.open
+      rs = db.executeQuery("SELECT * FROM category ORDER BY id")
+      substyles = []
+      while rs.next
+        row = {id: rs.intForColumn("id"), name: rs.stringForColumn("name")}
+
+        # Substyles
+        rs2 = db.executeQuery("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id")
+        while rs2.next
+          substyles << Style.new({
+            id: rs2.intForColumn('id'),
+            category: rs2.intForColumn('category'),
+            name: rs2.stringForColumn('name'),
+            aroma: rs2.stringForColumn('aroma'),
+            appearance: rs2.stringForColumn('appearance'),
+            flavor: rs2.stringForColumn('flavor'),
+            mouthfeel: rs2.stringForColumn('mouthfeel'),
+            impression: rs2.stringForColumn('impression'),
+            comments: rs2.stringForColumn('comments'),
+            history: rs2.stringForColumn('history'),
+            ingredients: rs2.stringForColumn('ingredients'),
+            og: rs2.stringForColumn('og'),
+            fg: rs2.stringForColumn('fg'),
+            ibu: rs2.stringForColumn('ibu'),
+            srm: rs2.stringForColumn('srm'),
+            abv: rs2.stringForColumn('abv'),
+            examples: rs2.stringForColumn('examples')
+          })
         end
         row[:substyles] = substyles
         @styles << row
