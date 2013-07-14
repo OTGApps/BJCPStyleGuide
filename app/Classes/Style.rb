@@ -27,9 +27,11 @@ class Style
 
   def specs_html
     table = "<h2>Vital Statistics</h2>"
+    table << "<ul>"
     %w(og fg ibu srm abv).each do |spec|
       table << "<li>" + spec.upcase + ": " + self.send(spec) + "</li>"
     end
+    table << "</ul>"
     table
   end
 
