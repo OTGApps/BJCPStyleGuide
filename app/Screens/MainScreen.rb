@@ -3,30 +3,29 @@ class MainScreen < ProMotion::TableScreen
   searchable :placeholder => "Search Styles"
   attr_accessor :selected_cell
 
-  def will_appear
-    @view_set_up ||= begin
-      set_attributes self.view, { backgroundColor: UIColor.whiteColor }
+  def on_load
     SVProgressHUD.showWithStatus("Loading", maskType:SVProgressHUDMaskTypeBlack)
 
-      unless Device.ipad?
-        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
-      end
+    set_attributes self.view, { backgroundColor: UIColor.whiteColor }
 
-      backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
-      self.navigationItem.backBarButtonItem = backBarButtonItem
-
-      @reload_observer = App.notification_center.observe "ReloadNotification" do |notification|
-        @table_setup = nil
-        update_table_data
-      end
-
-      # Check to see if we should go directly into a style when the app is already loaded.
-      @style_observer ||= App.notification_center.observe "GoDirectlyToStyle" do |notification|
-        App.delegate.jump_to_style = notification.object[:object]
-      end
-
-      read_data
+    unless Device.ipad?
+      set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
     end
+
+    backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
+    self.navigationItem.backBarButtonItem = backBarButtonItem
+
+    @reload_observer = App.notification_center.observe "ReloadNotification" do |notification|
+      @table_setup = nil
+      update_table_data
+    end
+
+    # Check to see if we should go directly into a style when the app is already loaded.
+    @style_observer ||= App.notification_center.observe "GoDirectlyToStyle" do |notification|
+      App.delegate.jump_to_style = notification.object[:object]
+    end
+
+    read_data
   end
 
   def auto_open_style(style)
