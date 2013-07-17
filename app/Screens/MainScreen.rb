@@ -228,11 +228,21 @@ class MainScreen < ProMotion::TableScreen
   end
 
   private
+  def database_path
+    current_locale_db = File.join(App.resources_path, "db", NSLocale.currentLocale.localeIdentifier, "styles.sqlite")
+
+    if File.exist? current_locale_db
+      current_locale_db
+    else
+      File.join(App.resources_path, "db", "en_US", "styles.sqlite")
+    end
+  end
+
   def read_data
     @done_read_data ||= begin
 
       @styles = []
-      db = FMDatabase.databaseWithPath(File.join(App.resources_path, "styles.sqlite"))
+      db = FMDatabase.databaseWithPath database_path
       db.open
       rs = db.executeQuery("SELECT * FROM category ORDER BY id")
       substyles = []
