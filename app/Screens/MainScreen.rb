@@ -6,6 +6,7 @@ class MainScreen < ProMotion::TableScreen
   def will_appear
     @view_set_up ||= begin
       set_attributes self.view, { backgroundColor: UIColor.whiteColor }
+    SVProgressHUD.showWithStatus("Loading", maskType:SVProgressHUDMaskTypeBlack)
 
       unless Device.ipad?
         set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
@@ -258,6 +259,7 @@ class MainScreen < ProMotion::TableScreen
         @styles = styles
         @table_setup = nil
         update_table_data
+        SVProgressHUD.dismiss
       end
 
     end

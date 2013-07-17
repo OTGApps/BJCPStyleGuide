@@ -33,6 +33,7 @@ Motion::Project::App.setup do |app|
     pod 'TestFlightSDK'
     pod 'SwipeView'
     pod 'OpenInChrome'
+    pod 'SVProgressHUD'
   end
 
   app.vendor_project('vendor/ContainerSubscriptAccess', :static, :cflags => '-fobjc-arc')
