@@ -68,3 +68,7 @@ end
 3. Send me a pull request.
 
 *If you can't contribute but find an issue, please [open an issue](https://github.com/markrickert/BJCPStyleGuide/issues)*
+
+## Internationalization:
+
+I'd love to have the style guidelines translated into other languages. If you'd like to contribute a translation, check out the `resources/db/en_US` folder for the official SQLite database of styles. You can then copy that db into your own internationalized folder and make translations for the guidelines.
