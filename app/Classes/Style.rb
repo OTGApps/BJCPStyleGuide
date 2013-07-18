@@ -42,11 +42,11 @@ class Style
   def property_title(property)
     case property
     when :appearance, :aroma, :comments, :ingredients, :mouthfeel, :flavor, :history
-      property.to_s.titlecase
+      property.to_s.titlecase._
     when :impression
-      "Overall Impression"
+      "Overall Impression"._
     when :examples
-      "Commercial Examples"
+      "Commercial Examples"._
     end
   end
 

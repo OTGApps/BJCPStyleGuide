@@ -35,7 +35,7 @@ class DetailScreen < SizeableWebScreen
   def the_title
     return "" unless defined? style.id
     t = "#{style.category}#{style.id.as_letter}: #{style.name}"
-    t << " (#{style.transname})" unless style.transname.nil? || style.transname.empty?
+    t << "<br /><small>(#{style.transname})<small>" unless style.transname.nil? || style.transname.empty?
     t
   end
 
