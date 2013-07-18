@@ -1,6 +1,6 @@
 class Style
 
-  PROPERTIES = [:id, :category, :name, :aroma, :appearance, :flavor, :mouthfeel, :impression, :comments, :history, :ingredients, :og, :fg, :ibu, :srm, :abv, :examples]
+  PROPERTIES = [:id, :category, :name, :transname, :aroma, :appearance, :flavor, :mouthfeel, :impression, :comments, :history, :ingredients, :og, :fg, :ibu, :srm, :abv, :examples]
   PROPERTIES.each { |prop|
     attr_accessor prop
   }
@@ -15,6 +15,10 @@ class Style
 
   def title
     "#{self.category}#{self.id.as_letter}: #{self.name}"
+  end
+
+  def subtitle
+    self.transname
   end
 
   def html(property)
@@ -48,7 +52,7 @@ class Style
 
   def search_text
     search = ""
-    %w(impression appearance ingredients examples aroma mouthfeel flavor).each do |prop|
+    %w(impression appearance ingredients examples aroma mouthfeel flavor transname).each do |prop|
       search << (" " + self.send(prop)) unless self.send(prop).nil? || self.send(prop).downcase == "n/a"
     end
     search.split(/\W+/).uniq.join(" ")

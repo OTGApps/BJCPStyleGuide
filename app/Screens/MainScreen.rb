@@ -76,10 +76,12 @@ class MainScreen < ProMotion::TableScreen
       }
 
       @styles.each do |section|
-        s << {
+        section_placeholder = {
           title: "#{section[:id]}: #{section[:name]}",
           cells: build_subcategories(section)
         }
+        section_placeholder[:title] << " (#{section[:transname]})" unless section[:transname].nil? || section[:transname] != ""
+        s << section_placeholder
       end
       s
     end
@@ -175,13 +177,19 @@ class MainScreen < ProMotion::TableScreen
   def build_subcategories(section)
     c = []
     section[:substyles].each do |subcat|
-      c << {
+      ap subcat.transname
+      c <<{
         title: subcat.title,
+        subtitle: subcat.transname,
+        cell_style: UITableViewCellStyleSubtitle,
         search_text: subcat.search_text,
         cell_identifier: "SubcategoryCell",
         action: :open_style,
         arguments: {:style => subcat}
       }
+      # category_style[:subtitle] = subcat.transname if !subcat.transname.nil? && subcat.transname != ""
+
+      # c << category_style
     end
     c
   end
@@ -239,10 +247,9 @@ class MainScreen < ProMotion::TableScreen
         substyles = []
         db.execute("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id") do |row2|
           substyles << Style.new(row2)
-
-         end
-         row[:substyles] = substyles
-          styles << row
+        end
+        row[:substyles] = substyles
+        styles << row
       end
 
       Dispatch::Queue.main.sync do
