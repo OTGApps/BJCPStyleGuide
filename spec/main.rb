@@ -14,16 +14,22 @@ describe "MainScreen functionality" do
   end
 
   it "should have a navigation bar" do
-    @screen.navigationController.should.be.kind_of(UINavigationController)
+    wait 0.5 do
+      @screen.navigationController.should.be.kind_of(UINavigationController)
+    end
   end
 
   it "should have lots of sections" do
-  	@screen.table_data.count.should > 10
+    wait 0.5 do
+    	@screen.table_data.count.should > 10
+    end
   end
 
   it "should have Styles as cell data" do
-  	@screen.table_data[5][:cells].each do |cell|
-  		cell[:arguments][:style].class.should == Style
-  	end
+    wait 0.5 do
+    	@screen.table_data[5][:cells].each do |cell|
+    		cell[:arguments][:style].class.should == Style
+    	end
+    end
 	end
 end

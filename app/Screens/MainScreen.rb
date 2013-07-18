@@ -177,7 +177,6 @@ class MainScreen < ProMotion::TableScreen
   def build_subcategories(section)
     c = []
     section[:substyles].each do |subcat|
-      ap subcat.transname
       c <<{
         title: subcat.title,
         subtitle: subcat.transname,
@@ -187,9 +186,6 @@ class MainScreen < ProMotion::TableScreen
         action: :open_style,
         arguments: {:style => subcat}
       }
-      # category_style[:subtitle] = subcat.transname if !subcat.transname.nil? && subcat.transname != ""
-
-      # c << category_style
     end
     c
   end
