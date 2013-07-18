@@ -13,7 +13,7 @@ class Internationalization
     resources = (add_resources_path == true) ? App.resources_path : ""
     current_locale_file = File.join(resources, "i18n", NSLocale.currentLocale.localeIdentifier, file)
 
-    if File.exist? current_locale_file
+    if File.exist? File.join(App.resources_path, "i18n", NSLocale.currentLocale.localeIdentifier, file)
       current_locale_file
     else
       File.join(resources, "i18n", "en_US", file)

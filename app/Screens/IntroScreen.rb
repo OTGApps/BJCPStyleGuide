@@ -9,7 +9,6 @@ class IntroScreen < SizeableWebScreen
   end
 
   def content
-    ap self.file
     self.file
   end
 
