@@ -2,7 +2,7 @@ class JudgingInfoScreen < PM::Screen
   PAGES = %w(judge_screen_1 judge_screen_2 judge_screen_3 judge_screen_4 judge_screen_5)
   PAGE_INSET = 20
 
-  title "BeerJudge App"
+  title "BeerJudge App"._
 
   def will_appear
     @view_set_up ||= begin
@@ -31,7 +31,7 @@ class JudgingInfoScreen < PM::Screen
         numberOfPages: PAGES.count
       }
 
-      set_nav_bar_right_button "Close", action: :close, type: UIBarButtonItemStyleDone
+      set_nav_bar_right_button "Close"._, action: :close, type: UIBarButtonItemStyleDone
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
     end
@@ -66,11 +66,11 @@ class JudgingInfoScreen < PM::Screen
   end
 
   def dont_show_button
-    UIBarButtonItem.alloc.initWithTitle("Don't Show Again", style: UIBarButtonItemStyleBordered, target: self, action: :remove_feature)
+    UIBarButtonItem.alloc.initWithTitle("Don't Show Again"._, style: UIBarButtonItemStyleBordered, target: self, action: :remove_feature)
   end
 
   def purchase_button
-    UIBarButtonItem.alloc.initWithTitle("Go to the App Store", style: UIBarButtonItemStyleBordered, target: self, action: :launch_itunes)
+    UIBarButtonItem.alloc.initWithTitle("Go to the App Store"._, style: UIBarButtonItemStyleBordered, target: self, action: :launch_itunes)
   end
 
   def flexible_space
@@ -79,9 +79,9 @@ class JudgingInfoScreen < PM::Screen
 
   def remove_feature
     options = {
-      :title   => "Are you sure?",
-      :message => "Do you really want to permanently hide the Judging tools section from the app?",
-      :buttons => ["No", "Yes"],
+      :title   => "Are you sure?"._,
+      :message => "permanently hide?"._,
+      :buttons => ["No"._, "Yes"._],
     }
     alert = BW::UIAlertView.default(options) do |alert|
       if alert.clicked_button.index == 0
@@ -91,7 +91,7 @@ class JudgingInfoScreen < PM::Screen
         Flurry.logEvent "JudgingToolsHid" unless Device.simulator?
         App::Persistence['hide_judging_tools'] = true
         App.notification_center.post "ReloadNotification"
-        App.alert("OK. The Judging Tools section has been removed from the app.") do |a|
+        App.alert("removed from the app"._) do |a|
           close
         end
       end

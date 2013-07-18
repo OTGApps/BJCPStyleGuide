@@ -1,6 +1,6 @@
 class AboutScreen < PM::WebScreen
 
-  title "About BJCP Styles"
+  title "About BJCP Styles"._
 
   def content
     Internationalization.resources_path "AboutScreen.html"
@@ -8,7 +8,7 @@ class AboutScreen < PM::WebScreen
 
   def will_appear
     @view_loaded ||= begin
-      set_nav_bar_right_button "Done", action: :close, type: UIBarButtonItemStyleDone
+      set_nav_bar_right_button "Done"._, action: :close, type: UIBarButtonItemStyleDone
 
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [flexible_space, made_in_label, made_in_image, flexible_space]
@@ -22,7 +22,7 @@ class AboutScreen < PM::WebScreen
       frame: CGRectMake(0.0 , 11.0, view.frame.size.width, 21.0),
       font: UIFont.fontWithName("Helvetica-Bold", size:16),
       background_color: UIColor.clearColor,
-      text: "Made in North Carolina",
+      text: "Made in North Carolina"._,
       text_alignment: UITextAlignmentCenter,
       text_color: (Device.ipad? ? UIColor.darkTextColor : UIColor.whiteColor )
     }

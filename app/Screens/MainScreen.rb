@@ -1,10 +1,10 @@
 class MainScreen < ProMotion::TableScreen
-  title "2008 BJCP Styles"
-  searchable :placeholder => "Search Styles"
+  title "2008 BJCP Styles"._
+  searchable :placeholder => "Search Styles"._
   attr_accessor :selected_cell
 
   def on_load
-    SVProgressHUD.showWithStatus("Loading", maskType:SVProgressHUDMaskTypeBlack)
+    SVProgressHUD.showWithStatus("Loading"._, maskType:SVProgressHUDMaskTypeBlack)
 
     set_attributes self.view, { backgroundColor: UIColor.whiteColor }
 
@@ -12,7 +12,7 @@ class MainScreen < ProMotion::TableScreen
       set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
     end
 
-    backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style:UIBarButtonItemStyleBordered, target:nil, action:nil)
+    backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back"._, style:UIBarButtonItemStyleBordered, target:nil, action:nil)
     self.navigationItem.backBarButtonItem = backBarButtonItem
 
     @reload_observer = App.notification_center.observe "ReloadNotification" do |notification|
@@ -37,7 +37,7 @@ class MainScreen < ProMotion::TableScreen
     App.delegate.jump_to_style = nil
 
     if requested_style.nil?
-      App.alert "Invalid style requested: \"#{style}\"."
+      App.alert "Invalid style requested:"._ + " \"#{style}\"."
     else
       # TODO: Pop back to the root view controller
       # pop_to_root animated: false
@@ -67,7 +67,7 @@ class MainScreen < ProMotion::TableScreen
       s << judging_section_links if BeerJudge.is_installed?
       s << judging_section_preview if shows_beer_judging_section?
       s << {
-        title: "Introductions",
+        title: "Introductions"._,
         cells: [
           intro_cell("Beer Introduction"),
           intro_cell("Mead Introduction"),
@@ -131,7 +131,7 @@ class MainScreen < ProMotion::TableScreen
   def judging_section_links
     # Show the judging Tools
     {
-      title: "Judging Tools",
+      title: "Judging Tools"._,
       cells: judging_cells
     }
   end
@@ -139,9 +139,9 @@ class MainScreen < ProMotion::TableScreen
   def judging_section_preview
     # Show the intro screen
     {
-      title: "Judging Tools",
+      title: "Judging Tools"._,
       cells: [{
-        title: "Check Out the App!",
+        title: "Check Out the App!"._,
         cell_identifier: "JudgingCell",
         searchable: false,
         action: :open_judging_info_screen,
