@@ -122,7 +122,7 @@ class MainScreen < ProMotion::TableScreen
       searchable: false,
       cell_identifier: "IntroductionCell",
       action: :open_intro_screen,
-      arguments: {:file => "#{name}.html", :title => name}
+      arguments: {:file => Internationalization.resources_path("#{name}.html"), :title => name}
     }
   end
 
@@ -228,22 +228,13 @@ class MainScreen < ProMotion::TableScreen
   end
 
   private
-  def database_path
-    current_locale_db = File.join(App.resources_path, "db", NSLocale.currentLocale.localeIdentifier, "styles.sqlite")
-
-    if File.exist? current_locale_db
-      current_locale_db
-    else
-      File.join(App.resources_path, "db", "en_US", "styles.sqlite")
-    end
-  end
 
   def read_data
 
     Dispatch::Queue.concurrent.async do
       styles = []
 
-      db = SQLite3::Database.new database_path
+      db = SQLite3::Database.new Internationalization.full_path("styles.sqlite")
       db.execute("SELECT * FROM category ORDER BY id") do |row|
         substyles = []
         db.execute("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id") do |row2|

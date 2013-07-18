@@ -3,7 +3,7 @@ class AboutScreen < PM::WebScreen
   title "About BJCP Styles"
 
   def content
-    "AboutScreen.html"
+    Internationalization.resources_path "AboutScreen.html"
   end
 
   def will_appear

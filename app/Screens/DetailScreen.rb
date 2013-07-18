@@ -1,28 +1,26 @@
 class DetailScreen < SizeableWebScreen
   attr_accessor :style, :cell
 
-  def will_appear
-    @view_loaded ||= begin
+  def on_load
 
-      if Device.ipad?
-        set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
+    if Device.ipad?
+      set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
 
-        view.when_swiped do |swipe|
-          App.delegate.main_screen.next
-        end.direction = UISwipeGestureRecognizerDirectionLeft
+      view.when_swiped do |swipe|
+        App.delegate.main_screen.next
+      end.direction = UISwipeGestureRecognizerDirectionLeft
 
-        view.when_swiped do |swipe|
-          App.delegate.main_screen.previous
-        end.direction = UISwipeGestureRecognizerDirectionRight
-      end
+      view.when_swiped do |swipe|
+        App.delegate.main_screen.previous
+      end.direction = UISwipeGestureRecognizerDirectionRight
+    end
 
-      if defined? style.id
-        self.setTitle the_title
-        set_attributes view, {background_color:UIColor.whiteColor}
-      else
-        self.setTitle "Welcome"
-        set_attributes view, {background_color:"#CCCC99".to_color}
-      end
+    if defined? style.id
+      self.setTitle the_title
+      set_attributes view, {background_color:UIColor.whiteColor}
+    else
+      self.setTitle "Welcome"
+      set_attributes view, {background_color:"#CCCC99".to_color}
     end
   end
 
@@ -45,7 +43,7 @@ class DetailScreen < SizeableWebScreen
   end
 
   def content
-    return "DefaultScreen.html" if self.style.nil?
+    return Internationalization.resources_path("DefaultScreen.html") if self.style.nil?
 
     <<-CONTENT
 
