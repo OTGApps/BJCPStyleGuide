@@ -16,7 +16,7 @@ class DetailScreen < SizeableWebScreen
     end
 
     if defined? style.id
-      self.setTitle the_title
+      self.setTitle the_title(false)
       set_attributes view, {background_color:UIColor.whiteColor}
     else
       self.setTitle "Welcome".__
@@ -32,10 +32,12 @@ class DetailScreen < SizeableWebScreen
     Flurry.logEvent("StyleViewed", withParameters:flurry_params) unless Device.simulator?
   end
 
-  def the_title
+  def the_title(with_subtitle = true)
     return "" unless defined? style.id
     t = "#{style.category}#{style.id.as_letter}: #{style.name}"
-    t << "<br /><small>(#{style.transname})<small>" unless style.transname.nil? || style.transname.empty?
+    if with_subtitle
+      t << "<br /><small>(#{style.transname})<small>" unless style.transname.nil? || style.transname.empty?
+    end
     t
   end
 
