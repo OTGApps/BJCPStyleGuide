@@ -71,4 +71,13 @@ end
 
 ## Internationalization:
 
-I'd love to have the style guidelines translated into other languages. If you'd like to contribute a translation, check out the `resources/db/en_US` folder for the official SQLite database of styles. You can then copy that db into your own internationalized folder and make translations for the guidelines.
+It would be great to have the style guidelines translated into other languages. If you would like to contribute a translation, check out the `/resources/en/` folder for the official SQLite database of styles, localized strings file, and content for the app.
+
+You can copy those files into your own [internationalized folder](http://developer.apple.com/library/ios/#documentation/MacOSX/Conceptual/BPInternational/Articles/LanguageDesignations.html#//apple_ref/doc/uid/20002144-BBCEGGFF) and make translations.
+
+At a minimum, we need the following files translated:
+
+* `SQLite database`
+* `Localized.strings`
+
+Once you've created that folder in the `resources` directory, [send me a pull request](https://help.github.com/articles/using-pull-requests)!
