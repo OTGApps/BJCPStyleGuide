@@ -13,9 +13,7 @@ class Internationalization
     resources = (add_resources_path == true) ? App.resources_path : ""
 
     ident = NSLocale.currentLocale.localeIdentifier
-    ap ident
     lang = ident.split("_").first
-    ap lang
 
     current_locale_file = File.join(resources, "#{lang}.lproj", file)
 
