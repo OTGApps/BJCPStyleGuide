@@ -13,7 +13,9 @@ class Internationalization
     resources = (add_resources_path == true) ? App.resources_path : ""
 
     ident = NSLocale.currentLocale.localeIdentifier
+    ap ident
     lang = ident.split("_").first
+    ap lang
 
     current_locale_file = File.join(resources, "#{lang}.lproj", file)
 
@@ -27,11 +29,10 @@ class Internationalization
 end
 
 class NSString
-
-  # This can be called as `"Hello".localized` or `"Hello"._`.  The `str._`
-  # syntax is meant to be reminiscent of gettext-style `_(str)`.
-  def localized(value=nil, table=nil)
-    @localized = NSBundle.mainBundle.localizedStringForKey(self, value:value, table:table)
+  def _localized(value=nil, table=nil)
+    path = NSBundle.mainBundle.pathForResource("Localizable", ofType:"strings", inDirectory:nil, forLocalization:NSLocale.currentLocale.localeIdentifier.split("_").first) || NSBundle.mainBundle.pathForResource("Localizable", ofType:"strings", inDirectory:nil, forLocalization:"en")
+    dict = NSDictionary.dictionaryWithContentsOfFile path
+    dict.objectForKey self
   end
-  alias _ localized
+  alias __ _localized
 end
