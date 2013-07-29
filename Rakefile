@@ -7,14 +7,13 @@ Bundler.setup
 Bundler.require
 
 Motion::Project::App.setup do |app|
-  # Use `rake config' to see complete project settings.
   app.name = 'BJCPStyles'
   app.deployment_target = "5.0"
   app.device_family = [:iphone, :ipad]
   app.interface_orientations = [:portrait, :landscape_left, :landscape_right, :portrait_upside_down]
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
-  app.version = "11"
-  app.short_version = "2.0.1"
+  app.version = "12"
+  app.short_version = "2.0.2"
   app.frameworks += ["/usr/lib/libsqlite3.dylib", "QuartzCore"]
   app.prerendered_icon = true
   app.info_plist['APP_STORE_ID'] = 293788663
@@ -41,7 +40,7 @@ Motion::Project::App.setup do |app|
   app.development do
     app.entitlements['get-task-allow'] = true
     app.codesign_certificate = "iPhone Developer: Mark Rickert (YA2VZGDX4S)"
-    app.provisioning_profile = "./provisioning/development.mobileprovision"
+    app.provisioning_profile = "/Users/mrickert/.provisioning/WildcardDevelopment.mobileprovision"
   end
 
   app.testflight do
