@@ -4,11 +4,7 @@ class MainScreen < ProMotion::TableScreen
   attr_accessor :selected_cell
 
   def on_load
-    if App.delegate.jump_to_style.nil?
-      SVProgressHUD.showWithStatus("Loading".__, maskType:SVProgressHUDMaskTypeBlack)
-    else
-      SVProgressHUD.showWithStatus("Loading Style: ".__ + jump_to_style, maskType:SVProgressHUDMaskTypeBlack)
-    end
+    SVProgressHUD.showWithStatus("Loading".__, maskType:SVProgressHUDMaskTypeBlack)
 
     set_attributes self.view, { backgroundColor: UIColor.whiteColor }
 
@@ -36,22 +32,42 @@ class MainScreen < ProMotion::TableScreen
     return if App.delegate.jump_to_style.nil? || @styles.nil?
 
     style = App.delegate.jump_to_style
-    cat = style[0..-2].to_i
+    cat = (style[0..-2].to_i) - 1
     subcat = style[-1]
+    subcat_int = subcat.as_integer - 1
 
     # Find it in the array
-    requested_style = @styles[cat - 1][:substyles][subcat.as_integer - 1]
+    requested_style = @styles[cat][:substyles][subcat_int]
     App.delegate.jump_to_style = nil
 
     if requested_style.nil?
       App.alert "Invalid style requested:".__ + " \"#{style}\"."
     else
+      # Scroll to the right position on the device.
+      cat += 1 # For the intros section
+      cat += 1 if BeerJudge.is_installed? || shows_beer_judging_section?
+
+      # Wait for a bit before selecting the table cell since we don't know when the
+      # tableview actually updates.
+      if Device.ipad?
+        count = 0
+        timer = EM.add_periodic_timer 0.2 do
+          count = count + 1
+          (count < 10) || EM.cancel_timer(timer)
+
+          if table_view.numberOfSections > 0
+            EM.cancel_timer(timer)
+            indexPath = NSIndexPath.indexPathForRow(subcat_int, inSection:cat)
+            table_view.scrollToRowAtIndexPath(indexPath, atScrollPosition:UITableViewScrollPositionMiddle, animated:false)
+            table_view.selectRowAtIndexPath(indexPath, animated:false, scrollPosition:UITableViewScrollPositionNone)
+          end
+        end
+      end
+
       # TODO: Pop back to the root view controller
       # pop_to_root animated: false
-      open_style style: requested_style
 
-      # TODO:
-      # Scroll down to the correct section on the ipad
+      open_style style: requested_style
     end
   end
 
