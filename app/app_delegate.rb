@@ -3,7 +3,6 @@ class AppDelegate < ProMotion::Delegate
   attr_accessor :jump_to_style, :main_screen
 
   def on_load(app, options)
-
     if defined? TestFlight
       TestFlight.setDeviceIdentifier UIDevice.currentDevice.uniqueIdentifier
       TestFlight.takeOff "e9a2e874-1b13-426c-ad0f-6958e7b2889c"
@@ -32,13 +31,13 @@ class AppDelegate < ProMotion::Delegate
     # Set initial font size (%)
     App::Persistence['font_size'] = 100 if App::Persistence['font_size'].nil?
 
+    self.main_screen = MainScreen.new(nav_bar: true)
+
     # Check to see if the user is calling a style from an external URL when the application isn't in memory yet
     if defined?(options[UIApplicationLaunchOptionsURLKey])
       suffix = options[UIApplicationLaunchOptionsURLKey].absoluteString.split("//").last
       open_style_when_launched suffix
     end
-
-    self.main_screen = MainScreen.new(nav_bar: true)
 
     if Device.ipad?
       open_split_screen main_screen, DetailScreen.new(nav_bar: true), title: "Split Screen Title"

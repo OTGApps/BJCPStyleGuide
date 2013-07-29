@@ -4,7 +4,11 @@ class MainScreen < ProMotion::TableScreen
   attr_accessor :selected_cell
 
   def on_load
-    SVProgressHUD.showWithStatus("Loading".__, maskType:SVProgressHUDMaskTypeBlack)
+    if App.delegate.jump_to_style.nil?
+      SVProgressHUD.showWithStatus("Loading".__, maskType:SVProgressHUDMaskTypeBlack)
+    else
+      SVProgressHUD.showWithStatus("Loading Style: ".__ + jump_to_style, maskType:SVProgressHUDMaskTypeBlack)
+    end
 
     set_attributes self.view, { backgroundColor: UIColor.whiteColor }
 
@@ -28,7 +32,10 @@ class MainScreen < ProMotion::TableScreen
     read_data
   end
 
-  def auto_open_style(style)
+  def auto_open_style
+    return if App.delegate.jump_to_style.nil? || @styles.nil?
+
+    style = App.delegate.jump_to_style
     cat = style[0..-2].to_i
     subcat = style[-1]
 
@@ -51,13 +58,12 @@ class MainScreen < ProMotion::TableScreen
   def on_appear
     self.navigationController.setToolbarHidden(true, animated:true) unless searching?
 
-    # Check to see if we should go directly into a style when the app is not in memory.
-    auto_open_style App.delegate.jump_to_style unless App.delegate.jump_to_style.nil?
-
     # Re-call on_appear when the application resumes from the background state since it's not called automatically.
     @on_appear_observer ||= App.notification_center.observe UIApplicationDidBecomeActiveNotification do |notification|
       on_appear
     end
+
+    auto_open_style
   end
 
   def table_data
@@ -85,6 +91,8 @@ class MainScreen < ProMotion::TableScreen
       end
       s
     end
+    auto_open_style
+    @table_setup
   end
 
   def next
@@ -253,6 +261,9 @@ class MainScreen < ProMotion::TableScreen
         @table_setup = nil
         update_table_data
         SVProgressHUD.dismiss
+
+        # Check to see if we should go directly into a style when the app is not in memory.
+        auto_open_style
       end
 
     end
