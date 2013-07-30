@@ -41,7 +41,17 @@ class SRM
     "37"   => [0, 0, 0],
     "38"   => [0, 0, 0],
     "39"   => [0, 0, 0],
-    "40"   => [0, 0, 0]
+    "40"   => [0, 0, 0],
+    "41"   => [0, 0, 0],
+    "42"   => [0, 0, 0],
+    "43"   => [0, 0, 0],
+    "44"   => [0, 0, 0],
+    "45"   => [0, 0, 0],
+    "46"   => [0, 0, 0],
+    "47"   => [0, 0, 0],
+    "48"   => [0, 0, 0],
+    "49"   => [0, 0, 0],
+    "50"   => [0, 0, 0],
   }
 
   def self.color(value)
@@ -83,6 +93,7 @@ class SRM
   end
 
   def self.css_gradient(from_to)
+    return "display:none;" if from_to.count == 0
     stops = []
     count = from_to[1].to_i - from_to[0].to_i
     (from_to[0].to_i..from_to[1].to_i).each do |srm|
