@@ -78,6 +78,7 @@ class DetailScreen < SizeableWebScreen
   end
 
   def js
+    return "" if self.search_string.nil?
     "<script>" << File.read(File.join(App.resources_path, "highlighter.js")) << "</script>"
   end
 
