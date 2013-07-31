@@ -226,11 +226,12 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def open_style(args={})
-    args.merge!({search_string: search_string}) if searching?
+    open_args = args
+    open_args = args.merge({search_string: search_string}) if searching?
     if Device.ipad?
-      open DetailScreen.new(args), nav_bar:true, in_detail: true
+      open DetailScreen.new(open_args), nav_bar:true, in_detail: true
     else
-      open DetailScreen.new(args)
+      open DetailScreen.new(open_args)
     end
   end
 

@@ -5,9 +5,9 @@ gem "motion-cocoapods", '1.3.5'
 gem "cocoapods", '0.18.1'
 
 # RubyMotion
-gem 'ProMotion'#, :git => 'git://github.com/clearsightstudio/ProMotion.git', :branch => 'version-1.0'
-# gem 'ProMotion', :path => "../ProMotion/"
 gem 'bubble-wrap', :git => 'https://github.com/rubymotion/BubbleWrap', :require => ['bubble-wrap/core', 'bubble-wrap/reactor']
+gem 'ProMotion', :git => 'git://github.com/clearsightstudio/ProMotion.git', :branch => 'master'
+# gem 'ProMotion', :path => "../ProMotion/"
 gem 'motion-sqlite3', :path => "vendor/motion-sqlite3"
 
 # Rubygems
