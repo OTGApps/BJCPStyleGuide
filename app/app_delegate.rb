@@ -51,12 +51,12 @@ class AppDelegate < ProMotion::Delegate
     Flurry.logError("Uncaught", message:"Crash!", exception:exception)
   end
 
-  def applicationWillEnterForeground(application)
+  def will_enter_foreground
     Appirater.appEnteredForeground true unless Device.simulator?
   end
 
-  def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
-    suffix = url.absoluteString.split("//").last
+  def on_open_url(args={})
+    suffix = args[:url].absoluteString.split("//").last
 
     if suffix == "reset_tools"
       App::Persistence['hide_judging_tools'] = nil
