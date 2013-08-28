@@ -55,8 +55,10 @@ class AppDelegate < ProMotion::Delegate
     Appirater.appEnteredForeground true unless Device.simulator?
   end
 
-  def on_open_url(args={})
-    suffix = args[:url].absoluteString.split("//").last
+  def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
+  # def on_open_url(args={})
+    # suffix = args[:url].absoluteString.split("//").last
+    suffix = url.absoluteString.split("//").last
 
     if suffix == "reset_tools"
       App::Persistence['hide_judging_tools'] = nil
@@ -69,8 +71,8 @@ class AppDelegate < ProMotion::Delegate
   end
 
   def open_style_when_launched(style)
-      self.jump_to_style = style
-      App.notification_center.post("GoDirectlyToStyle", object:style)
+    self.jump_to_style = style
+    App.notification_center.post("GoDirectlyToStyle", object:style)
   end
 
 end

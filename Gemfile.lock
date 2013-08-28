@@ -1,13 +1,13 @@
 GIT
   remote: git://github.com/clearsightstudio/ProMotion.git
-  revision: 1306b249f9e3d1f9694c6b6c161cef6dd91e6759
+  revision: 36b8ff860d698d9bafafe824ca5dbc72ad16ddeb
   branch: master
   specs:
-    ProMotion (1.0.2)
+    ProMotion (1.0.3)
 
 GIT
   remote: https://github.com/rubymotion/BubbleWrap
-  revision: 146c4afcb68c416ee6f534194ab0fb17af44e385
+  revision: 32a15eebfbd22bc7c80e18e43e015d187d7876d7
   specs:
     bubble-wrap (1.3.0)
 
@@ -43,7 +43,7 @@ GEM
       faraday (~> 0.8.1)
       octokit (~> 1.7)
       rake (~> 10.0.0)
-    cocoapods-downloader (0.1.1)
+    cocoapods-downloader (0.1.2)
     colored (1.2)
     escape (0.0.4)
     faraday (0.8.8)
@@ -51,12 +51,12 @@ GEM
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     hashie (2.0.5)
-    i18n (0.6.4)
+    i18n (0.6.5)
     json (1.7.7)
     motion-cocoapods (1.3.5)
       cocoapods (>= 0.17.0)
     motion-testflight (1.5)
-    multi_json (1.7.7)
+    multi_json (1.7.9)
     multipart-post (1.2.0)
     netrc (0.7.7)
     octokit (1.25.0)
