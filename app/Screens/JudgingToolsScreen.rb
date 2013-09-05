@@ -102,11 +102,8 @@ class JudgingInfoScreen < PM::Screen
 
   def launch_itunes
     Flurry.logEvent "JudgingToolsLaunchediTunes" unless Device.simulator?
-    app_name = "beerjudge"
-    id = "666120064"
-    url_string = "http://click.linksynergy.com/fs-bin/stat?id=**BiWowje1A&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=https%253A%252F%252Fitunes.apple.com%252Fus%252Fapp%252F#{app_name}%252Fid#{id}%253Fmt%253D8%2526uo%253D4%2526partnerId%253D30"
     close
-    App.open_url url_string
+    App.open_url "https://itunes.apple.com/us/app/beer-judge/id666120064?mt=8&uo=4&at=10l4yY&ct=bjcp_app"
   end
 
   def supportedInterfaceOrientations
