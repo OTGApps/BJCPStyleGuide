@@ -13,6 +13,9 @@ class String
     number -= 1 if number > 27
     return number
   end
+  def image
+    UIImage.imageNamed(self)
+  end
 end
 
 class Integer

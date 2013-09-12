@@ -1,5 +1,7 @@
 class AppDelegate < ProMotion::Delegate
 
+  tint_color "#D3541F".to_color
+
   attr_accessor :jump_to_style, :main_screen
 
   def on_load(app, options)
