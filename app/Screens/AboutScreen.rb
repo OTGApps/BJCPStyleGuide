@@ -24,10 +24,18 @@ class AboutScreen < PM::WebScreen
       background_color: UIColor.clearColor,
       text: "Made in North Carolina".__,
       text_alignment: UITextAlignmentCenter,
-      text_color: (Device.ipad? ? UIColor.darkTextColor : UIColor.whiteColor )
+      text_color: made_in_label_color
     }
     label.sizeToFit
     UIBarButtonItem.alloc.initWithCustomView(label)
+  end
+
+  def made_in_label_color
+    if Device.ios_version.to_f >= 7.0
+      UIColor.darkTextColor
+    else
+      Device.ipad? ? UIColor.darkTextColor : UIColor.whiteColor
+    end
   end
 
   def made_in_image

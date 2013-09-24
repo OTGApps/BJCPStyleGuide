@@ -1,15 +1,13 @@
 GIT
-  remote: git://github.com/clearsightstudio/ProMotion.git
-  revision: 36b8ff860d698d9bafafe824ca5dbc72ad16ddeb
-  branch: master
-  specs:
-    ProMotion (1.0.3)
-
-GIT
   remote: https://github.com/rubymotion/BubbleWrap
   revision: 32a15eebfbd22bc7c80e18e43e015d187d7876d7
   specs:
     bubble-wrap (1.3.0)
+
+PATH
+  remote: ../ProMotion/
+  specs:
+    ProMotion (1.0.3)
 
 PATH
   remote: vendor/motion-sqlite3

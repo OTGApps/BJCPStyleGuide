@@ -6,20 +6,23 @@ class JudgingInfoScreen < PM::Screen
 
   def will_appear
     @view_set_up ||= begin
+      ap view.frame
+
       set_attributes self.view, {
         background_color: UIColor.colorWithPatternImage(UIImage.imageNamed("linnen.png"))
       }
 
       @gallery = add SwipeView.new, {
-        top: 0,
+        top: 74,
         left: 0,
         width: view.frame.size.width,
-        height: view.frame.size.height - 20 - 44,
+        height: view.frame.size.height - 20 - 44 - 74,
         dataSource: self,
         delegate: self,
         alignment: 1, # SwipeViewAlignment.SwipeViewAlignmentCenter
         pagingEnabled: true,
         itemsPerPage: 1,
+        background_color: UIColor.redColor
       }
       @gallery.itemSize = @gallery.frame.size
 
