@@ -14,13 +14,15 @@ class DetailScreen < SizeableWebScreen
         App.delegate.main_screen.previous
       end.direction = UISwipeGestureRecognizerDirectionRight
     end
+  end
 
+  def will_appear
     if defined? style.id
       self.setTitle the_title(false)
-      set_attributes view, {background_color:UIColor.whiteColor}
+      set_attributes web, {background_color:UIColor.whiteColor}
     else
       self.setTitle "Welcome".__
-      set_attributes view, {background_color:"#CCCC99".to_color}
+      set_attributes web, {background_color:"#CCCC99".to_color}
     end
   end
 

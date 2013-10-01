@@ -42,7 +42,7 @@ class AppDelegate < ProMotion::Delegate
     end
 
     if Device.ipad?
-      open_split_screen main_screen, DetailScreen.new(nav_bar: true), title: "Split Screen Title"
+      open_split_screen main_screen, DetailScreen.new(nav_bar: true), title: "2008 BJCP Styles".__
     else
       open main_screen
     end
