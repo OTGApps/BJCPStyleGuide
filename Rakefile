@@ -19,6 +19,7 @@ Motion::Project::App.setup do |app|
   app.short_version = "2.2"
   app.frameworks += ["/usr/lib/libsqlite3.dylib", "QuartzCore"]
   app.prerendered_icon = true
+  app.icons = Dir.glob("resources/Icon*.png").map{|icon| icon.split("/").last}
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
     { 'CFBundleURLName' => 'com.yourcompany.BJCPStyles',
