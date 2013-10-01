@@ -6,32 +6,27 @@ class JudgingInfoScreen < PM::Screen
 
   def will_appear
     @view_set_up ||= begin
-      ap view.frame
-
       set_attributes self.view, {
         background_color: UIColor.colorWithPatternImage(UIImage.imageNamed("linnen.png"))
       }
 
+      self.edgesForExtendedLayout = UIRectEdgeNone if Device.ios_version.to_f >= 7.0
+
       @gallery = add SwipeView.new, {
-        top: 74,
+        top: 0,
         left: 0,
         width: view.frame.size.width,
-        height: view.frame.size.height - 20 - 44 - 74,
+        height: view.frame.size.height - (Device.ios_version.to_f >= 7.0 ? 140 : 84),
         dataSource: self,
         delegate: self,
         alignment: 1, # SwipeViewAlignment.SwipeViewAlignmentCenter
         pagingEnabled: true,
-        itemsPerPage: 1,
-        background_color: UIColor.redColor
+        itemsPerPage: 1
       }
       @gallery.itemSize = @gallery.frame.size
 
       @paging = add UIPageControl.new, {
-        top: self.view.frame.size.height - 20 - 44,
-        left: 0,
-        height: 10,
-        width:self.view.frame.size.width,
-        numberOfPages: PAGES.count
+        number_of_pages: PAGES.count
       }
 
       set_nav_bar_right_button "Close".__, action: :close, type: UIBarButtonItemStyleDone
@@ -39,6 +34,10 @@ class JudgingInfoScreen < PM::Screen
       self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
     end
     Flurry.logEvent "JudgingToolsViewed" unless Device.simulator?
+  end
+
+  def on_appear
+    @paging.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 10)
   end
 
   def numberOfItemsInSwipeView swipeView
@@ -109,6 +108,10 @@ class JudgingInfoScreen < PM::Screen
     App.open_url "https://itunes.apple.com/us/app/beer-judge/id666120064?mt=8&uo=4&at=10l4yY&ct=bjcp_app"
   end
 
+  def shouldAutorotate
+    false
+  end
+
   def supportedInterfaceOrientations
     if Device.iphone?
       UIInterfaceOrientationMaskPortrait
@@ -124,5 +127,15 @@ class JudgingInfoScreen < PM::Screen
       true
     end
   end
+
+  def preferredInterfaceOrientationForPresentation
+    if Device.iphone?
+      UIInterfaceOrientationPortrait
+    else
+      UIInterfaceOrientationMaskAll
+    end
+  end
+
+
 
 end

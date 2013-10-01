@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Cocoapods
-gem "motion-cocoapods"
+gem "motion-cocoapods", :git => 'http://github.com/HipByte/motion-cocoapods.git', :branch => 'master'
 gem "cocoapods"
 
 # RubyMotion
