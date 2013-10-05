@@ -7,19 +7,19 @@ class SizeableWebScreen < PM::WebScreen
   end
 
   def buttons_ios6
-    increase_size = UIBarButtonItem.alloc.initWithImage(
+    increase_size_button = UIBarButtonItem.alloc.initWithTitle(
       "A",
       style: UIBarButtonItemStyleBordered,
       target: self,
       action: :increase_size)
 
-    decrease_size = UIBarButtonItem.alloc.initWithImage(
+    decrease_size_button = UIBarButtonItem.alloc.initWithTitle(
       "a",
       style: UIBarButtonItemStyleBordered,
       target: self,
       action: :decrease_size)
 
-    [flexible_space, decrease_size, increase_size]
+    [flexible_space, decrease_size_button, increase_size_button]
   end
 
   def buttons_ios7
@@ -29,19 +29,19 @@ class SizeableWebScreen < PM::WebScreen
       target: self,
       action: :increase_size)
 
-    increase_size = UIBarButtonItem.alloc.initWithImage(
+    increase_size_button = UIBarButtonItem.alloc.initWithImage(
       "SizeUp".image,
       style: UIBarButtonItemStyleBordered,
       target: self,
       action: :increase_size)
 
-    decrease_size = UIBarButtonItem.alloc.initWithImage(
+    decrease_size_button = UIBarButtonItem.alloc.initWithImage(
       "SizeDown".image,
       style: UIBarButtonItemStyleBordered,
       target: self,
       action: :decrease_size)
 
-    [flexible_space, size_label, decrease_size, increase_size]
+    [flexible_space, size_label, decrease_size_button, increase_size_button]
   end
 
   def load_finished
