@@ -81,3 +81,6 @@ At a minimum, we need the following files translated:
 * `Localized.strings`
 
 Once you've created that folder in the `resources` directory, [send me a pull request](https://help.github.com/articles/using-pull-requests)!
+
+---
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/MohawkApps/bjcpstyleguide/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
