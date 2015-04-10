@@ -2,7 +2,7 @@
 
 ![App Icon](resources/Icon@2x.png)
 
-#### A [RubyMotion](http://www.rubymotion.com/) application brought to you by [Mohawk Apps](http://www.mohawkapps.com/).
+#### A [RubyMotion](http://www.rubymotion.com/) application brought to you by [Off The Grid Apps](http://otgapps.io/).
 
 A full copy of the BJCP Style Guidelines always at the ready on your iOS device. Whether you're a beer judge, a homebrewer, or an enthusiast, this free app will come in handy whenever you want a quick lookup of a style description.
 
