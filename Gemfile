@@ -13,8 +13,5 @@ gem 'motion-sqlite3', :path => "vendor/motion-sqlite3"
 # Rubygems
 gem "rake", '>= 0.9.4'
 
-# Testflight
-gem 'motion-testflight'
-
 # Development
 gem 'awesome_print_motion'

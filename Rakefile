@@ -17,7 +17,8 @@ Motion::Project::App.setup do |app|
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
   app.version = "16"
   app.short_version = "2.2.1"
-  app.frameworks += ["/usr/lib/libsqlite3.dylib", "QuartzCore"]
+  app.frameworks += ["QuartzCore"]
+  app.libs << "/usr/lib/libsqlite3.dylib"
   app.prerendered_icon = true
   app.icons = Dir.glob("resources/Icon*.png").map{|icon| icon.split("/").last}
   app.info_plist['APP_STORE_ID'] = 293788663
@@ -33,7 +34,6 @@ Motion::Project::App.setup do |app|
     pod 'FlurrySDK'
     pod 'Appirater'
     pod 'Harpy'
-    pod 'TestFlightSDK'
     pod 'SwipeView'
     pod 'OpenInChrome'
     pod 'SVProgressHUD'
@@ -45,15 +45,6 @@ Motion::Project::App.setup do |app|
     app.entitlements['get-task-allow'] = true
     app.codesign_certificate = "iPhone Developer: Mark Rickert (YA2VZGDX4S)"
     app.provisioning_profile = "/Users/mrickert/.provisioning/WildcardDevelopment.mobileprovision"
-  end
-
-  app.testflight do
-    app.testflight.api_token = ENV['testflight_api_token'] || abort("You need to set your Testflight API Token environment variable.")
-    app.testflight.team_token = '5f6f10ca05bf5be29ba522bc4e9c504f_MjM4MDE0MjAxMy0wNi0xOCAxMDoxNTo0Mi44MzEyODE'
-
-    app.entitlements['get-task-allow'] = false
-    app.codesign_certificate = "iPhone Distribution: Mohawk Apps, LLC (DW9QQZR4ZL)"
-    app.provisioning_profile = "./provisioning/adhoc.mobileprovision"
   end
 
   app.release do
