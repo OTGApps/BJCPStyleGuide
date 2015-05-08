@@ -1,17 +1,12 @@
 source 'https://rubygems.org'
+gem "rake"
 
-# Cocoapods
-gem "motion-cocoapods", :git => 'http://github.com/HipByte/motion-cocoapods.git', :branch => 'master'
+gem "motion-cocoapods"
 gem "cocoapods"
 
-# RubyMotion
-gem 'bubble-wrap', :git => 'https://github.com/rubymotion/BubbleWrap', :require => ['bubble-wrap/core', 'bubble-wrap/reactor']
-# gem 'ProMotion', :git => 'git://github.com/clearsightstudio/ProMotion.git', :branch => 'master'
-gem 'ProMotion', :path => "../ProMotion/"
+gem 'bubble-wrap', '~> 1.8.0', :require => ['bubble-wrap/core', 'bubble-wrap/reactor']
+gem 'ProMotion', github: 'clearsightstudio/ProMotion'
+# gem 'ProMotion', :path => "../ProMotion/"
 gem 'motion-sqlite3', :path => "vendor/motion-sqlite3"
 
-# Rubygems
-gem "rake", '>= 0.9.4'
-
-# Development
-gem 'awesome_print_motion'
+gem 'motion_print'

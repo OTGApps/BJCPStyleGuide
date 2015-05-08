@@ -203,6 +203,7 @@ class MainScreen < ProMotion::TableScreen
     section[:substyles].each do |subcat|
       c <<{
         title: subcat.title,
+        accessory_type: UITableViewCellAccessoryDisclosureIndicator,
         subtitle: subcat.transname,
         cell_style: UITableViewCellStyleSubtitle,
         search_text: subcat.search_text,

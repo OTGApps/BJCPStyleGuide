@@ -1,21 +1,9 @@
 GIT
-  remote: http://github.com/HipByte/motion-cocoapods.git
-  revision: e7c1ff63e90232afedfa815ee0fbd4b5612c55c9
-  branch: master
+  remote: git://github.com/clearsightstudio/ProMotion.git
+  revision: 85d12b59d9982fd621d987cae1d88ad6cd969295
   specs:
-    motion-cocoapods (1.3.7)
-      cocoapods (>= 0.17.0)
-
-GIT
-  remote: https://github.com/rubymotion/BubbleWrap
-  revision: 7b6034293d948887ca5bc9c0073d7af9d68caa43
-  specs:
-    bubble-wrap (1.3.0)
-
-PATH
-  remote: ../ProMotion/
-  specs:
-    ProMotion (1.0.4)
+    ProMotion (2.3.1)
+      methadone (~> 1.7)
 
 PATH
   remote: vendor/motion-sqlite3
@@ -25,36 +13,58 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.2.14)
-      i18n (~> 0.6, >= 0.6.4)
-      multi_json (~> 1.0)
-    awesome_print_motion (0.1.0)
-    claide (0.3.2)
-    cocoapods (0.25.0)
-      activesupport (~> 3.0)
-      claide (~> 0.3.2)
-      cocoapods-core (= 0.25.0)
-      cocoapods-downloader (~> 0.2.0)
+    activesupport (4.2.1)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    bubble-wrap (1.8.0)
+    claide (0.8.1)
+    cocoapods (0.37.1)
+      activesupport (>= 3.2.15)
+      claide (~> 0.8.1)
+      cocoapods-core (= 0.37.1)
+      cocoapods-downloader (~> 0.9.0)
+      cocoapods-plugins (~> 0.4.2)
+      cocoapods-trunk (~> 0.6.0)
+      cocoapods-try (~> 0.4.4)
       colored (~> 1.2)
       escape (~> 0.0.4)
-      json (~> 1.8)
-      open4 (~> 1.3)
-      xcodeproj (~> 0.11.0)
-    cocoapods-core (0.25.0)
-      activesupport (~> 3.0)
-      json (~> 1.8)
-      nap (~> 0.5)
-    cocoapods-downloader (0.2.0)
+      molinillo (~> 0.2.3)
+      nap (~> 0.8)
+      xcodeproj (~> 0.24.1)
+    cocoapods-core (0.37.1)
+      activesupport (>= 3.2.15)
+      fuzzy_match (~> 2.0.4)
+      nap (~> 0.8.0)
+    cocoapods-downloader (0.9.0)
+    cocoapods-plugins (0.4.2)
+      nap
+    cocoapods-trunk (0.6.0)
+      nap (>= 0.8)
+      netrc (= 0.7.8)
+    cocoapods-try (0.4.4)
     colored (1.2)
     escape (0.0.4)
-    i18n (0.6.5)
-    json (1.8.0)
-    multi_json (1.8.0)
-    nap (0.5.1)
-    open4 (1.3.0)
-    rake (10.1.0)
-    xcodeproj (0.11.1)
-      activesupport (~> 3.0)
+    fuzzy_match (2.0.4)
+    i18n (0.7.0)
+    json (1.8.2)
+    methadone (1.9.0)
+      bundler
+    minitest (5.6.1)
+    molinillo (0.2.3)
+    motion-cocoapods (1.7.1)
+      cocoapods (>= 0.34)
+    motion_print (1.0.0)
+    nap (0.8.0)
+    netrc (0.7.8)
+    rake (10.4.2)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    xcodeproj (0.24.1)
+      activesupport (>= 3)
       colored (~> 1.2)
 
 PLATFORMS
@@ -62,9 +72,9 @@ PLATFORMS
 
 DEPENDENCIES
   ProMotion!
-  awesome_print_motion
-  bubble-wrap!
+  bubble-wrap (~> 1.8.0)
   cocoapods
-  motion-cocoapods!
+  motion-cocoapods
   motion-sqlite3!
-  rake (>= 0.9.4)
+  motion_print
+  rake
