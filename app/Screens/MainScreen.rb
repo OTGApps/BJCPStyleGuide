@@ -7,13 +7,8 @@ class MainScreen < ProMotion::TableScreen
     SVProgressHUD.showWithStatus("Loading".__, maskType:SVProgressHUDMaskTypeBlack)
 
     set_attributes self.view, { backgroundColor: UIColor.whiteColor }
-
-    unless Device.ipad?
-      set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
-    end
-
-    backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back".__, style:UIBarButtonItemStyleBordered, target:nil, action:nil)
-    self.navigationItem.backBarButtonItem = backBarButtonItem
+    set_nav_bar_button :right, image: UIImage.imageNamed('info.png'), action: :open_about_screen unless Device.ipad?
+    set_nav_bar_button :back, title: '', style: :plain, action: :back
 
     @reload_observer = App.notification_center.observe "ReloadNotification" do |notification|
       @table_setup = nil
@@ -147,6 +142,7 @@ class MainScreen < ProMotion::TableScreen
       title: name,
       searchable: false,
       cell_identifier: "IntroductionCell",
+      accessory_type: :disclosure_indicator,
       action: :open_intro_screen,
       arguments: {:file => Internationalization.resources_path("#{name}.html"), :title => name}
     }
@@ -167,6 +163,7 @@ class MainScreen < ProMotion::TableScreen
       cells: [{
         title: "Check Out the App!".__,
         cell_identifier: "JudgingCell",
+        accessory_type: :disclosure_indicator,
         searchable: false,
         action: :open_judging_info_screen,
         image: {
@@ -189,6 +186,7 @@ class MainScreen < ProMotion::TableScreen
       c << {
         title: tool,
         searchable: false,
+        accessory_type: :disclosure_indicator,
         cell_identifier: "JudgingCell",
         action: :open_judging_tool,
         arguments: {url: downcased_tool},
@@ -203,10 +201,10 @@ class MainScreen < ProMotion::TableScreen
     section[:substyles].each do |subcat|
       c <<{
         title: subcat.title,
-        accessory_type: UITableViewCellAccessoryDisclosureIndicator,
+        accessory_type: :disclosure_indicator,
         subtitle: subcat.transname,
-        cell_style: UITableViewCellStyleSubtitle,
         search_text: subcat.search_text,
+        keep_selection: Device.ipad? ? true : false,
         cell_identifier: "SubcategoryCell",
         action: :open_style,
         arguments: {:style => subcat}
@@ -226,7 +224,9 @@ class MainScreen < ProMotion::TableScreen
     end
   end
 
-  def open_style(args={})
+  def open_style(args, index_path)
+    self.selected_cell = index_path
+
     open_args = args
     open_args = args.merge({search_string: search_string}) if searching?
     if Device.ipad?
@@ -287,22 +287,4 @@ class MainScreen < ProMotion::TableScreen
 
     end
   end
-
-  # Override form Promotion
-  def tableView(table_view, didSelectRowAtIndexPath:index_path)
-    if Device.ipad?
-      table_view.deselectRowAtIndexPath(self.selected_cell, animated: true) unless self.selected_cell.nil?
-      self.selected_cell = index_path
-    else
-      table_view.deselectRowAtIndexPath(index_path, animated: true)
-    end
-
-    data_cell = @promotion_table_data.cell(index_path: index_path)
-
-    data_cell[:arguments] ||= {}
-    data_cell[:arguments][:cell] = data_cell if data_cell[:arguments].is_a?(Hash) # TODO: Should we really do this?
-
-    trigger_action(data_cell[:action], data_cell[:arguments]) if data_cell[:action]
-  end
-
 end
