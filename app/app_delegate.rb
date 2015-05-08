@@ -5,11 +5,6 @@ class AppDelegate < ProMotion::Delegate
   attr_accessor :jump_to_style, :main_screen
 
   def on_load(app, options)
-    if defined? TestFlight
-      TestFlight.setDeviceIdentifier UIDevice.currentDevice.uniqueIdentifier
-      TestFlight.takeOff "e9a2e874-1b13-426c-ad0f-6958e7b2889c"
-    end
-
     # 3rd Party integrations
     unless Device.simulator?
       app_id = App.info_plist['APP_STORE_ID']
@@ -24,10 +19,6 @@ class AppDelegate < ProMotion::Delegate
       Appirater.setUsesUntilPrompt 10
       Appirater.setTimeBeforeReminding 5
       Appirater.appLaunched true
-
-      # Harpy
-      Harpy.sharedInstance.setAppID app_id
-      Harpy.sharedInstance.checkVersion
     end
 
     # Set initial font size (%)
