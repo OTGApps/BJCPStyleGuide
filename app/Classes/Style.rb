@@ -60,7 +60,7 @@ class Style
 
   def srm_range
     return nil if self.srm.nil? || self.srm.downcase == "n/a"
-    self.srm.split(" - ")
+    self.srm.split(/\ ?-\ ?/) # gets 2-4 or 2 - 4
   end
 
 end
