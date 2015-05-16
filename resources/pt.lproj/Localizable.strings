@@ -1,40 +1,29 @@
-/* App Strings */
-"2008 BJCP Styles" = "Estilos BJCP 2008";
-"Search Styles" = "Pesquisar Estilos";
-"Loading" = "Carregando";
-"Back" = "Voltar";
-"No" = "Não";
-"Yes" = "Sim";
-"Invalid style requested:" = "Pedido inválido de estilo:";
-
-/* Table View */
-"Introductions" = "Introduções";
-"Judging Tools" = "Ferramentas de Julgamento";
-"Check Out the App!" = "Confira a App!";
-
-/* About Screen */
-"About BJCP Styles" = "Sobre os Estilos BJCP";
-"Made in North Carolina" = "Produzido na Carolina do Norte";
-"Done" = "Feito";
-
-/* Judging Tools Screen */
-"BeerJudge App" = "BeerJudge App";
-"Close" = "Fechar";
-"Don't Show Again" = "Não Mostrar Novamente";
-"Go to the App Store" = "Ir para a App Store";
-"Are you sure?" = "Você tem certeza?";
-"permanently hide?" = "Você deseja mesmo remover permanentemente a seção de Ferramentas de Julgamento da app?";
-"removed from the app" = "OK. A seção de Ferramentas de Julgamento foi removida da app.";
-
-/* Details Screen */
-"Welcome" = "Bem-vindo";
-"Aroma" = "Aroma";
-"Appearance" = "Aparência";
-"Flavor" = "Sabor";
-"Mouthfeel" = "Sensação na Boca";
-"Overall Impression" = "Impressão Geral";
-"Comments" = "Comentários";
-"History" = "História";
-"Ingredients" = "Ingredientes";
-"Vital Statistics" = "Estatísticas";
-"Commercial Examples" = "Exemplos Comerciais";
+"title_2008" = "Estilos BJCP 2008";
+"search_styles" = "Pesquisar Estilos";
+"loading" = "Carregando";
+"back" = "Voltar";
+"false" = "Não";
+"true" = "Sim";
+"invalid_style" = "Pedido inválido de estilo:";
+"introductions" = "Introduções";
+"judging_tools" = "Ferramentas de Julgamento";
+"check_out_app" = "Confira a App!";
+"about" = "Sobre os Estilos BJCP";
+"done" = "Feito";
+"beer_judge_app" = "BeerJudge App";
+"close" = "Fechar";
+"dont_show_again" = "Não Mostrar Novamente";
+"go_to_app_store" = "Ir para a App Store";
+"are_you_sure" = "Você tem certeza?";
+"permanently_hide" = "Você deseja mesmo remover permanentemente a seção de Ferramentas de Julgamento da app?";
+"removed_from_app" = "OK. A seção de Ferramentas de Julgamento foi removida da app.";
+"welcome" = "Bem-vindo";
+"aroma" = "Aroma";
+"appearance" = "Aparência";
+"flavor" = "Sabor";
+"mouthfeel" = "Sensação na Boca";
+"impression" = "Impressão Geral";
+"comments" = "Comentários";
+"history" = "História";
+"ingredients" = "Ingredientes";
+"statistics" = "Exemplos Comerciais Examples";

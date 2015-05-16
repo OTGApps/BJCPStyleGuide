@@ -1,40 +1,30 @@
-/* App Strings */
-"2008 BJCP Styles" = "2008 BJCP Styles";
-"Search Styles" = "Search Styles";
-"Loading" = "Loading";
-"Back" = "Back";
-"No" = "No";
-"Yes" = "Yes";
-"Invalid style requested:" = "Invalid style requested:";
-
-/* Table View */
-"Introductions" = "Introductions";
-"Judging Tools" = "Judging Tools";
-"Check Out the App!" = "Check Out the App!";
-
-/* About Screen */
-"About BJCP Styles" = "About BJCP Styles";
-"Made in North Carolina" = "Made in North Carolina";
-"Done" = "Done";
-
-/* Judging Tools Screen */
-"BeerJudge App" = "BeerJudge App";
-"Close" = "Close";
-"Don't Show Again" = "Don't Show Again";
-"Go to the App Store" = "Go to the App Store";
-"Are you sure?" = "Are you sure?";
-"permanently hide?" = "Do you really want to permanently hide the Judging tools section from the app?";
-"removed from the app" = "OK. The Judging Tools section has been removed from the app.";
-
-/* Details Screen */
-"Welcome" = "Welcome";
-"Aroma" = "Aroma";
-"Appearance" = "Appearance";
-"Flavor" = "Flavor";
-"Mouthfeel" = "Mouthfeel";
-"Overall Impression" = "Overall Impression";
-"Comments" = "Comments";
-"History" = "History";
-"Ingredients" = "Ingredients";
-"Vital Statistics" = "Vital Statistics";
-"Commercial Examples" = "Commercial Examples";
+"title_2008" = "2008 BJCP Styles";
+"search_styles" = "Search Styles";
+"loading" = "Loading";
+"back" = "Back";
+"false" = "No";
+"true" = "Yes";
+"invalid_style" = "Invalid style requested:";
+"introductions" = "Introductions";
+"judging_tools" = "Judging Tools";
+"check_out_app" = "Check Out the App!";
+"about" = "About BJCP Styles";
+"done" = "Done";
+"beer_judge_app" = "BeerJudge App";
+"close" = "Close";
+"dont_show_again" = "Don't Show Again";
+"go_to_app_store" = "Go to the App Store";
+"are_you_sure" = "Are you sure?";
+"permanently_hide" = "Do you really want to permanently hide the Judging tools section from the app?";
+"removed_from_app" = "OK. The Judging Tools section has been removed from the app.";
+"welcome" = "Welcome";
+"aroma" = "Aroma";
+"appearance" = "Appearance";
+"flavor" = "Flavor";
+"mouthfeel" = "Mouthfeel";
+"impression" = "Overall Impression";
+"comments" = "Comments";
+"history" = "History";
+"ingredients" = "Ingredients";
+"statistics" = "Vital Statistics";
+"examples" = "Commercial Examples";

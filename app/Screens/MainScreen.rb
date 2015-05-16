@@ -265,7 +265,7 @@ class MainScreen < ProMotion::TableScreen
     Dispatch::Queue.concurrent.async do
       styles = []
 
-      db = SQLite3::Database.new Internationalization.full_path("styles.sqlite")
+      db = SQLite3::Database.new Internationalization.full_path("2015/styles.sqlite")
       db.execute("SELECT * FROM category ORDER BY id") do |row|
         substyles = []
         db.execute("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id") do |row2|
