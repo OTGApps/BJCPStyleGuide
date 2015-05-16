@@ -15,7 +15,7 @@ Motion::Project::App.setup do |app|
   app.device_family = [:iphone, :ipad]
   app.interface_orientations = [:portrait, :landscape_left, :landscape_right, :portrait_upside_down]
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
-  app.version = "16"
+  app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
   app.short_version = "2.2.1"
   app.frameworks += ["QuartzCore"]
   app.libs << "/usr/lib/libsqlite3.dylib"
