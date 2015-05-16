@@ -37,8 +37,6 @@ Motion::Project::App.setup do |app|
     pod 'SVProgressHUD'
   end
 
-  # app.vendor_project('vendor/ContainerSubscriptAccess', :static, :cflags => '-fobjc-arc')
-
   app.development do
     app.entitlements['get-task-allow'] = true
     app.codesign_certificate = "iPhone Developer: Mark Rickert (YA2VZGDX4S)"
