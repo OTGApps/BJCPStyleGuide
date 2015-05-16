@@ -1,5 +1,4 @@
 class AppDelegate < ProMotion::Delegate
-
   tint_color "#D3541F".to_color
 
   attr_accessor :jump_to_style, :main_screen
@@ -24,7 +23,7 @@ class AppDelegate < ProMotion::Delegate
     # Set initial font size (%)
     App::Persistence['font_size'] = 100 if App::Persistence['font_size'].nil?
 
-    self.main_screen = MainScreen.new(nav_bar: true)
+    @main_screen = MainScreen.new(nav_bar: true)
 
     # Check to see if the user is calling a style from an external URL when the application isn't in memory yet
     if defined?(options[UIApplicationLaunchOptionsURLKey])
@@ -33,9 +32,9 @@ class AppDelegate < ProMotion::Delegate
     end
 
     if Device.ipad?
-      open_split_screen main_screen, DetailScreen.new(nav_bar: true), title: I18n.t(:title_2008)
+      open_split_screen @main_screen, DetailScreen.new(nav_bar: true), title: I18n.t(:title_2008)
     else
-      open main_screen
+      open @main_screen
     end
   end
 
