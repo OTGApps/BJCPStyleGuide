@@ -1,6 +1,5 @@
 class AboutScreen < PM::WebScreen
-
-  title "About BJCP Styles".__
+  title I18n.t(:about)
 
   def content
     Internationalization.resources_path "AboutScreen.html"
@@ -8,7 +7,7 @@ class AboutScreen < PM::WebScreen
 
   def on_load
     set_nav_bar_button :right, {
-      title: "Done".__,
+      title: I18n.t(:done),
       action: :close
     }
   end

@@ -25,12 +25,3 @@ class Internationalization
   end
 
 end
-
-class NSString
-  def _localized(value=nil, table=nil)
-    path = NSBundle.mainBundle.pathForResource("Localizable", ofType:"strings", inDirectory:nil, forLocalization:NSLocale.currentLocale.localeIdentifier.split("_").first) || NSBundle.mainBundle.pathForResource("Localizable", ofType:"strings", inDirectory:nil, forLocalization:"en")
-    dict = NSDictionary.dictionaryWithContentsOfFile path
-    dict.objectForKey self
-  end
-  alias __ _localized
-end

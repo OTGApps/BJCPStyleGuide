@@ -30,7 +30,7 @@ class Style
   end
 
   def specs_html
-    table = "<h2>" + "Vital Statistics".__ + "</h2>"
+    table = "<h2>" + I18n.t(:statistics) + "</h2>"
     table << "<ul>"
     %w(og fg ibu srm abv).each do |spec|
       table << "<li>" + spec.upcase + ": " + self.send(spec) + "</li>"
@@ -42,11 +42,11 @@ class Style
   def property_title(property)
     case property
     when :appearance, :aroma, :comments, :ingredients, :mouthfeel, :flavor, :history
-      property.to_s.titlecase.__
+      I18n.t(property)
     when :impression
-      "Overall Impression".__
+      I18n.t(:impression)
     when :examples
-      "Commercial Examples".__
+      I18n.t(:examples)
     end
   end
 

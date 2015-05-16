@@ -1,10 +1,10 @@
 class MainScreen < ProMotion::TableScreen
-  title "2008 BJCP Styles".__
-  searchable :placeholder => "Search Styles".__
+  title I18n.t(:title_2008)
+  searchable :placeholder => I18n.t(:search_styles)
   attr_accessor :selected_cell
 
   def on_load
-    SVProgressHUD.showWithStatus("Loading".__, maskType:SVProgressHUDMaskTypeBlack)
+    SVProgressHUD.showWithStatus(I18n.t(:loading), maskType:SVProgressHUDMaskTypeBlack)
 
     set_attributes self.view, { backgroundColor: UIColor.whiteColor }
     set_nav_bar_button :right, image: UIImage.imageNamed('info.png'), action: :open_about_screen unless Device.ipad?
@@ -36,7 +36,7 @@ class MainScreen < ProMotion::TableScreen
     App.delegate.jump_to_style = nil
 
     if requested_style.nil?
-      App.alert "Invalid style requested:".__ + " \"#{style}\"."
+      App.alert I18n.t(:invalid_style) + " \"#{style}\"."
     else
       # Scroll to the right position on the device.
       cat += 1 # For the intros section
@@ -84,7 +84,7 @@ class MainScreen < ProMotion::TableScreen
       s << judging_section_links if BeerJudge.is_installed?
       s << judging_section_preview if shows_beer_judging_section?
       s << {
-        title: "Introductions".__,
+        title: I18n.t(:introductions),
         cells: [
           intro_cell("Beer Introduction"),
           intro_cell("Mead Introduction"),
@@ -151,7 +151,7 @@ class MainScreen < ProMotion::TableScreen
   def judging_section_links
     # Show the judging Tools
     {
-      title: "Judging Tools".__,
+      title: I18n.t(:judging_tools),
       cells: judging_cells
     }
   end
@@ -159,9 +159,9 @@ class MainScreen < ProMotion::TableScreen
   def judging_section_preview
     # Show the intro screen
     {
-      title: "Judging Tools".__,
+      title: I18n.t(:judging_tools),
       cells: [{
-        title: "Check Out the App!".__,
+        title: I18n.t(:check_out_app),
         cell_identifier: "JudgingCell",
         accessory_type: :disclosure_indicator,
         searchable: false,

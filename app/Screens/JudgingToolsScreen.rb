@@ -2,7 +2,7 @@ class JudgingInfoScreen < PM::Screen
   PAGES = %w(judge_screen_1 judge_screen_2 judge_screen_3 judge_screen_4 judge_screen_5)
   PAGE_INSET = 20
 
-  title "BeerJudge App".__
+  title I18n.t(:beer_judge_app)
 
   def will_appear
     @view_set_up ||= begin
@@ -29,7 +29,7 @@ class JudgingInfoScreen < PM::Screen
         number_of_pages: PAGES.count
       }
 
-      set_nav_bar_right_button "Close".__, action: :close, type: UIBarButtonItemStyleDone
+      set_nav_bar_right_button I18n.t(:close), action: :close, type: UIBarButtonItemStyleDone
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
     end
@@ -68,11 +68,11 @@ class JudgingInfoScreen < PM::Screen
   end
 
   def dont_show_button
-    UIBarButtonItem.alloc.initWithTitle("Don't Show Again".__, style: UIBarButtonItemStyleBordered, target: self, action: :remove_feature)
+    UIBarButtonItem.alloc.initWithTitle(I18n.t(:dont_show_again), style: UIBarButtonItemStyleBordered, target: self, action: :remove_feature)
   end
 
   def purchase_button
-    UIBarButtonItem.alloc.initWithTitle("Go to the App Store".__, style: UIBarButtonItemStyleBordered, target: self, action: :launch_itunes)
+    UIBarButtonItem.alloc.initWithTitle(I18n.t(:go_to_app_store), style: UIBarButtonItemStyleBordered, target: self, action: :launch_itunes)
   end
 
   def flexible_space
@@ -81,9 +81,9 @@ class JudgingInfoScreen < PM::Screen
 
   def remove_feature
     options = {
-      :title   => "Are you sure?".__,
-      :message => "permanently hide?".__,
-      :buttons => ["No".__, "Yes".__],
+      :title   => I18n.t(:are_you_sure),
+      :message => I18n.t(:permanently_hide),
+      :buttons => [I18n.t(:no), I18n.t(:yes)],
     }
     alert = BW::UIAlertView.default(options) do |alert|
       if alert.clicked_button.index == 0
@@ -93,7 +93,7 @@ class JudgingInfoScreen < PM::Screen
         Flurry.logEvent "JudgingToolsHid" unless Device.simulator?
         App::Persistence['hide_judging_tools'] = true
         App.notification_center.post "ReloadNotification"
-        App.alert("removed from the app".__) do |a|
+        App.alert(I18n.t(:removed_from_app)) do |a|
           close
         end
       end

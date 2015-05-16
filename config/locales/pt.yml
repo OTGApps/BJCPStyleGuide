@@ -1,0 +1,39 @@
+pt:
+  # App Strings
+  title_2008:       "Estilos BJCP 2008"
+  search_styles:    "Pesquisar Estilos"
+  loading:          "Carregando"
+  back:             "Voltar"
+  no:               "Não"
+  yes:              "Sim"
+  invalid_style:    "Pedido inválido de estilo:"
+
+  # Table View
+  introductions:    "Introduções"
+  judging_tools:    "Ferramentas de Julgamento"
+  check_out_app:    "Confira a App!"
+
+  #About Screen
+  about:            "Sobre os Estilos BJCP"
+  done:             "Feito"
+
+  # Judging Tools Screen
+  beer_judge_app:   "BeerJudge App"
+  close:            "Fechar"
+  dont_show_again:  "Não Mostrar Novamente"
+  go_to_app_store:  "Ir para a App Store"
+  are_you_sure:     "Você tem certeza?"
+  permanently_hide: "Você deseja mesmo remover permanentemente a seção de Ferramentas de Julgamento da app?"
+  removed_from_app: "OK. A seção de Ferramentas de Julgamento foi removida da app."
+
+  # Details Screen
+  welcome:          "Bem-vindo"
+  aroma:            "Aroma"
+  appearance:       "Aparência"
+  flavor:           "Sabor"
+  mouthfeel:        "Sensação na Boca"
+  impression:       "Impressão Geral"
+  comments:         "Comentários"
+  history:          "História"
+  ingredients:      "Ingredientes"
+  statistics:       "Exemplos Comerciais Examples"

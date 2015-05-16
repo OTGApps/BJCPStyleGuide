@@ -21,7 +21,7 @@ class DetailScreen < SizeableWebScreen
       self.setTitle the_title(false)
       set_attributes web, {background_color:UIColor.whiteColor}
     else
-      self.setTitle "Welcome".__
+      self.setTitle I18n.t(:welcome)
       set_attributes web, {background_color:"#CCCC99".to_color}
     end
   end
