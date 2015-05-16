@@ -29,9 +29,6 @@ class DetailScreen < SizeableWebScreen
   def on_appear
     return unless defined? style.id
     super
-
-    flurry_params = {style: the_title}
-    Flurry.logEvent("StyleViewed", withParameters:flurry_params) unless Device.simulator?
   end
 
   def the_title(with_subtitle = true)

@@ -8,10 +8,6 @@ class AppDelegate < ProMotion::Delegate
     unless Device.simulator?
       app_id = App.info_plist['APP_STORE_ID']
 
-      # Flurry
-      NSSetUncaughtExceptionHandler("uncaughtExceptionHandler")
-      Flurry.startSession("YSNRBSKM9B3ZZXPG7CG7")
-
       # Appirater
       Appirater.setAppId app_id
       Appirater.setDaysUntilPrompt 5
@@ -36,11 +32,6 @@ class AppDelegate < ProMotion::Delegate
     else
       open @main_screen
     end
-  end
-
-  #Flurry exception handler
-  def uncaughtExceptionHandler(exception)
-    Flurry.logError("Uncaught", message:"Crash!", exception:exception)
   end
 
   def will_enter_foreground

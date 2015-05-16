@@ -1,20 +1,17 @@
 PODS:
   - Appirater (2.0.1)
-  - FlurrySDK (4.2.3)
   - OpenInChrome (0.0.1)
   - SVProgressHUD (0.9)
   - SwipeView (1.2.10)
 
 DEPENDENCIES:
   - Appirater
-  - FlurrySDK
   - OpenInChrome
   - SVProgressHUD
   - SwipeView
 
 SPEC CHECKSUMS:
   Appirater: 37e804628c67e82032aec3f575d0f599e75968c3
-  FlurrySDK: 0bb42a04fb7ed661331621681fb9a95e7d7ad5aa
   OpenInChrome: f1f3f9dec682216fe78a0d7fe0b5b263d6312c32
   SVProgressHUD: 7038ae9d6a0bd2c87560d2699eba642eef82d41e
   SwipeView: f3218ebe076345a2ab2d030a8b92dda3874938c2

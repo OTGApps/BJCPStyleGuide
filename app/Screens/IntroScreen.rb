@@ -13,8 +13,6 @@ class IntroScreen < SizeableWebScreen
   end
 
   def will_appear
-    flurry_params = {category: self.title}
-    Flurry.logEvent("IntroViewed", withParameters:flurry_params) unless Device.simulator?
   end
 
   def load_finished

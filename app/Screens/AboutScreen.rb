@@ -13,7 +13,6 @@ class AboutScreen < PM::WebScreen
   end
 
   def will_appear
-    Flurry.logEvent "AboutViewed" unless Device.simulator?
   end
 
 end

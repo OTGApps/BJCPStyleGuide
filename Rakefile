@@ -31,14 +31,13 @@ Motion::Project::App.setup do |app|
   app.files_dependencies 'app/Screens/IntroScreen.rb'  => 'app/Screens/SizeableWebScreen.rb'
 
   app.pods do
-    pod 'FlurrySDK'
     pod 'Appirater'
     pod 'SwipeView'
     pod 'OpenInChrome'
     pod 'SVProgressHUD'
   end
 
-  app.vendor_project('vendor/ContainerSubscriptAccess', :static, :cflags => '-fobjc-arc')
+  # app.vendor_project('vendor/ContainerSubscriptAccess', :static, :cflags => '-fobjc-arc')
 
   app.development do
     app.entitlements['get-task-allow'] = true

@@ -33,7 +33,6 @@ class JudgingInfoScreen < PM::Screen
       self.navigationController.setToolbarHidden(false)
       self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
     end
-    Flurry.logEvent "JudgingToolsViewed" unless Device.simulator?
   end
 
   def on_appear
@@ -56,7 +55,6 @@ class JudgingInfoScreen < PM::Screen
 
   def swipeViewCurrentItemIndexDidChange swipeView
     @paging.currentPage = swipeView.currentPage
-    Flurry.logEvent "JudgingToolsSwiped" unless Device.simulator?
   end
 
   def swipeViewItemSize swipeView
@@ -88,9 +86,7 @@ class JudgingInfoScreen < PM::Screen
     alert = BW::UIAlertView.default(options) do |alert|
       if alert.clicked_button.index == 0
         # Whatever.
-        Flurry.logEvent "JudgingToolsHidAbout" unless Device.simulator?
       else
-        Flurry.logEvent "JudgingToolsHid" unless Device.simulator?
         App::Persistence['hide_judging_tools'] = true
         App.notification_center.post "ReloadNotification"
         App.alert(I18n.t(:removed_from_app)) do |a|
@@ -103,7 +99,6 @@ class JudgingInfoScreen < PM::Screen
   end
 
   def launch_itunes
-    Flurry.logEvent "JudgingToolsLaunchediTunes" unless Device.simulator?
     close
     App.open_url "https://itunes.apple.com/us/app/beer-judge/id666120064?mt=8&uo=4&at=10l4yY&ct=bjcp_app"
   end
