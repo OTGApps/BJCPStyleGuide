@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/clearsightstudio/ProMotion.git
-  revision: fc77133b3e3014a2a17758803fa64c6c323b965c
-  specs:
-    ProMotion (2.4.0)
-      methadone (~> 1.7)
-
 PATH
   remote: vendor/motion-sqlite3
   specs:
@@ -13,6 +6,8 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    ProMotion (2.3.1)
+      methadone (~> 1.7)
     RedAlert (1.0)
       ruby_motion_query (>= 1.3.4)
     activesupport (4.2.1)
@@ -62,14 +57,14 @@ GEM
     nap (0.8.0)
     netrc (0.7.8)
     rake (10.4.2)
-    redpotion (1.1.5)
-      ProMotion (~> 2.3)
+    redpotion (1.2.0)
+      ProMotion (~> 2.3.1)
       RedAlert
       motion-cocoapods
       motion_print
       rake
-      ruby_motion_query (~> 1.3.5)
-    ruby_motion_query (1.3.5)
+      ruby_motion_query (~> 1.4.0)
+    ruby_motion_query (1.4.0)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -81,7 +76,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ProMotion!
   bubble-wrap (~> 1.8.0)
   motion-cocoapods
   motion-sqlite3!
