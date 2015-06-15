@@ -1,5 +1,11 @@
 en:
+  # 2008 / 2015 Styles Alert
+  picker_title:     "Updated Styles!"
+  picker_message:   "The BJCK Styles have been updated for 2015. Which guidelines would you like to use? (You can change this at any time by tapping the title bar)."
+
+  # App Strings
   title_2008:       "2008 BJCP Styles"
+  title_2015:       "2015 BJCP Styles"
   search_styles:    "Search Styles"
   loading:          "Loading"
   back:             "Back"
