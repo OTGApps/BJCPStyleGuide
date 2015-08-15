@@ -54,69 +54,71 @@ class SRM
     "50"   => [0, 0, 0],
   }
 
-  def self.color(value)
-    BubbleWrap.rgb_color(@@matrix[value.to_s][0], @@matrix[value.to_s][1], @@matrix[value.to_s][2])
-  end
-
-  def self.cgcolor(value)
-    c = SRM.color(value)
-    c.CGColor
-  end
-
-  def self.imageWithSRM(value, andSize:size)
-    # size expects a CGSize
-    color = SRM.color(value)
-
-    rect = CGRectMake(0.0, 0.0, size.width, size.height)
-    UIGraphicsBeginImageContext(rect.size)
-    context = UIGraphicsGetCurrentContext()
-
-    CGContextSetFillColorWithColor(context, color.CGColor)
-    CGContextFillRect(context, rect)
-
-    image = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-
-    image
-  end
-
-  def self.steps
-    @@matrix
-  end
-
-  def self.spectrum
-    colors = []
-    @@matrix.each do |key, value|
-      colors << BubbleWrap.rgb_color(value[0], value[1], value[2].to_f).CGColor
+  class << self
+    def color(value)
+      BubbleWrap.rgb_color(@@matrix[value.to_s][0], @@matrix[value.to_s][1], @@matrix[value.to_s][2])
     end
-    colors
-  end
 
-  def self.css_gradient(from_to)
-    return "display:none;" if from_to.count == 0
-    stops = []
-    count = from_to[1].to_i - from_to[0].to_i
-    (from_to[0].to_i..from_to[1].to_i).each do |srm|
-      stops << SRM.hex(srm)
+    def cgcolor(value)
+      c = SRM.color(value)
+      c.CGColor
     end
-    if stops.count > 0
-      "background-image: -webkit-linear-gradient(left, #{stops.join(', ')});"
-    else
-      "background-image: none;"
-    end
-  end
 
-  def self.hex(srm)
-    h = "#"
-    @@matrix[srm.to_i.to_s].each do |component|
-      hex = component.to_i.to_s(16)
-      if component < 16
-        h << "0#{hex}"
+    def imageWithSRM(value, andSize:size)
+      # size expects a CGSize
+      color = SRM.color(value)
+
+      rect = CGRectMake(0.0, 0.0, size.width, size.height)
+      UIGraphicsBeginImageContext(rect.size)
+      context = UIGraphicsGetCurrentContext()
+
+      CGContextSetFillColorWithColor(context, color.CGColor)
+      CGContextFillRect(context, rect)
+
+      image = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+
+      image
+    end
+
+    def steps
+      @@matrix
+    end
+
+    def spectrum
+      colors = []
+      @@matrix.each do |key, value|
+        colors << BubbleWrap.rgb_color(value[0], value[1], value[2].to_f).CGColor
+      end
+      colors
+    end
+
+    def css_gradient(from_to)
+      return "display:none;" if from_to.count == 0
+      stops = []
+      count = from_to[1].to_i - from_to[0].to_i
+      (from_to[0].to_i..from_to[1].to_i).each do |srm|
+        stops << SRM.hex(srm)
+      end
+      if stops.count > 0
+        "background-image: -webkit-linear-gradient(left, #{stops.join(', ')});"
       else
-        h << hex
+        "background-image: none;"
       end
     end
-    h
+
+    def hex(srm)
+      h = "#"
+      @@matrix[srm.to_i.to_s].each do |component|
+        hex = component.to_i.to_s(16)
+        if component < 16
+          h << "0#{hex}"
+        else
+          h << hex
+        end
+      end
+      h
+    end
   end
 
 end

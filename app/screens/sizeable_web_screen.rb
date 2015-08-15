@@ -3,26 +3,10 @@ class SizeableWebScreen < PM::WebScreen
   def on_appear
     toolbar_animated = Device.ipad? ? false : true
     self.navigationController.setToolbarHidden(false, animated:toolbar_animated)
-    self.toolbarItems = Device.ios_version.to_f >= 7.0 ? buttons_ios7 : buttons_ios6
+    self.toolbarItems = create_buttons
   end
 
-  def buttons_ios6
-    increase_size_button = UIBarButtonItem.alloc.initWithTitle(
-      "A",
-      style: UIBarButtonItemStyleBordered,
-      target: self,
-      action: :increase_size)
-
-    decrease_size_button = UIBarButtonItem.alloc.initWithTitle(
-      "a",
-      style: UIBarButtonItemStyleBordered,
-      target: self,
-      action: :decrease_size)
-
-    [flexible_space, decrease_size_button, increase_size_button]
-  end
-
-  def buttons_ios7
+  def create_buttons
     size_label = UIBarButtonItem.alloc.initWithTitle(
       "Text Size:",
       style: UIBarButtonItemStylePlain,
