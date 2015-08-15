@@ -35,13 +35,13 @@ class AppDelegate < ProMotion::Delegate
   end
 
   def will_enter_foreground
-    Appirater.appEnteredForeground true unless Device.simulator?
+    Appirater.appEnteredForeground(true) unless Device.simulator?
   end
 
-  def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
-  # def on_open_url(args={})
-    # suffix = args[:url].absoluteString.split("//").last
-    suffix = url.absoluteString.split("//").last
+  # def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
+  def on_open_url(args={})
+    suffix = args[:url].absoluteString.split("//").last
+    # suffix = url.absoluteString.split("//").last
 
     if suffix == "reset_tools"
       App::Persistence['hide_judging_tools'] = nil
