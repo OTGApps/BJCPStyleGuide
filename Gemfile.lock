@@ -67,6 +67,8 @@ GEM
       bundler
     minitest (5.8.0)
     molinillo (0.3.1)
+    motion-blitz (1.2.0)
+      motion-cocoapods (>= 1.4.0)
     motion-cocoapods (1.7.3)
       cocoapods (>= 0.34)
     motion-i18n (0.0.2)
@@ -90,7 +92,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedAlert
   bubble-wrap (~> 1.9.2)
+  motion-blitz
   motion-cocoapods
   motion-i18n
   motion-sqlite3!

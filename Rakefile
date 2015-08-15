@@ -39,7 +39,6 @@ Motion::Project::App.setup do |app|
     pod 'Appirater'
     pod 'SwipeView', '~> 1.3.2'
     pod 'OpenInChrome'
-    pod 'SVProgressHUD'
   end
 
   app.development do

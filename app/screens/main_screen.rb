@@ -1,13 +1,13 @@
 class MainScreen < ProMotion::TableScreen
+  stylesheet MainScreenStylesheet
   title ""
   searchable :placeholder => I18n.t(:search_styles)
   attr_accessor :selected_cell
 
   def on_load
-    SVProgressHUD.showWithStatus(I18n.t(:loading), maskType:SVProgressHUDMaskTypeBlack)
-
-    set_attributes self.view, { backgroundColor: UIColor.whiteColor }
-    init_nav_bar_buttons
+    set_nav_bar_button :back, title: '', style: :plain, action: :back
+    set_nav_bar_button :right, image: UIImage.imageNamed('info'), action: :open_about_screen unless Device.ipad?
+    set_nav_bar_button :left, image: UIImage.imageNamed('swap'), action: :toggle_styles unless Device.ipad?
 
     @reload_observer = App.notification_center.observe "ReloadNotification" do |notification|
       @table_setup = nil
@@ -19,31 +19,13 @@ class MainScreen < ProMotion::TableScreen
       App.delegate.jump_to_style = notification.object[:object]
     end
 
+    Motion::Blitz.show(I18n.t(:loading), :black)
     read_data
-  end
-
-  def init_nav_bar_buttons
-    set_nav_bar_button :back, title: '', style: :plain, action: :back
-    set_nav_bar_button :right, image: UIImage.imageNamed('info'), action: :open_about_screen unless Device.ipad?
-    set_nav_bar_button :left, image: UIImage.imageNamed('swap'), action: :toggle_styles unless Device.ipad?
   end
 
   def toggle_styles
-    if App::Persistence['style_version'] == "2008"
-      App::Persistence['style_version'] = "2015"
-    else
-      App::Persistence['style_version'] = "2008"
-    end
-
+    Version.toggle
     read_data
-  end
-
-  def set_title
-    if App::Persistence['style_version'] == "2008"
-      self.title = I18n.t(:title_2008)
-    else
-      self.title = I18n.t(:title_2015)
-    end
   end
 
   def auto_open_style
@@ -107,13 +89,13 @@ class MainScreen < ProMotion::TableScreen
       cancel_button_index: 0
     }) do |alert|
       if alert.clicked_button.cancel?
-        App::Persistence['style_version'] = '2008'
+        Version.set('2008')
       else
-        App::Persistence['style_version'] = '2015'
+        Version.set('2015')
       end
 
       read_data
-    end.show if App::Persistence['style_version'].nil?
+    end.show if Version.version.nil?
   end
 
   def table_data
@@ -300,7 +282,7 @@ class MainScreen < ProMotion::TableScreen
   private
 
   def read_data
-    set_title
+    self.title = Version.title
 
     Dispatch::Queue.concurrent.async do
       styles = []
@@ -321,7 +303,7 @@ class MainScreen < ProMotion::TableScreen
         @styles = styles
         @table_setup = nil
         update_table_data
-        SVProgressHUD.dismiss
+        Motion::Blitz.dismiss
 
         # Check to see if we should go directly into a style when the app is not in memory.
         auto_open_style
