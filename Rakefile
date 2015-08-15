@@ -27,8 +27,8 @@ Motion::Project::App.setup do |app|
       'CFBundleURLSchemes' => ['bjcpstyle', 'bjcp'] }
   ]
 
-  app.files_dependencies 'app/Screens/DetailScreen.rb' => 'app/Screens/SizeableWebScreen.rb'
-  app.files_dependencies 'app/Screens/IntroScreen.rb'  => 'app/Screens/SizeableWebScreen.rb'
+  app.files_dependencies 'app/screens/detail_screen.rb' => 'app/screens/sizeable_web_screen.rb'
+  app.files_dependencies 'app/screens/intro_screen.rb'  => 'app/screens/sizeable_web_screen.rb'
 
   app.pods do
     pod 'Appirater'
