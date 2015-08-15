@@ -106,11 +106,7 @@ class MainScreen < ProMotion::TableScreen
       s << judging_section_preview if shows_beer_judging_section?
       s << {
         title: I18n.t(:introductions),
-        cells: [
-          intro_cell("Beer Introduction"),
-          intro_cell("Mead Introduction"),
-          intro_cell("Cider Introduction")
-        ]
+        cells: introduction_cells
       }
 
       @styles.each do |section|
@@ -156,6 +152,15 @@ class MainScreen < ProMotion::TableScreen
   def scroll_to(ip)
     table_view.selectRowAtIndexPath(ip, animated:true, scrollPosition:UITableViewScrollPositionMiddle)
     tableView(table_view, didSelectRowAtIndexPath:ip)
+  end
+
+  def introduction_cells
+    cells = []
+    cells << intro_cell("Beer Introduction")
+    cells << intro_cell("Specialty Beer Introduction") if Version.version_2015?
+    cells << intro_cell("Mead Introduction")
+    cells << intro_cell("Cider Introduction")
+    cells
   end
 
   def intro_cell(name)
