@@ -11,16 +11,21 @@ end
 
 Motion::Project::App.setup do |app|
   app.name = 'BJCPStyles'
+  app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
+
+  app.short_version = "2.2.1"
+  app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
+
   app.deployment_target = "7.0"
+
   app.device_family = [:iphone, :ipad]
   app.interface_orientations = [:portrait, :landscape_left, :landscape_right, :portrait_upside_down]
-  app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
-  app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
-  app.short_version = "2.2.1"
+
   app.frameworks += ["QuartzCore"]
   app.libs << "/usr/lib/libsqlite3.dylib"
-  app.prerendered_icon = true
+
   app.icons = Dir.glob("resources/Icon*.png").map{|icon| icon.split("/").last}
+
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
     { 'CFBundleURLName' => 'com.yourcompany.BJCPStyles',
@@ -32,7 +37,7 @@ Motion::Project::App.setup do |app|
 
   app.pods do
     pod 'Appirater'
-    pod 'SwipeView'
+    pod 'SwipeView', '~> 1.3.2'
     pod 'OpenInChrome'
     pod 'SVProgressHUD'
   end
