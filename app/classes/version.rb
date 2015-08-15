@@ -1,7 +1,7 @@
 class Version
   class << self
     def version
-      App::Persistence['style_version']
+      App::Persistence['style_version'] || "2015"
     end
 
     def set(v)

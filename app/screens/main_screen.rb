@@ -165,7 +165,7 @@ class MainScreen < ProMotion::TableScreen
       cell_identifier: "IntroductionCell",
       accessory_type: :disclosure_indicator,
       action: :open_intro_screen,
-      arguments: {:file => Internationalization.resources_path("#{name}.html"), :title => name}
+      arguments: {:file => Internationalization.file_url("#{name}.html"), :title => name}
     }
   end
 
@@ -257,13 +257,13 @@ class MainScreen < ProMotion::TableScreen
     end
   end
 
-  def open_about_screen(args={})
+  def open_about_screen(args)
     open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
       presentation_style: UIModalPresentationFormSheet
   end
 
-  def open_intro_screen(args={})
+  def open_intro_screen(args)
     if Device.ipad?
       open IntroScreen.new(args), nav_bar:true, in_detail: true
     else
@@ -287,9 +287,7 @@ class MainScreen < ProMotion::TableScreen
     Dispatch::Queue.concurrent.async do
       styles = []
 
-      version = App::Persistence['style_version'] || "2008"
-
-      db = SQLite3::Database.new Internationalization.full_path("#{version}/styles.sqlite")
+      db = SQLite3::Database.new Internationalization.full_path("styles.sqlite")
       db.execute("SELECT * FROM category ORDER BY id") do |row|
         substyles = []
         db.execute("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id") do |row2|

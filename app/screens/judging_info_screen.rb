@@ -8,14 +8,6 @@ class JudgingInfoScreen < PM::Screen
     self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
 
     create_intro
-
-
-    # @page_inset = 20
-    #
-    # @gallery = append!(swipe_view, :swipe_view)
-    # @paging = append(UIPageControl, :page_control).style do |st|
-    #   st.number_of_pages = pages.count
-    # end.get
   end
 
   def on_live_reload

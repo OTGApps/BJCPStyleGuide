@@ -4,7 +4,7 @@ class DetailScreen < SizeableWebScreen
   def on_load
 
     if Device.ipad?
-      set_nav_bar_right_button UIImage.imageNamed("info.png"), action: :open_about_screen
+      set_nav_bar_button :right, image: UIImage.imageNamed("info.png"), action: :open_about_screen
 
       view.when_swiped do |swipe|
         App.delegate.main_screen.next
@@ -46,7 +46,7 @@ class DetailScreen < SizeableWebScreen
   end
 
   def content
-    return Internationalization.resources_path("DefaultScreen.html") if self.style.nil?
+    return Internationalization.file_url("DefaultScreen.html") if self.style.nil?
 
     <<-CONTENT
 

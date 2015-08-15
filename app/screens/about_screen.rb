@@ -2,7 +2,7 @@ class AboutScreen < PM::WebScreen
   title I18n.t(:about)
 
   def content
-    Internationalization.resources_path "AboutScreen.html"
+    Internationalization.file_url("AboutScreen.html")
   end
 
   def on_load
