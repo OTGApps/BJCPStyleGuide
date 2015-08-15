@@ -37,11 +37,16 @@ Motion::Project::App.setup do |app|
 
   app.pods do
     pod 'Appirater'
-    pod 'SwipeView', '~> 1.3.2'
     pod 'OpenInChrome'
+    pod 'EAIntroView', '~> 2.7.0'
   end
 
   app.development do
+    # We only want this cocoapod in development mode.
+    app.pods do
+      pod "Reveal-iOS-SDK"
+    end
+
     app.entitlements['get-task-allow'] = true
     app.codesign_certificate = "iPhone Developer: Mark Rickert (YA2VZGDX4S)"
     app.provisioning_profile = "/Users/mrickert/.provisioning/WildcardDevelopment.mobileprovision"

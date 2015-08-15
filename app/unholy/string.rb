@@ -12,4 +12,5 @@ class String
   def image
     UIImage.imageNamed(self)
   end
+  alias :uiimage :image
 end

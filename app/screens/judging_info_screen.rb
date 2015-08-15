@@ -1,68 +1,98 @@
 class JudgingInfoScreen < PM::Screen
-  PAGES = %w(judge_screen_1 judge_screen_2 judge_screen_3 judge_screen_4 judge_screen_5)
-  PAGE_INSET = 20
-
+  stylesheet JudgingInfoScreenStylesheet
   title I18n.t(:beer_judge_app)
 
-  def will_appear
-    @view_set_up ||= begin
-      set_attributes self.view, {
-        background_color: UIColor.colorWithPatternImage(UIImage.imageNamed("linnen.png"))
-      }
+  def on_load
+    set_nav_bar_button :right, title: I18n.t(:close), action: :close, type: UIBarButtonItemStyleDone
+    self.navigationController.setToolbarHidden(false)
+    self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
 
-      self.edgesForExtendedLayout = UIRectEdgeNone if Device.ios_version.to_f >= 7.0
+    create_intro
 
-      @gallery = add SwipeView.new, {
-        top: 0,
-        left: 0,
-        width: view.frame.size.width,
-        height: view.frame.size.height - (Device.ios_version.to_f >= 7.0 ? 140 : 84),
-        dataSource: self,
-        delegate: self,
-        alignment: 1, # SwipeViewAlignment.SwipeViewAlignmentCenter
-        pagingEnabled: true,
-        itemsPerPage: 1
-      }
-      @gallery.itemSize = @gallery.frame.size
 
-      @paging = add UIPageControl.new, {
-        number_of_pages: PAGES.count
-      }
+    # @page_inset = 20
+    #
+    # @gallery = append!(swipe_view, :swipe_view)
+    # @paging = append(UIPageControl, :page_control).style do |st|
+    #   st.number_of_pages = pages.count
+    # end.get
+  end
 
-      set_nav_bar_right_button I18n.t(:close), action: :close, type: UIBarButtonItemStyleDone
-      self.navigationController.setToolbarHidden(false)
-      self.toolbarItems = [dont_show_button, flexible_space, purchase_button]
+  def on_live_reload
+    self.view.subviews.each(&:removeFromSuperview)
+    on_load
+  end
+
+  def create_intro
+    intro = EAIntroView.alloc.initWithFrame(self.view.bounds, andPages:[page_1, page_2, page_3, page_4, page_5, page_6])
+    intro.swipeToExit = false
+    intro.skipButton = nil
+    intro.pageControlY = 54.0
+    intro.tapToNext = true
+    intro.delegate = self
+    intro.showInView(self.view)
+  end
+
+  def page_1
+    EAIntroPage.page.tap do |pg|
+      pg.title = "BeerJudge"
+      # pg.titlePositionY = 320
+      pg.desc = "A Quick Reference for Judges\nScroll to find out more!"
+      pg.descFont = UIFont.fontWithName("Georgia-Italic", size:18)
+      # pg.descPositionY = 200;
+      pg.titleIconView = "judge_screen_1".uiimage.uiimageview
+      pg.titleIconPositionY = 100
     end
   end
 
-  def on_appear
-    @paging.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 10)
-  end
-
-  def numberOfItemsInSwipeView swipeView
-    PAGES.count
-  end
-
-  def swipeView swipeView, viewForItemAtIndex: index, reusingView: view
-    unless view
-      view = UIImageView.alloc.initWithFrame CGRectInset(@gallery.frame, 0, PAGE_INSET)
-      view.contentMode = UIViewContentModeScaleAspectFit
-      Shadow.addTo view
+  def page_2
+    EAIntroPage.page.tap do |pg|
+      pg.title = "Quickly identify off flavors and aromas."
+      pg.titlePositionY = 120
+      pg.titleIconView = "judge_screen_2".uiimage.uiimageview
+      pg.titleIconPositionY = 80
     end
-    view.image = UIImage.imageNamed PAGES[index]
-    view
   end
 
-  def swipeViewCurrentItemIndexDidChange swipeView
-    @paging.currentPage = swipeView.currentPage
+  def page_3
+    EAIntroPage.page.tap do |pg|
+      pg.title = "Access a database of common off flavors."
+      pg.titlePositionY = 120
+      pg.titleIconView = "judge_screen_3".uiimage.uiimageview
+      pg.titleIconPositionY = 80
+    end
   end
 
-  def swipeViewItemSize swipeView
-    self.view.frame.size
+  def page_4
+    EAIntroPage.page.tap do |pg|
+      pg.title = "Explore the SRM spectrum\nwith the tap of a finger."
+      pg.titlePositionY = 120
+      pg.titleIconView = "judge_screen_4".uiimage.uiimageview
+      pg.titleIconPositionY = 80
+    end
   end
 
-  def swipeView(swipeView, didSelectItemAtIndex:index)
-    launch_itunes if index == numberOfItemsInSwipeView(swipeView)-1
+  def page_5
+    EAIntroPage.page.tap do |pg|
+      pg.title = "Use your camera to estimate a beer's SRM."
+      pg.titlePositionY = 120
+      pg.titleIconView = "judge_screen_5".uiimage.uiimageview
+      pg.titleIconPositionY = 80
+    end
+  end
+
+  def page_6
+    EAIntroPage.page.tap do |pg|
+      pg.title = "BeerJudge"
+      pg.desc = "Tap To Download Now!"
+      pg.descFont = UIFont.fontWithName("Georgia-Italic", size:18)
+      pg.titleIconView = "judge_screen_1".uiimage.uiimageview
+      pg.titleIconPositionY = 100
+    end
+  end
+
+  def introDidFinish(introView)
+    launch_itunes
   end
 
   def dont_show_button
@@ -130,7 +160,4 @@ class JudgingInfoScreen < PM::Screen
       UIInterfaceOrientationMaskAll
     end
   end
-
-
-
 end
