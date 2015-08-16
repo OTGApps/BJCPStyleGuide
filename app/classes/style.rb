@@ -1,6 +1,6 @@
 class Style
 
-  PROPERTIES = [:id, :category, :name, :transname, :aroma, :appearance, :flavor, :mouthfeel, :impression, :comments, :history, :ingredients, :og, :fg, :ibu, :srm, :abv, :examples]
+  PROPERTIES = [:id, :type, :category, :name, :transname, :aroma, :appearance, :flavor, :mouthfeel, :impression, :comments, :history, :ingredients, :og, :fg, :ibu, :srm, :abv, :examples]
   PROPERTIES.each { |prop|
     attr_accessor prop
   }
@@ -14,7 +14,9 @@ class Style
   end
 
   def title
-    "#{self.category}#{self.id.as_letter}: #{self.name}"
+    t = "#{self.category}#{self.id.as_letter}: #{self.name}"
+    t.insert(0, self.type) if Version.version_2015? && !self.type.nil?
+    t
   end
 
   def subtitle
@@ -24,19 +26,31 @@ class Style
   def html(property)
     return specs_html if property == :specs
     return "" unless respond_to? "#{property.to_s}="
+    return "" if self.send(property).nil? || self.send(property) == ""
 
-    "<h2>#{property_title(property)}</h2>
-     <p>#{self.send(property)}</p>"
+    if self.type == "C" && property == :aroma
+      title = "<h2>Aroma/Flavor</h2>"
+    else
+      title = "<h2>#{property_title(property)}</h2>"
+    end
+
+     title << "<p>#{self.send(property)}</p>"
+     title
   end
 
   def specs_html
     table = "<h2>" + I18n.t(:statistics) + "</h2>"
+    li = ""
     table << "<ul>"
     %w(og fg ibu srm abv).each do |spec|
-      table << "<li>" + spec.upcase + ": " + self.send(spec) + "</li>"
+      li << "<li>" + spec.upcase + ": " + self.send(spec) + "</li>" unless self.send(spec).nil?
     end
-    table << "</ul>"
-    table
+    if li == ""
+      ""
+    else
+      table << li << "</ul>"
+      table
+    end
   end
 
   def property_title(property)

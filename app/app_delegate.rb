@@ -40,6 +40,8 @@ class AppDelegate < ProMotion::Delegate
 
   # def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
   def on_open_url(args={})
+    Version.set('2015')
+
     suffix = args[:url].absoluteString.split("//").last
     # suffix = url.absoluteString.split("//").last
 

@@ -110,8 +110,10 @@ class MainScreen < ProMotion::TableScreen
       }
 
       @styles.each do |section|
+        mp section
+        mp section.class
         section_placeholder = {
-          title: "#{section[:id]}: #{section[:name]}",
+          title: section_title(section),
           cells: build_subcategories(section)
         }
         section_placeholder[:title] << " (#{section[:transname]})" unless section[:transname].nil? || section[:transname] == ""
@@ -121,6 +123,12 @@ class MainScreen < ProMotion::TableScreen
     end
     auto_open_style
     @table_setup
+  end
+
+  def section_title(section)
+    s = "#{section[:id]}: #{section[:name]}"
+    s.insert(0, section[:type].as_type) if Version.version_2015? && section[:type] > 1
+    s
   end
 
   def next
@@ -156,6 +164,7 @@ class MainScreen < ProMotion::TableScreen
 
   def introduction_cells
     cells = []
+    cells << intro_cell("Introduction") if Version.version_2015?
     cells << intro_cell("Beer Introduction")
     cells << intro_cell("Specialty Beer Introduction") if Version.version_2015?
     cells << intro_cell("Mead Introduction")
@@ -293,9 +302,26 @@ class MainScreen < ProMotion::TableScreen
       styles = []
 
       db = SQLite3::Database.new Internationalization.full_path("styles.sqlite")
-      db.execute("SELECT * FROM category ORDER BY id") do |row|
+
+      if Version.version_2015?
+        query = "SELECT * FROM category ORDER BY type, id"
+      else
+        query = "SELECT * FROM category ORDER BY id"
+      end
+
+      db.execute(query) do |row|
+        if Version.version_2015?
+          query = "SELECT * FROM subcategory WHERE category = #{row[:internal_id]} ORDER BY id"
+        else
+          query = "SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id"
+        end
+
         substyles = []
-        db.execute("SELECT * FROM subcategory WHERE category = #{row[:id]} ORDER BY id") do |row2|
+        db.execute(query) do |row2|
+          if Version.version_2015?
+            row2[:category] = row[:id]
+            row2[:type] = row[:type].as_type
+          end
           substyles << Style.new(row2)
         end
         row[:substyles] = substyles

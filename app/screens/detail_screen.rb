@@ -33,7 +33,7 @@ class DetailScreen < SizeableWebScreen
 
   def the_title(with_subtitle = true)
     return "" unless defined? style.id
-    t = "#{style.category}#{style.id.as_letter}: #{style.name}"
+    t = style.title
     if with_subtitle
       t << "<br /><small>(#{style.transname})<small>" unless style.transname.nil? || style.transname.empty?
     end
