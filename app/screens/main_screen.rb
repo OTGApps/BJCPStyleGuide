@@ -19,7 +19,6 @@ class MainScreen < ProMotion::TableScreen
       App.delegate.jump_to_style = notification.object[:object]
     end
 
-    Motion::Blitz.show(I18n.t(:loading), :black)
     read_data
   end
 
@@ -79,6 +78,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def on_appear
+    mp 'on_appear'
     self.navigationController.setToolbarHidden(true, animated:true) unless searching?
 
     # Re-call on_appear when the application resumes from the background state since it's not called automatically.
@@ -279,7 +279,7 @@ class MainScreen < ProMotion::TableScreen
   def open_about_screen
     open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
-      presentation_style: UIModalPresentationFormSheet
+      presentation_style: UIModalPresentationPageSheet
   end
 
   def open_intro_screen(args)
@@ -291,7 +291,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def open_judging_info_screen
-    open_modal JudgingInfoScreen.new, nav_bar: true, presentation_style: UIModalPresentationFormSheet
+    open_modal JudgingInfoScreen.new, nav_bar: true, presentation_style: UIModalPresentationPageSheet
   end
 
   def open_judging_tool(args={})
@@ -302,6 +302,7 @@ class MainScreen < ProMotion::TableScreen
 
   def read_data
     self.title = Version.title
+    Motion::Blitz.show(I18n.t(:loading), :black)
 
     Dispatch::Queue.concurrent.async do
       styles = []
