@@ -102,7 +102,7 @@ class MainScreen < ProMotion::TableScreen
       end
 
       read_data
-    end.show if Version.version.nil?
+    end.show unless Version.set?
   end
 
   def table_data

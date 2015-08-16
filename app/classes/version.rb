@@ -4,6 +4,10 @@ class Version
       App::Persistence['style_version'] || "2015"
     end
 
+    def set?
+      !App::Persistence['style_version'].nil?
+    end
+
     def set(v)
       App::Persistence['style_version'] = v
     end
