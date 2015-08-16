@@ -52,7 +52,7 @@ class MainScreen < ProMotion::TableScreen
     else
       # Scroll to the right position on the device.
       cat += 1 # For the intros section
-      cat += 1 if BeerJudge.is_installed? || shows_beer_judging_section?
+      # cat += 1 if BeerJudge.is_installed? || shows_beer_judging_section?
 
       # Wait for a bit before selecting the table cell since we don't know when the
       # tableview actually updates.
@@ -110,7 +110,7 @@ class MainScreen < ProMotion::TableScreen
     return [] if @styles.nil?
     @table_setup ||= begin
       s = []
-      s << judging_section_links if BeerJudge.is_installed?
+      # s << judging_section_links if BeerJudge.is_installed?
       s << judging_section_preview if shows_beer_judging_section?
       s << {
         title: I18n.t(:introductions),
