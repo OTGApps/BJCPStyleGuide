@@ -103,7 +103,7 @@ class JudgingInfoScreen < PM::Screen
     options = {
       :title   => I18n.t(:are_you_sure),
       :message => I18n.t(:permanently_hide),
-      :buttons => [I18n.t(:no), I18n.t(:yes)],
+      :buttons => [I18n.t(:confirm_no), I18n.t(:confirm_yes)],
     }
     alert = BW::UIAlertView.default(options) do |alert|
       if alert.clicked_button.index == 0

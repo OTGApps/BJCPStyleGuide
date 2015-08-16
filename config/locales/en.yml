@@ -9,8 +9,8 @@ en:
   search_styles:    "Search Styles"
   loading:          "Loading"
   back:             "Back"
-  no:               "No"
-  yes:              "Yes"
+  confirm_no:       "No"
+  confirm_yes:      "Yes"
   invalid_style:    "Invalid style requested:"
 
   # Table View
