@@ -27,7 +27,7 @@ class AppDelegate < ProMotion::Delegate
       open_style_when_launched suffix
     end
 
-    if Device.ipad?
+    if device.ipad? || device.five_point_five_inch?
       open_split_screen @main_screen, DetailScreen.new(nav_bar: true)
     else
       open @main_screen

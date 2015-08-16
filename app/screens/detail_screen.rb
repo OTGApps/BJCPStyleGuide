@@ -3,7 +3,7 @@ class DetailScreen < SizeableWebScreen
 
   def on_load
 
-    if Device.ipad?
+    if device.ipad? || device.five_point_five_inch?
       view.when_swiped do |swipe|
         App.delegate.main_screen.next
       end.direction = UISwipeGestureRecognizerDirectionLeft
