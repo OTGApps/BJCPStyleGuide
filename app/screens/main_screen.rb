@@ -20,7 +20,11 @@ class MainScreen < ProMotion::TableScreen
       App.delegate.jump_to_style = notification.object[:object]
     end
 
-    read_data
+
+  end
+
+  def will_appear
+    read_data if @styles.nil?
   end
 
   def toggle_styles
@@ -107,7 +111,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def table_data
-    return [] if @styles.nil?
+    return [{cells:[{title: "Loading..."}]}] if @styles.nil?
     @table_setup ||= begin
       s = []
       # s << judging_section_links if BeerJudge.is_installed?
