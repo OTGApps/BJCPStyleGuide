@@ -26,7 +26,7 @@ class MainScreen < ProMotion::TableScreen
   def toggle_styles
     Version.toggle
 
-    if device.ipad? || device.five_point_five_inch?
+    if device.ipad?
       open IntroScreen.new({
         :file => Internationalization.file_url("DefaultScreen.html"),
         :title => "Welcome"}), in_detail: true
@@ -56,7 +56,7 @@ class MainScreen < ProMotion::TableScreen
 
       # Wait for a bit before selecting the table cell since we don't know when the
       # tableview actually updates.
-      if device.ipad? || device.five_point_five_inch?
+      if device.ipad?
         count = 0
         timer = EM.add_periodic_timer 0.2 do
           count = count + 1
@@ -245,7 +245,7 @@ class MainScreen < ProMotion::TableScreen
         accessory_type: :disclosure_indicator,
         subtitle: subcat.transname,
         search_text: subcat.search_text,
-        keep_selection: (device.ipad? || device.five_point_five_inch?) ? true : false,
+        keep_selection: device.ipad? ? true : false,
         cell_identifier: "SubcategoryCell",
         action: :open_style,
         arguments: {:style => subcat}
@@ -270,7 +270,7 @@ class MainScreen < ProMotion::TableScreen
 
     open_args = args
     open_args = args.merge({search_string: search_string}) if searching?
-    if device.ipad? || device.five_point_five_inch?
+    if device.ipad?
       app.hide_keyboard
       open(DetailScreen.new(open_args), in_detail: true)
     else
@@ -284,7 +284,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def open_intro_screen(args)
-    if device.ipad? || device.five_point_five_inch?
+    if device.ipad?
       open IntroScreen.new(args), in_detail: true
     else
       open IntroScreen.new(args)
