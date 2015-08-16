@@ -4,7 +4,7 @@ gem "rake"
 gem "motion-cocoapods"
 
 gem 'redpotion', github: 'infinitered/redpotion'
-gem 'RedAlert'
+# gem 'RedAlert'
 # gem "ProMotion", path: "../ProMotion/"
 gem "ProMotion", github: 'clearsightstudio/ProMotion', branch: 'fix/773'
 # gem 'PackingPeanut'

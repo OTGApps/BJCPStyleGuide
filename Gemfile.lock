@@ -100,7 +100,6 @@ PLATFORMS
 
 DEPENDENCIES
   ProMotion!
-  RedAlert
   bubble-wrap (~> 1.9.2)
   motion-blitz
   motion-cocoapods
