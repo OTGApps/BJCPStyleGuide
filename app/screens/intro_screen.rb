@@ -1,11 +1,7 @@
 class IntroScreen < SizeableWebScreen
-
   attr_accessor :file
 
   def on_load
-    if Device.ipad?
-      set_nav_bar_button :right, image: "info".uiimage, action: :open_about_screen
-    end
   end
 
   def content

@@ -6,8 +6,8 @@ class MainScreen < ProMotion::TableScreen
 
   def on_load
     set_nav_bar_button :back, title: '', style: :plain, action: :back
-    set_nav_bar_button :right, image: UIImage.imageNamed('info'), action: :open_about_screen unless Device.ipad?
-    set_nav_bar_button :left, image: UIImage.imageNamed('swap'), action: :toggle_styles unless Device.ipad?
+    set_nav_bar_button :right, image: UIImage.imageNamed('info'), action: :open_about_screen
+    set_nav_bar_button :left, image: UIImage.imageNamed('swap'), action: :toggle_styles
 
     @reload_observer = App.notification_center.observe "ReloadNotification" do |notification|
       @table_setup = nil
@@ -25,6 +25,13 @@ class MainScreen < ProMotion::TableScreen
 
   def toggle_styles
     Version.toggle
+
+    if Device.ipad?
+      open IntroScreen.new({
+        :file => Internationalization.file_url("DefaultScreen.html"),
+        :title => "Welcome"}), nav_bar:true, in_detail: true
+    end
+
     read_data
   end
 
@@ -110,8 +117,6 @@ class MainScreen < ProMotion::TableScreen
       }
 
       @styles.each do |section|
-        mp section
-        mp section.class
         section_placeholder = {
           title: section_title(section),
           cells: build_subcategories(section)
@@ -259,7 +264,7 @@ class MainScreen < ProMotion::TableScreen
     end
   end
 
-  def open_style(args, index_path)
+  def open_style(args, index_path = nil)
     self.selected_cell = index_path
 
     open_args = args
@@ -271,7 +276,7 @@ class MainScreen < ProMotion::TableScreen
     end
   end
 
-  def open_about_screen(args)
+  def open_about_screen
     open_modal AboutScreen.new(external_links: true),
       nav_bar: true,
       presentation_style: UIModalPresentationFormSheet

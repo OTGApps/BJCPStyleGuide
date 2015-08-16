@@ -28,7 +28,7 @@ class AppDelegate < ProMotion::Delegate
     end
 
     if Device.ipad?
-      open_split_screen @main_screen, DetailScreen.new(nav_bar: true), title: I18n.t(:title_2008)
+      open_split_screen @main_screen, DetailScreen.new(nav_bar: true)
     else
       open @main_screen
     end
@@ -43,7 +43,6 @@ class AppDelegate < ProMotion::Delegate
     Version.set('2015')
 
     suffix = args[:url].absoluteString.split("//").last
-    # suffix = url.absoluteString.split("//").last
 
     if suffix == "reset_tools"
       App::Persistence['hide_judging_tools'] = nil
