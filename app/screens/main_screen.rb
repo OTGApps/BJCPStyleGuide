@@ -73,7 +73,7 @@ class MainScreen < ProMotion::TableScreen
       # TODO: Pop back to the root view controller
       # pop_to_root animated: false
 
-      open_style style: requested_style
+      open_style({style: requested_style}, nil)
     end
   end
 
@@ -264,7 +264,7 @@ class MainScreen < ProMotion::TableScreen
     end
   end
 
-  def open_style(args, index_path = nil)
+  def open_style(args, index_path)
     self.selected_cell = index_path
 
     open_args = args
