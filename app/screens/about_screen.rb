@@ -1,6 +1,7 @@
 class AboutScreen < PM::WebScreen
   title I18n.t(:about)
-
+  nav_bar true
+  
   def content
     Internationalization.file_url("AboutScreen.html")
   end

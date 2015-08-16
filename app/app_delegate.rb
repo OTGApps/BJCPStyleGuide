@@ -19,7 +19,7 @@ class AppDelegate < ProMotion::Delegate
     # Set initial font size (%)
     App::Persistence['font_size'] = 100 if App::Persistence['font_size'].nil?
 
-    @main_screen = MainScreen.new(nav_bar: true)
+    @main_screen = MainScreen.new
 
     # Check to see if the user is calling a style from an external URL when the application isn't in memory yet
     if defined?(options[UIApplicationLaunchOptionsURLKey])
@@ -28,7 +28,7 @@ class AppDelegate < ProMotion::Delegate
     end
 
     if device.ipad? || device.five_point_five_inch?
-      open_split_screen @main_screen, DetailScreen.new(nav_bar: true)
+      open_split_screen @main_screen, DetailScreen
     else
       open @main_screen
     end

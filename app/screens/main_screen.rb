@@ -1,5 +1,6 @@
 class MainScreen < ProMotion::TableScreen
   stylesheet MainScreenStylesheet
+  nav_bar true
   title ""
   searchable :placeholder => I18n.t(:search_styles)
   attr_accessor :selected_cell
@@ -28,7 +29,7 @@ class MainScreen < ProMotion::TableScreen
     if device.ipad? || device.five_point_five_inch?
       open IntroScreen.new({
         :file => Internationalization.file_url("DefaultScreen.html"),
-        :title => "Welcome"}), nav_bar:true, in_detail: true
+        :title => "Welcome"}), in_detail: true
     end
 
     read_data
@@ -271,28 +272,27 @@ class MainScreen < ProMotion::TableScreen
     open_args = args.merge({search_string: search_string}) if searching?
     if device.ipad? || device.five_point_five_inch?
       app.hide_keyboard
-      open DetailScreen.new(open_args), nav_bar:true, in_detail: true
+      open(DetailScreen.new(open_args), in_detail: true)
     else
-      open DetailScreen.new(open_args)
+      open(DetailScreen.new(open_args))
     end
   end
 
   def open_about_screen
     open_modal AboutScreen.new(external_links: true),
-      nav_bar: true,
       presentation_style: UIModalPresentationPageSheet
   end
 
   def open_intro_screen(args)
     if device.ipad? || device.five_point_five_inch?
-      open IntroScreen.new(args), nav_bar:true, in_detail: true
+      open IntroScreen.new(args), in_detail: true
     else
       open IntroScreen.new(args)
     end
   end
 
   def open_judging_info_screen
-    open_modal JudgingInfoScreen.new, nav_bar: true, presentation_style: UIModalPresentationPageSheet
+    open_modal JudgingInfoScreen.new, presentation_style: UIModalPresentationPageSheet
   end
 
   def open_judging_tool(args={})

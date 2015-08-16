@@ -1,6 +1,7 @@
 class JudgingInfoScreen < PM::Screen
   stylesheet JudgingInfoScreenStylesheet
   title I18n.t(:beer_judge_app)
+  nav_bar true
 
   def on_load
     set_nav_bar_button :right, title: I18n.t(:close), action: :close, type: UIBarButtonItemStyleDone

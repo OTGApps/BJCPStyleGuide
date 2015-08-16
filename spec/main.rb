@@ -4,7 +4,7 @@ describe "MainScreen functionality" do
   # Override controller to properly instantiate
   def controller
     rotate_device to: :portrait, button: :bottom
-    @screen ||= MainScreen.new(nav_bar: true)
+    @screen ||= MainScreen.new
     @screen.will_appear
     @screen.navigation_controller
   end
