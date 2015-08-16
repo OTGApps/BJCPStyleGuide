@@ -13,7 +13,7 @@ Motion::Project::App.setup do |app|
   app.name = 'BJCPStyles'
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
 
-  app.short_version = "2.2.1"
+  app.short_version = "3.0.0"
   app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
 
   app.deployment_target = "7.0"
