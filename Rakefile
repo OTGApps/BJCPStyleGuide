@@ -75,6 +75,11 @@ task :iphone6 do
     exec 'bundle exec rake device_name="iPhone 6"'
 end
 
+desc "Run simulator on iPhone"
+task :iphone6_plus do
+    exec 'bundle exec rake device_name="iPhone 6 Plus"'
+end
+
 desc "Run simulator in iPad Retina"
 task :retina do
     exec 'bundle exec rake device_name="iPad Retina"'
