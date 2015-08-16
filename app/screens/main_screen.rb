@@ -98,11 +98,11 @@ class MainScreen < ProMotion::TableScreen
     }) do |alert|
       if alert.clicked_button.cancel?
         Version.set('2008')
+        read_data
       else
         Version.set('2015')
       end
 
-      read_data
     end.show unless Version.set?
   end
 

@@ -13,18 +13,18 @@ class Version
     end
 
     def version_2008?
-      App::Persistence['style_version'] == "2008"
+      version == "2008"
     end
 
     def version_2015?
-      App::Persistence['style_version'] == "2015"
+      version == "2015"
     end
 
     def toggle
       if version_2008?
-        App::Persistence['style_version'] = "2015"
+        version = "2015"
       else
-        App::Persistence['style_version'] = "2008"
+        version = "2008"
       end
     end
 
