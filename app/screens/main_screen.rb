@@ -257,10 +257,11 @@ class MainScreen < ProMotion::TableScreen
   def table_data_index
     return if table_data.count < 1
     # Get the style number of the section
-    drop = shows_beer_judging_section? ? 2 : 2
-    droped_intro = shows_beer_judging_section? ? ["{search}", "J", "?"] : ["{search}", "?"]
+    # drop = shows_beer_judging_section? ? 2 : 2
+    # droped_intro = shows_beer_judging_section? ? ["{search}", "J", "?"] : ["{search}", "?"]
+    droped_intro = ["{search}", "?"]
 
-    droped_intro + table_data.drop( drop ).collect do |section|
+    droped_intro + table_data.drop( 1 ).collect do |section|
       section[:title].split(" ").first[0..-2]
     end
   end
