@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/clearsightstudio/ProMotion.git
-  revision: ea49c2d14c9e84d4a0cfd65467323734f416fa26
-  branch: fix/773
+  revision: c5323dde8666fb56ffbe9a6798f974e4011e3950
   specs:
     ProMotion (2.5.0.beta1)
       methadone (~> 1.7)
