@@ -13,7 +13,7 @@ Motion::Project::App.setup do |app|
   app.name = 'BJCPStyles'
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
 
-  app.short_version = "3.0.0"
+  app.short_version = "3.0.1"
   app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
 
   app.deployment_target = "7.0"
@@ -26,9 +26,10 @@ Motion::Project::App.setup do |app|
 
   app.icons = Dir.glob("resources/Icon*.png").map{|icon| icon.split("/").last}
 
+  app.info_plist['UIRequiresFullScreen'] = true
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
-    { 'CFBundleURLName' => 'com.yourcompany.BJCPStyles',
+    { 'CFBundleURLName' => app.identifier,
       'CFBundleURLSchemes' => ['bjcpstyle', 'bjcp'] }
   ]
 
