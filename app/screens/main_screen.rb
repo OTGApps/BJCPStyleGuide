@@ -266,7 +266,11 @@ class MainScreen < ProMotion::TableScreen
     droped_intro = ["{search}", "?"]
 
     droped_intro + table_data.drop( 1 ).collect do |section|
-      section[:title].split(" ").first[0..-2]
+      if section[:title].include?(":")
+        section[:title].split(" ").first[0..-2]
+      else
+        section[:title][0]
+      end      
     end
   end
 
