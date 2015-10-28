@@ -32,6 +32,7 @@ Motion::Project::App.setup do |app|
     { 'CFBundleURLName' => app.identifier,
       'CFBundleURLSchemes' => ['bjcpstyle', 'bjcp'] }
   ]
+  app.info_plist["LSApplicationQueriesSchemes"] = ["beerjudge"]
 
   app.files_dependencies 'app/screens/detail_screen.rb' => 'app/screens/sizeable_web_screen.rb'
   app.files_dependencies 'app/screens/intro_screen.rb'  => 'app/screens/sizeable_web_screen.rb'
