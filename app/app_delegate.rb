@@ -6,7 +6,7 @@ class AppDelegate < ProMotion::Delegate
   def on_load(app, options)
 
     # 3rd Party integrations
-    unless rmq.device.simulator?
+    unless Device.simulator?
       app_id = App.info_plist['APP_STORE_ID']
 
       # Appirater
@@ -24,16 +24,16 @@ class AppDelegate < ProMotion::Delegate
     # Set initial font size (%)
     App::Persistence['font_size'] = 100 if App::Persistence['font_size'].nil?
 
-    @main_screen = MainScreen.new
+    @main_screen = MainScreen.new(nav_bar: true)
 
     # Check to see if the user is calling a style from an external URL when the application isn't in memory yet
-    if defined?(options[UIApplicationLaunchOptionsURLKey])
+    if options.is_a?(Hash) && options[UIApplicationLaunchOptionsURLKey] && options[UIApplicationLaunchOptionsURLKey].is_a?(NSURL)
       suffix = options[UIApplicationLaunchOptionsURLKey].absoluteString.split("//").last
-      open_style_when_launched suffix
+      open_style_when_launched(suffix)
     end
 
     if device.ipad?
-      open_split_screen @main_screen, DetailScreen
+      open_split_screen @main_screen, DetailScreen.new(nav_bar: true)
     else
       open @main_screen
     end
@@ -53,7 +53,7 @@ class AppDelegate < ProMotion::Delegate
       App::Persistence['hide_judging_tools'] = nil
       App.notification_center.post "ReloadNotification"
     else
-      open_style_when_launched suffix
+      open_style_when_launched(suffix)
     end
 
     true

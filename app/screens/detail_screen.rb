@@ -1,6 +1,5 @@
 class DetailScreen < SizeableWebScreen
   attr_accessor :style, :cell, :search_string
-  nav_bar true
 
   def on_load
 

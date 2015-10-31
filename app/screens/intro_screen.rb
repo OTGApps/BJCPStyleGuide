@@ -1,6 +1,5 @@
 class IntroScreen < SizeableWebScreen
   attr_accessor :file
-  nav_bar true
 
   def on_load
   end

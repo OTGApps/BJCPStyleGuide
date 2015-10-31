@@ -2,7 +2,7 @@ class SizeableWebScreen < PM::WebScreen
 
   def on_appear
     toolbar_animated = device.ipad? ? false : true
-    self.navigationController.setToolbarHidden(false, animated:toolbar_animated)
+    # self.navigationController.setToolbarHidden(false, animated:toolbar_animated)
     self.toolbarItems = create_buttons
   end
 

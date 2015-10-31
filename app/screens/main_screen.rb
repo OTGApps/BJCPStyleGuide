@@ -1,8 +1,7 @@
 class MainScreen < ProMotion::TableScreen
   stylesheet MainScreenStylesheet
-  nav_bar true
   title ""
-  searchable :placeholder => I18n.t(:search_styles)
+  searchable placeholder: I18n.t(:search_styles)
   attr_accessor :selected_cell
 
   def on_load
@@ -32,8 +31,8 @@ class MainScreen < ProMotion::TableScreen
 
     if device.ipad?
       open IntroScreen.new({
-        :file => Internationalization.file_url("DefaultScreen.html"),
-        :title => "Welcome"}), in_detail: true
+        file: Internationalization.file_url("DefaultScreen.html"),
+        title: "Welcome"}), in_detail: true
     end
 
     read_data
@@ -189,7 +188,11 @@ class MainScreen < ProMotion::TableScreen
       cell_identifier: "IntroductionCell",
       accessory_type: :disclosure_indicator,
       action: :open_intro_screen,
-      arguments: {:file => Internationalization.file_url("#{name}.html"), :title => name}
+      arguments: {
+        file: Internationalization.file_url("#{name}.html"),
+        title: name,
+        nav_bar: true,
+      }
     }
   end
 
@@ -252,7 +255,10 @@ class MainScreen < ProMotion::TableScreen
         keep_selection: device.ipad? ? true : false,
         cell_identifier: "SubcategoryCell",
         action: :open_style,
-        arguments: {:style => subcat}
+        arguments: {
+          style: subcat,
+          nav_bar: true
+        }
       }
     end
     c
@@ -270,14 +276,14 @@ class MainScreen < ProMotion::TableScreen
         section[:title].split(" ").first[0..-2]
       else
         section[:title][0]
-      end      
+      end
     end
   end
 
   def open_style(args, index_path)
     self.selected_cell = index_path
 
-    open_args = args
+    open_args = args.merge({nav_bar: true})
     open_args = args.merge({search_string: search_string}) if searching?
     if device.ipad?
       app.hide_keyboard
@@ -288,7 +294,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def open_about_screen
-    open_modal AboutScreen.new(external_links: true),
+    open_modal AboutScreen.new(nav_bar: true, external_links: true),
       presentation_style: UIModalPresentationPageSheet
   end
 
@@ -301,7 +307,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def open_judging_info_screen
-    open_modal JudgingInfoScreen.new, presentation_style: UIModalPresentationPageSheet
+    open_modal JudgingInfoScreen.new(nav_bar: true), presentation_style: UIModalPresentationPageSheet
   end
 
   def open_judging_tool(args={})
