@@ -23,3 +23,4 @@ vendor/**/*.bridgesupport
 /provisioning/
 /resources/styleguide*.xml
 resources/*.lproj/Localizable.strings
+config/crittercism.yml
