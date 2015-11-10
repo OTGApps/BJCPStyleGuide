@@ -15,3 +15,4 @@ gem 'sugarcube', :require => ['sugarcube-files']
 gem 'motion-blitz'
 gem 'motion-i18n'
 gem 'motion_print'
+gem 'rake-hooks'

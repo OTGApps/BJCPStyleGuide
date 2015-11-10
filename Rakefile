@@ -92,3 +92,35 @@ desc "Run simulator on iPad Air"
 task :ipad do
     exec 'bundle exec rake device_name="iPad Air"'
 end
+
+def build_path
+  "build/iPhoneOS-7.0-Release/"
+end
+
+def dsym_name
+  '"BJCPStyles.app.dSYM"'
+end
+
+after :"archive:distribution" do
+  `rm #{build_path}#{dsym_name}.zip`
+  sh "cd #{build_path} && zip -r build.dsym.zip #{dsym_name}"
+
+  config = YAML.load_file("config/crittercism.yml")
+
+  app_id = config['crittercism']['app_id']
+  api_key = config['crittercism']['api_key']
+
+  if app_id != "" && api_key != ""
+    cmd = <<-CMD
+      cd #{build_path} &&
+      curl "https://api.crittercism.com/api_beta/dsym/#{app_id}"
+        -F dsym=@"build.dsym.zip"
+        -F key="#{api_key}"
+    CMD
+
+    puts cmd
+    sh cmd.gsub("\n", "\\\n")
+  else
+    puts "Please fill out the app id and api key values in config/crittercism.yml"
+  end
+end
