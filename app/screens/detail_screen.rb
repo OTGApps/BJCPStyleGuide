@@ -63,6 +63,7 @@ class DetailScreen < SizeableWebScreen
 #{style.html(:comments)}
 #{style.html(:history)}
 #{style.html(:ingredients)}
+#{style.html(:comparison)}
 #{style.html(:specs)}
 #{style.html(:examples)}
 

@@ -1,6 +1,6 @@
 class Style
 
-  PROPERTIES = [:id, :type, :category, :name, :transname, :aroma, :appearance, :flavor, :mouthfeel, :impression, :comments, :history, :ingredients, :og, :fg, :ibu, :srm, :abv, :examples]
+  PROPERTIES = [:id, :type, :category, :name, :transname, :aroma, :appearance, :flavor, :mouthfeel, :impression, :comments, :history, :ingredients, :comparison, :og, :fg, :ibu, :srm, :abv, :examples]
   PROPERTIES.each { |prop|
     attr_accessor prop
   }
@@ -34,8 +34,8 @@ class Style
       title = "<h2>#{property_title(property)}</h2>"
     end
 
-     title << "<p>#{self.send(property)}</p>"
-     title
+    title << "<p>#{self.send(property)}</p>"
+    title
   end
 
   def specs_html
@@ -55,7 +55,7 @@ class Style
 
   def property_title(property)
     case property
-    when :appearance, :aroma, :comments, :ingredients, :mouthfeel, :flavor, :history
+    when :appearance, :aroma, :comments, :ingredients, :mouthfeel, :flavor, :history, :comparison
       I18n.t(property)
     when :impression
       I18n.t(:impression)
@@ -66,7 +66,7 @@ class Style
 
   def search_text
     search = ""
-    %w(impression appearance ingredients examples aroma mouthfeel flavor transname).each do |prop|
+    %w(impression appearance ingredients examples aroma mouthfeel flavor transname comparison).each do |prop|
       search << (" " + self.send(prop)) unless self.send(prop).nil? || self.send(prop).downcase == "n/a"
     end
     search.split(/\W+/).uniq.join(" ")
