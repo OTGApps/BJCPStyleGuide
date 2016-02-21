@@ -100,24 +100,16 @@ class JudgingInfoScreen < PM::Screen
   end
 
   def remove_feature
-    options = {
-      :title   => I18n.t(:are_you_sure),
-      :message => I18n.t(:permanently_hide),
-      :buttons => [I18n.t(:confirm_no), I18n.t(:confirm_yes)],
-    }
-    alert = BW::UIAlertView.default(options) do |alert|
-      if alert.clicked_button.index == 0
-        # Whatever.
-      else
-        App::Persistence['hide_judging_tools'] = true
-        App.notification_center.post "ReloadNotification"
-        App.alert(I18n.t(:removed_from_app)) do |a|
-          close
-        end
+    confirm_yes = rmq.app.make_button(title: I18n.t(:confirm_yes), style: :destructive) {
+      App::Persistence['hide_judging_tools'] = true
+      App.notification_center.post "ReloadNotification"
+      rmq.app.alert(I18n.t(:removed_from_app)) do |a|
+        close
       end
-    end
-
-    alert.show
+    }
+    confirm_no = rmq.app.make_button(title: I18n.t(:confirm_no)) {}
+    button_list = [confirm_no, confirm_yes]
+    rmq.app.alert(title: I18n.t(:are_you_sure), message: I18n.t(:permanently_hide), actions: button_list)
   end
 
   def launch_itunes

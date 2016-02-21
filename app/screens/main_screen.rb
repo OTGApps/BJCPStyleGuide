@@ -51,7 +51,7 @@ class MainScreen < ProMotion::TableScreen
     App.delegate.jump_to_style = nil
 
     if requested_style.nil?
-      App.alert I18n.t(:invalid_style) + " \"#{style}\"."
+      rmq.app.alert I18n.t(:invalid_style) + " \"#{style}\"."
     else
       # Scroll to the right position on the device.
       cat += 1 # For the intros section
@@ -82,7 +82,6 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def on_appear
-    mp 'on_appear'
     self.navigationController.setToolbarHidden(true, animated:true) unless searching?
 
     # Re-call on_appear when the application resumes from the background state since it's not called automatically.
@@ -91,22 +90,6 @@ class MainScreen < ProMotion::TableScreen
     end
 
     auto_open_style
-
-    # Check to see if we should ask to use 2008 or 2015 styles.
-    BW::UIAlertView.new({
-      title: I18n.t(:picker_title),
-      message: I18n.t(:picker_message),
-      buttons: ["2008", "2015"],
-      cancel_button_index: 0
-    }) do |alert|
-      if alert.clicked_button.cancel?
-        Version.set('2008')
-        read_data
-      else
-        Version.set('2015')
-      end
-
-    end.show unless Version.set?
   end
 
   def table_data
@@ -358,6 +341,21 @@ class MainScreen < ProMotion::TableScreen
 
         # Check to see if we should go directly into a style when the app is not in memory.
         auto_open_style
+
+        # Check to see if we should ask to use 2008 or 2015 styles.
+        rmq.app.alert({
+          title: I18n.t(:picker_title),
+          message: I18n.t(:picker_message),
+          actions: ['2008', '2015']
+        }) do |action_button|
+          mp action_button
+          if action_button == '2008'
+            Version.set('2008')
+            read_data
+          else
+            Version.set('2015')
+          end
+        end unless Version.set?
       end
 
     end
