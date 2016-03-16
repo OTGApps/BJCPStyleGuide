@@ -1,10 +1,11 @@
 class MainScreen < ProMotion::TableScreen
   stylesheet MainScreenStylesheet
-  title ""
   searchable placeholder: I18n.t(:search_styles)
   attr_accessor :selected_cell
 
   def on_load
+    self.title = Version.title
+
     set_nav_bar_button :back, title: '', style: :plain, action: :back
     set_nav_bar_button :right, image: UIImage.imageNamed('info'), action: :open_about_screen
     set_nav_bar_button :left, image: UIImage.imageNamed('swap'), action: :toggle_styles
@@ -18,8 +19,6 @@ class MainScreen < ProMotion::TableScreen
     @style_observer ||= App.notification_center.observe "GoDirectlyToStyle" do |notification|
       App.delegate.jump_to_style = notification.object[:object]
     end
-
-
   end
 
   def will_appear
