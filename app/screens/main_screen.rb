@@ -21,6 +21,10 @@ class MainScreen < ProMotion::TableScreen
     end
   end
 
+  def willAnimateRotationToInterfaceOrientation(orientation, duration: duration)
+    self.searchDisplayController.setActive(false, animated:false)
+  end
+
   def will_appear
     read_data if @styles.nil?
   end
