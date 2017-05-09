@@ -41,7 +41,7 @@ Motion::Project::App.setup do |app|
     pod 'Appirater'
     pod 'OpenInChrome'
     pod 'EAIntroView', '~> 2.7.0'
-    pod 'CrittercismSDK', '~> 5.2.0'
+    pod 'CrittercismSDK'
   end
 
   app.development do
