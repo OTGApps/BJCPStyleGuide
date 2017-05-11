@@ -22,6 +22,8 @@ class DetailScreen < SizeableWebScreen
       self.setTitle I18n.t(:welcome)
       set_attributes web, {background_color:"#CCCC99".to_color}
     end
+
+    super
   end
 
   def on_appear

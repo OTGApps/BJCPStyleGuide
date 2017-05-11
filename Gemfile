@@ -10,7 +10,7 @@ gem 'ProMotion', github: 'clearsightstudio/ProMotion'
 # gem 'PackingPeanut'
 gem 'bubble-wrap', '~> 1.9.0', :require => ['bubble-wrap/core', 'bubble-wrap/reactor']
 gem 'motion-sqlite3', :path => 'vendor/motion-sqlite3'
-gem 'sugarcube', :require => ['sugarcube-files']
+gem 'sugarcube', :require => ['sugarcube-files', 'sugarcube-timer', 'sugarcube-numbers']
 gem 'RedAlert'
 
 gem 'motion-blitz'
