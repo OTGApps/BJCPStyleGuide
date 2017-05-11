@@ -1,6 +1,6 @@
 PODS:
   - Appirater (2.1.2)
-  - CrittercismSDK (5.6.7)
+  - CrittercismSDK (5.6.8)
   - EAIntroView (2.7.4):
     - EARestrictedScrollView (~> 0.2.0)
   - EARestrictedScrollView (0.2.0)
@@ -16,12 +16,12 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Appirater: f1c9e53e8b612193e6256144f6a0fd2e31f4340d
-  CrittercismSDK: 54d27268be8377b6d64ed61d80f43178b32f2fea
+  CrittercismSDK: 1adf44b34f86884f1c4f4cbef5ad09554da2485f
   EAIntroView: 50b85eedf414260e61330070ffe5947e72493a62
   EARestrictedScrollView: f86d61e16c61d3e93c84f8e96e83122a2a3b7631
   OpenInChrome: f1f3f9dec682216fe78a0d7fe0b5b263d6312c32
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
-PODFILE CHECKSUM: 8039ef4859c18aaec0ad09afb78dd50b10b7496b
+PODFILE CHECKSUM: 78fca18750b9ac88e90605b9029a4a4e32e3b275
 
 COCOAPODS: 1.2.1
