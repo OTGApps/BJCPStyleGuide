@@ -1,0 +1,46 @@
+es:
+  # 2008 / 2015 Styles Alert
+  picker_title:     "Estilos Actualizados!"
+  picker_message:   "Los Estilos BJCP se han actualizado para el año 2015. ¿Qué directrices le gustaría usar?\n\n(Puedes cambiar esto en cualquier momento)."
+
+  # App Strings
+  title_2008:       "Estilos BJCP 2008"
+  title_2015:       "Estilos BJCP 2015"
+  search_styles:    "Buscar Estilos"
+  loading:          "Cargando"
+  back:             "Volver"
+  no:               "No"
+  yes:              "Si"
+  invalid_style:    "Estilo inválido:"
+
+  # Table View
+  introductions:    "Introduccion"
+  judging_tools:    "Herramienta para Juzgar"
+  check_out_app:    "Comprobación de la aplicación!"
+
+  #About Screen
+  about:            "Sobre los Estilos BJCP"
+  done:             "Hecho"
+
+  # Judging Tools Screen
+  beer_judge_app:   "App BeerJudge"
+  close:            "Cerrar"
+  dont_show_again:  "No volver a mostrar"
+  go_to_app_store:  "Ir a App Store"
+  are_you_sure:     "Esta seguro?"
+  permanently_hide: "¿Realmente desea ocultar permanentemente la sección de BeerJudge App?"
+  removed_from_app: "OK. La seccion ha sido removida de la app."
+
+  # Details Screen
+  welcome:          "Bienvenido"
+  aroma:            "Aroma"
+  appearance:       "Apariencia"
+  flavor:           "Sabor"
+  ingredients:      "Ingredientes"
+  mouthfeel:        "Sensación en la boca"
+  impression:       "Impresión general"
+  comments:         "Comentarios"
+  history:          "Historia"
+  comparison:       "Comparación"
+  statistics:       "Estadisticas Vitales"
+  examples:         "Ejemplos Comerciales"
