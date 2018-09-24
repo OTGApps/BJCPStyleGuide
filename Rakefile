@@ -27,6 +27,20 @@ Motion::Project::App.setup do |app|
 
   app.icons = Dir.glob("resources/Icon*.png").map{|icon| icon.split("/").last}
 
+  app.info_plist['CFBundleIcons'] = {
+    'CFBundlePrimaryIcon' => {
+      'CFBundleIconName' => 'AppIcon',
+      'CFBundleIconFiles' => ['AppIcon60x60']
+    }
+  }
+
+  app.info_plist['CFBundleIcons~ipad'] = {
+    'CFBundlePrimaryIcon' => {
+      'CFBundleIconName' => 'AppIcon',
+      'CFBundleIconFiles' => ['AppIcon60x60', 'AppIcon76x76']
+    }
+  }
+
   app.info_plist['UIRequiresFullScreen'] = true
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
