@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
+$:.unshift("~/.rubymotion/rubymotion-templates")
+
 require 'motion/project/template/ios'
 
 begin
@@ -43,21 +45,33 @@ Motion::Project::App.setup do |app|
     pod 'CrittercismSDK'
   end
 
+  MotionProvisioning.output_path = '../provisioning'
   app.development do
-    # We only want this cocoapod in development mode.
-    app.pods do
-      # pod "Reveal-iOS-SDK"
-    end
-
     app.entitlements['get-task-allow'] = true
-    app.codesign_certificate = "iPhone Developer: Mark Rickert (YA2VZGDX4S)"
-    app.provisioning_profile = "./provisioning/development.mobileprovision"
+
+    app.codesign_certificate = MotionProvisioning.certificate(
+      type: :development,
+      platform: :ios)
+
+    app.provisioning_profile = MotionProvisioning.profile(
+      bundle_identifier: app.identifier,
+      app_name: app.name,
+      platform: :ios,
+      type: :development)
   end
 
   app.release do
     app.entitlements['get-task-allow'] = false
-    app.codesign_certificate = "iPhone Distribution: Mohawk Apps, LLC (DW9QQZR4ZL)"
-    app.provisioning_profile = "./provisioning/release.mobileprovision"
+
+    app.codesign_certificate = MotionProvisioning.certificate(
+      type: :distribution,
+      platform: :ios)
+
+    app.provisioning_profile = MotionProvisioning.profile(
+      bundle_identifier: app.identifier,
+      app_name: app.name,
+      platform: :ios,
+      type: :distribution)
   end
 
 end
