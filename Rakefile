@@ -76,6 +76,7 @@ Motion::Project::App.setup do |app|
 
   app.release do
     app.entitlements['get-task-allow'] = false
+    app.entitlements['beta-reports-active'] = true
 
     app.codesign_certificate = MotionProvisioning.certificate(
       type: :distribution,
