@@ -1,7 +1,7 @@
 class MainScreen < ProMotion::TableScreen
   stylesheet MainScreenStylesheet
   searchable placeholder: I18n.t(:search_styles)
-  attr_accessor :selected_cell
+  attr_accessor :selected_cell, :search_string
 
   def on_load
     self.title = Version.title
@@ -21,9 +21,9 @@ class MainScreen < ProMotion::TableScreen
     end
   end
 
-  def willAnimateRotationToInterfaceOrientation(orientation, duration: duration)
-    self.searchDisplayController.setActive(false, animated:false)
-  end
+  # def willAnimateRotationToInterfaceOrientation(orientation, duration: duration)
+  #   self.searchDisplayController.setActive(false, animated:false)
+  # end
 
   def will_appear
     read_data if @styles.nil?
