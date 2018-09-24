@@ -92,7 +92,7 @@ Motion::Project::App.setup do |app|
 end
 
 def build_path
-  "build/iPhoneOS-7.0-Release/"
+  "build/iPhoneOS-9.3-Release/"
 end
 
 def dsym_name
