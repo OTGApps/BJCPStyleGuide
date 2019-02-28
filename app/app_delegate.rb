@@ -15,10 +15,6 @@ class AppDelegate < ProMotion::Delegate
       Appirater.setUsesUntilPrompt 10
       Appirater.setTimeBeforeReminding 5
       Appirater.appLaunched true
-
-      # Crittercism Debugging on devices
-      crittercism_app_id = "55d0cd57985ec40d0002c59b"
-      Crittercism.enableWithAppID(crittercism_app_id)
     end
 
     # Set initial font size (%)
