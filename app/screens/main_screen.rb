@@ -57,8 +57,8 @@ class MainScreen < ProMotion::TableScreen
       rmq.app.alert I18n.t(:invalid_style) + " \"#{style}\"."
     else
       # Scroll to the right position on the device.
+      cat += 1 if BeerJudge.shows_section?
       cat += 1 # For the intros section
-      # cat += 1 if BeerJudge.is_installed? || shows_beer_judging_section?
 
       # Wait for a bit before selecting the table cell since we don't know when the
       # tableview actually updates.
@@ -99,8 +99,8 @@ class MainScreen < ProMotion::TableScreen
     return [{cells:[{title: "Loading..."}]}] if @styles.nil?
     @table_setup ||= begin
       s = []
-      # s << judging_section_links if BeerJudge.is_installed?
-      s << judging_section_preview if shows_beer_judging_section?
+      s << judging_section_links if BeerJudge.is_installed?
+      s << judging_section_promo if BeerJudge.shows_promo?
       s << {
         title: I18n.t(:introductions),
         cells: introduction_cells
@@ -195,7 +195,7 @@ class MainScreen < ProMotion::TableScreen
     }
   end
 
-  def judging_section_preview
+  def judging_section_promo
     # Show the intro screen
     {
       title: I18n.t(:judging_tools),
@@ -211,11 +211,6 @@ class MainScreen < ProMotion::TableScreen
         }
       }]
     }
-  end
-
-  def shows_beer_judging_section?
-    return false if BeerJudge.is_installed?
-    App::Persistence['hide_judging_tools'].nil? ||  App::Persistence['hide_judging_tools'] == false
   end
 
   def judging_cells
@@ -258,11 +253,10 @@ class MainScreen < ProMotion::TableScreen
   def table_data_index
     return if table_data.count < 1
     # Get the style number of the section
-    # drop = shows_beer_judging_section? ? 2 : 2
-    # droped_intro = shows_beer_judging_section? ? ["{search}", "J", "?"] : ["{search}", "?"]
-    droped_intro = ["{search}", "?"]
+    drop_number = BeerJudge.shows_section? ? 2 : 1
+    droped_intro = BeerJudge.shows_section? ? ["{search}", "J", "?"] : ["{search}", "?"]
 
-    droped_intro + table_data.drop( 1 ).collect do |section|
+    droped_intro + table_data.drop( drop_number ).collect do |section|
       if section[:title].include?(":")
         section[:title].split(" ").first[0..-2]
       else

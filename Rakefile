@@ -49,9 +49,9 @@ Motion::Project::App.setup do |app|
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
     { 'CFBundleURLName' => app.identifier,
-      'CFBundleURLSchemes' => ['bjcpstyle', 'bjcp', 'beerjudge'] }
+      'CFBundleURLSchemes' => ['bjcpstyle', 'bjcp'] }
   ]
-  app.info_plist["LSApplicationQueriesSchemes"] = ["beerjudge"]
+  app.info_plist["LSApplicationQueriesSchemes"] = ['beerjudge', 'beerjudge://']
 
   app.files_dependencies 'app/screens/detail_screen.rb' => 'app/screens/sizeable_web_screen.rb'
   app.files_dependencies 'app/screens/intro_screen.rb'  => 'app/screens/sizeable_web_screen.rb'
