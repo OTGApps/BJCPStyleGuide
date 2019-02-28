@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'rake'
 
-gem 'motion-cocoapods'
+gem 'motion-cocoapods', '~> 1.8.0'
 
 gem 'redpotion', github: 'infinitered/redpotion'
 gem 'ProMotion', github: 'clearsightstudio/ProMotion'
