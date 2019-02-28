@@ -165,6 +165,7 @@ GEM
     mini_magick (4.5.1)
     minitest (5.11.3)
     molinillo (0.6.6)
+    motion-appstore (1.0.11)
     motion-blitz (1.2.0)
       motion-cocoapods (>= 1.4.0)
     motion-cocoapods (1.8.1)
@@ -247,6 +248,7 @@ DEPENDENCIES
   ProMotion!
   RedAlert
   bubble-wrap (~> 1.9.6)
+  motion-appstore
   motion-blitz
   motion-cocoapods (~> 1.8.0)
   motion-i18n

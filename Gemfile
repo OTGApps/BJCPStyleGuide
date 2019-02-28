@@ -16,3 +16,4 @@ gem 'rake-hooks'
 gem 'newclear'
 
 gem 'motion-provisioning'
+gem 'motion-appstore'
