@@ -138,10 +138,6 @@ class JudgingInfoScreen < PM::Screen
   end
 
   def preferredInterfaceOrientationForPresentation
-    if Device.iphone?
-      UIInterfaceOrientationPortrait
-    else
-      UIInterfaceOrientationMaskAll
-    end
+    UIInterfaceOrientationPortrait
   end
 end
