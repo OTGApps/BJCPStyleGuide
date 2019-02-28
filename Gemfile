@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 gem 'rake'
 
 gem 'motion-cocoapods', '~> 1.8.0'
-
 gem 'redpotion', github: 'infinitered/redpotion'
 gem 'ProMotion', github: 'clearsightstudio/ProMotion'
 gem 'bubble-wrap', '~> 1.9.6', :require => ['bubble-wrap/core', 'bubble-wrap/reactor']

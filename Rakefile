@@ -12,6 +12,7 @@ end
 
 Motion::Project::App.setup do |app|
   define_icon_defaults!(app)
+  app.info_plist['UILaunchStoryboardName'] = 'LaunchScreen'
 
   app.name = 'BJCPStyles'
   app.identifier = 'com.yourcompany.BJCPStyles' # I don't like it, but I inherited this app identifier.
