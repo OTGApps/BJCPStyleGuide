@@ -121,7 +121,7 @@ class MainScreen < ProMotion::TableScreen
   end
 
   def section_title(section)
-    if section[:type].as_type == 'P'
+    if Version.version_2015? && section[:type].as_type == 'P'
       # Don't auto-label provisional styles
       return section[:name]
     end
