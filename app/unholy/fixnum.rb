@@ -9,6 +9,8 @@ class Fixnum
       "M"
     elsif self == 3
       "C"
+    elsif self == 4
+      "P"
     end
   end
 end
