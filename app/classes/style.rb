@@ -14,6 +14,11 @@ class Style
   end
 
   def title
+    if self.type === 'P'
+      # For Provisional styles, don't show the automatic designations
+      return self.name
+    end
+
     t = "#{self.category}#{self.id.as_letter}: #{self.name}"
     t.insert(0, self.type) if Version.version_2015? && !self.type.nil?
     t
