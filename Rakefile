@@ -45,7 +45,7 @@ Motion::Project::App.setup do |app|
   app.info_plist['APP_STORE_ID'] = 293788663
   app.info_plist['CFBundleURLTypes'] = [
     { 'CFBundleURLName' => app.identifier,
-      'CFBundleURLSchemes' => ['bjcpstyle', 'bjcp'] }
+      'CFBundleURLSchemes' => ['bjcpstyle', 'bjcp', 'beerjudge'] }
   ]
   app.info_plist["LSApplicationQueriesSchemes"] = ["beerjudge"]
 
