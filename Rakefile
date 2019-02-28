@@ -21,7 +21,8 @@ Motion::Project::App.setup do |app|
   app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
 
   app.deployment_target = "11.2"
-
+  app.info_plist['UIRequiredDeviceCapabilities'] = ['arm64']
+  app.archs['iPhoneOS'] = ['arm64']
   app.device_family = [:iphone, :ipad]
   app.interface_orientations = [:portrait, :landscape_left, :landscape_right, :portrait_upside_down]
 
